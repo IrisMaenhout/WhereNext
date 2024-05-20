@@ -1,0 +1,18 @@
+
+.wrapper{
+    /* Use this wraper to optimilize your responsive design for large screens */
+}
+
+.contentWrapper{
+    /* margin-top: 5.5rem;  */
+    /* margin-left: 7.8rem; */
+    /* Previous values */
+
+    margin-top: 4.5rem;
+}
+
+@media screen and (min-width: 800px) {
+    .contentWrapper{
+        margin-left: 6.8rem;
+    }
+}

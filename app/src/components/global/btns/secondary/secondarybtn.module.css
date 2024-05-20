@@ -1,0 +1,7 @@
+.secondaryBtn{
+    border: 2px solid #FB6026;
+    border-radius: .5rem;
+    padding: .5rem 1rem;
+    color: #FB6026;
+    font-weight: 700;
+}

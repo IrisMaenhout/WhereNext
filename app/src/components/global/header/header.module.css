@@ -1,0 +1,100 @@
+header{
+    background-color: white;
+    padding: .5em 2em;
+    border-bottom: 1px solid #CED9DD;
+    box-shadow: 4px 4px 15px 0px rgba(217, 222, 224, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.left, .right{
+    display: flex;
+    gap: 1.5em;
+    align-items: center;
+}
+
+a{
+    text-decoration: none;
+}
+
+.left img{
+    display: block;
+    width: 3rem;
+    height: 3rem;
+}
+
+.avatar{
+    width: 100%;
+    /* min-height: 2em;
+    max-width: 5em; */
+    width: 3rem;
+    height: 3rem;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+
+
+button{
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+i{
+    font-size: x-large;
+    color: #9eacb0;
+}
+
+.right button i{
+    color: #FB6026;
+}
+
+/* Hide all desktop elements */
+.desktopLogo, .navElementDesktop{
+    display: none;
+}
+
+
+
+
+/* Desktop */
+
+@media screen and (min-width: 800px) {
+    
+    .desktopLogo, .navElementDesktop{
+        display: block;
+    }
+
+    .hamburgerMenuMobile, .mobileLogo, .navElementMobile{
+        display: none;
+    }
+
+
+    header{
+        padding: .5em 5%;
+    }
+    
+
+    .left img{
+        display: block;
+        width: 12rem;
+    }
+
+    .navElementDesktop{
+        font-size: 18px;
+    }
+
+
+    .right a{
+        color: #6C7886;
+    }
+}

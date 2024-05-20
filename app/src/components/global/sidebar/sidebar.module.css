@@ -1,0 +1,79 @@
+.sidebarNav{
+    position: fixed;
+    background-color: white;
+    padding: 1em 10%;
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    border-right: 1px solid #CED9DD;
+    border-top: 1px solid #CED9DD;
+    z-index: 20;
+}
+
+
+.sidebarNav a, .sidebarNav p{
+    text-align: center;
+    display: block;
+    /* color: #6C7886; */
+}
+
+.sidebarNav i{
+    /* color: #9eacb0; */
+    font-size: 1.8em;
+}
+
+.sidebarNav p{
+    display: none;
+}
+
+
+.sidebarNav nav div{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    /* margin-left: 2.5em; */
+}
+
+
+/* Desktop */
+
+@media screen and (min-width: 800px) {
+    
+
+    .sidebarNav{
+        position: fixed;
+        background-color: white;
+        padding: 2em 1em;
+        height: 100vh;
+        top: 4.35rem;
+        left: 0;
+        right: auto;
+        bottom: 0;
+    
+        border-right: 1px solid #CED9DD;
+        border-top: 1px solid #CED9DD;
+    }
+
+    /* .sidebarNav a+a{
+        margin-top: 2.5em;
+    } */
+
+    .sidebarNav nav div{
+        justify-content: unset;
+        gap: 2.5em;
+        flex-direction: column;
+        /* margin-left: 2.5em; */
+    }
+
+    .sidebarNav p{
+        margin: 0;
+        display: block;
+    }
+
+    .sidebarNav i{
+        /* color: #9eacb0; */
+        font-size: 1.2em;
+    }
+
+}
