@@ -54,7 +54,7 @@ function Header(isPlaningPages) {
 
                     {/* Avatar for both mobile and desktop */}
                     <Link to={"../account"}>
-                        <img className={styles.avatar} src="https://unnielooks.com/cdn/shop/articles/24BC221A-1CE1-40F5-B93C-1417BD0019BB.jpg?v=1669896102" alt="avatar" />
+                        <img className={styles.avatar} src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww" alt="avatar" />
                     </Link>
                 </nav>
             

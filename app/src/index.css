@@ -2,14 +2,22 @@
 
 @import "~@flaticon/flaticon-uicons/css/all/all";
 
-:root{
-  box-sizing: border-box;
+
+
+* {
   margin: 0;
   padding: 0;
-
+  box-sizing: border-box;
 }
 
+body, html {
+  height: 100%;
+}
+
+
 body {
+  margin: 0;
+  padding: 0;
   background-color: #F9FCFD;
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;

@@ -8,11 +8,29 @@
     /* margin-left: 7.8rem; */
     /* Previous values */
 
-    margin-top: 4.5rem;
+    margin-top: 4.3rem;
+}
+
+.flexContentAndSidebar{
+    display: flex;
+    
+    height: 100vh;
+}
+
+.fullWidth{
+    width: 100%;
+    flex: 1;
 }
 
 @media screen and (min-width: 800px) {
     .contentWrapper{
-        margin-left: 6.8rem;
+        margin-left: 6.7rem;
+        display: flex;
+        flex: 1; /* This ensures it takes up the remaining height */
+        
+        
+        /*overflow: hidden; /* Prevents overflowing and scrollbar */
     }
 }
+
+

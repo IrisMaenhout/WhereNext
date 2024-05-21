@@ -1,0 +1,8 @@
+.subnav{
+    /* width: 100%; */
+    background-color: #FFE8DF;
+    z-index: 10;
+    display: flex;
+    gap: 2em;
+    padding: 1rem 2rem;
+}

@@ -1,0 +1,78 @@
+/* .mainContent{
+    z-index: 5;
+    background-color: white;
+    width: 100%;
+    margin: 0;
+    height: calc(100vh - 4.3rem - 2.3rem);
+    box-shadow: 4px 4px 15px 0px rgba(161, 165, 166, 0.5);
+}
+
+.contentContainer{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content{
+    padding: 2rem;
+} */
+
+
+
+.dragBarContainer{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: -2.5rem;
+    height: 100%;
+}
+
+
+
+
+
+
+.dragBar{
+    border-left: 1px solid #d2d2d2;
+    width: 2.5rem;
+    height: 5rem;
+    background-color: white;
+    border-radius: 0 0.5rem 0.5rem 0;
+    cursor:e-resize;
+    box-shadow: 4px 4px 15px 0px rgba(161, 165, 166, 0.5);
+}
+
+
+
+
+
+
+
+
+
+.mainContent {
+    /* transition: width 2ms ease-in-out;  */
+    /*Adjust time and easing to your preference */
+    z-index: 5;
+    background-color: white;
+    width: 100%;
+    margin: 0;
+    height: 100%; /* Ensure it takes up the full height of the parent */
+    box-shadow: 4px 4px 15px 0px rgba(161, 165, 166, 0.5);
+    /* flex: 0; */
+    
+    /* resize: horizontal;
+    overflow: auto; */
+  }
+  
+  .contentContainer {
+    position: relative;
+    width: 100%;
+    height: 100%; /* Ensure it takes up the full height of the parent */
+  }
+  
+  .content {
+    padding: 2rem;
+    overflow-x: hidden;
+  }
+  
