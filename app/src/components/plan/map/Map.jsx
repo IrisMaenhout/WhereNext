@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // import GoogleMapReact from 'google-map-react';
 import styles from './map.module.css';
-import { APIProvider, Map as GoogleMap } from '@vis.gl/react-google-maps';
+import { APIProvider, AdvancedMarker, Map as GoogleMap, Pin } from '@vis.gl/react-google-maps';
 
 function Map(props) {
     const coordinates = { lat: 0, lng: 0};
+
+    // const [userLocation, setUserLocation] = useState({
+    //     lat: 0,
+    //     lng: 0
+    // });
+
+    // const getUserLocation = () => {
+    //     navigator.geolocation.getCurrentPosition((pos)=>{
+    //         console.log(pos);
+    //         setUserLocation({ 
+    //             lat: pos.coords.latitude, 
+    //             lng: pos.coords.longitude
+    //         })
+    //     })
+    // }
+
+    // useEffect(()=>{
+    //     getUserLocation();
+    // }, []);
 
 
     return (
@@ -43,7 +62,13 @@ function Map(props) {
                 gestureHandling={'greedy'}
                 
             >
-
+                {/* <AdvancedMarker position={userLocation}>
+                <Pin
+                    background={'#0f9d58'}
+                    borderColor={'#006425'}
+                    glyphColor={'#60d98f'}
+                />
+                </AdvancedMarker> */}
             </GoogleMap>
             </div>
             

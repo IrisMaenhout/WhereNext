@@ -1,0 +1,115 @@
+.suggestionsCard{
+    box-shadow: 4px 4px 15px 4px rgba(217, 222, 224, 0.3);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid #e4e6e7;
+}
+
+.card{
+    width: 100%;
+    display: block;
+    cursor: pointer;
+}
+
+.topCard{
+    position: relative;
+}
+
+.topCard img{
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 1rem;
+}
+
+.saveBtn{
+    z-index: 5;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.cardContent{
+    margin-top: 1em;
+}
+
+.cardContent .time{
+    margin-top: .5em;
+}
+
+.rating{
+    margin-top: 1em;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.rating .stars, .notColoredStars{
+    display: flex;
+    gap: .3rem;
+}
+.stars i, .location i{
+    color: #c7cfd1;
+}
+.rating .stars .colored{
+    color: #FDB833;
+}
+
+.notColoredHalf{
+    transform: rotateY(180deg);
+}
+
+.halfColoredStar{
+    display: flex;
+    gap: -2rem;
+    position: relative;
+}
+
+.halfColoredStar i{
+    display: block;
+    position: absolute;
+    top: 0;
+}
+
+.notColoredStars{
+    margin-left: 1.7rem;
+}
+
+.priceRange p{
+    width: fit-content;
+}
+
+.priceRange{
+    margin: 1rem 0;
+}
+
+.location{
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.location i{
+    font-size: large;
+}
+
+.categories{
+    margin-top: 1rem;
+    border-top: 1px solid #e2e2e2;
+    display: flex;
+    gap: 1rem;
+    padding-top: 1rem;
+}
+
+.categories p{
+    background-color: #FFE9BE;
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+}
+
+.categories .moreCategories {
+    background-color: #ecbe62;
+    color: white;
+    font-weight: 600;
+}

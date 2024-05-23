@@ -1,0 +1,74 @@
+.saveBtn{
+    background-color: white;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: .5rem;
+}
+.saveBtn:hover{
+    background-color: #ffede6;
+    scale: 1.1;
+    transition: 200ms;
+}
+
+.saveBtn i{
+    display: block;
+    /* margin-top: .5rem; */
+    color: #FB6026;
+}
+
+
+.containerSaveToPagesBtns{
+    background-color: white;
+    position: absolute;
+    right: 0;
+    margin-top: 0.5rem;
+    border-radius: .5rem;
+    padding: 1rem;
+    box-shadow: 4px 4px 15px 4px rgba(217, 222, 224, 0.3);
+}
+
+.containerSaveToPagesBtns .page{
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+    gap: 2rem;
+}
+
+.page+.page{
+    margin-top: .5rem;
+}
+
+.containerSaveToPagesBtns .page div{
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+}
+
+.containerSaveToPagesBtns .page div i{
+    font-size: large;
+}
+
+.containerSaveToPagesBtns .addBtn, .containerSaveToPagesBtns .addedBtn{
+    /* color: #FB6026; */
+    font-size: 1.5rem;
+}
+
+.containerSaveToPagesBtns .addedBtn{
+    color: #FB6026;
+}
+
+.containerSaveToPagesBtns .addedBtn:hover{
+    color: #db3b01;
+    transition: 200ms;
+    font-size: 1.7rem;
+}
+
+.containerSaveToPagesBtns .addBtn:hover{
+    /* color: #FB6026; */
+    color: #FB6026;
+    transition: 200ms;
+    font-size: 1.7rem;
+}

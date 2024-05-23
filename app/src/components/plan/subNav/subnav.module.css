@@ -3,6 +3,27 @@
     background-color: #FFE8DF;
     z-index: 10;
     display: flex;
-    gap: 2em;
+    gap: 4em;
     padding: 1rem 2rem;
+}
+
+
+.subnav a{
+    color: #8a8787;
+}
+
+.subnav a:hover{
+    color: #FB6026;
+    font-weight: 600;
+    transition: 200ms;
+}
+
+.subnav a i{
+    font-size: large;
+    margin-right: 1rem;
+}
+
+.subnav a:hover i{
+    color: #FB6026;
+    transition: 200ms;
 }

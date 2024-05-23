@@ -37,13 +37,13 @@ const getNextSnapPoint = (value, snapPoints, direction) => {
 function Content({ children }) {
     const [isDragging, setIsDragging] = useState(false);
     const [initialX, setInitialX] = useState(null);
-    const [contentWidth, setContentWidth] = useState(50); // Initial width in vw
+    const [contentWidth, setContentWidth] = useState(40); // Initial width in vw
     const [snapPoints, setSnapPoints] = useState([]);
 
     useEffect(() => {
         // Update snap points based on viewport width
         const maxViewportWidth = document.documentElement.clientWidth;
-        setSnapPoints([0, 50, 80]); // Snap points in vw (0%, 50%, 80% of viewport width)
+        setSnapPoints([0, 40, 80]); // Snap points in vw (0%, 50%, 80% of viewport width)
     }, []);
 
     const startDragging = (e) => {

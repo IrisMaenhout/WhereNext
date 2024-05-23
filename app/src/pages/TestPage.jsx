@@ -68,6 +68,9 @@ import Map from '../components/plan/map/Map';
 import ContentContainer from '../components/plan/contentContainer/ContentContainer';
 import styles from './testPage.module.css';
 import Subnav from '../components/plan/subNav/Subnav';
+import PlacesSearch from '../components/plan/placesSearch/PlacesSearch';
+import Suggestions from '../components/plan/suggestions/Suggestions';
+import PlaceCard from '../components/plan/placeCard/PlaceCard';
 
 function TestPage(props) {
     return (
@@ -79,9 +82,14 @@ function TestPage(props) {
                     <Subnav />
                     <div className={styles.flexContentPlan}>
                         <ContentContainer>
-                            <h1>Titel</h1>
+                            {/* <PlacesSearch/> */}
+
+
+                            <Suggestions/>
+                            
+                            {/* <PlaceCard/> */}
                         </ContentContainer>
-                        <Map />
+                        {/* <Map /> */}
                     </div>
                 </div>
             </div>
