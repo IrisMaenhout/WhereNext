@@ -20,6 +20,7 @@
     object-fit: cover;
     object-position: center;
     border-radius: 1rem;
+    height: 250px;
 }
 
 .saveBtn{

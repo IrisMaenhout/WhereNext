@@ -71,29 +71,32 @@ import Subnav from '../components/plan/subNav/Subnav';
 import PlacesSearch from '../components/plan/placesSearch/PlacesSearch';
 import Suggestions from '../components/plan/suggestions/Suggestions';
 import PlaceCard from '../components/plan/placeCard/PlaceCard';
+import { PlacesProvider } from '../context/locationsContext';
 
 function TestPage(props) {
     return (
-        <div className={styles.container}>
-            <Header />
-            <div className="contentWrapper">
-                <Sidebar />
-                <div className={styles.main}>
-                    <Subnav />
-                    <div className={styles.flexContentPlan}>
-                        <ContentContainer>
-                            {/* <PlacesSearch/> */}
+        <PlacesProvider>
+            <div className={styles.container}>
+                <Header />
+                <div className="contentWrapper">
+                    <Sidebar />
+                    <div className={styles.main}>
+                        <Subnav />
+                        <div className={styles.flexContentPlan}>
+                            <ContentContainer>
+                                {/* <PlacesSearch/> */}
 
 
-                            <Suggestions/>
-                            
-                            {/* <PlaceCard/> */}
-                        </ContentContainer>
-                        {/* <Map /> */}
+                                <Suggestions/>
+                                
+                                {/* <PlaceCard/> */}
+                            </ContentContainer>
+                            <Map />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </PlacesProvider>
     );
 }
 

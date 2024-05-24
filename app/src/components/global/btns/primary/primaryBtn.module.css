@@ -1,0 +1,8 @@
+.primaryBtn{
+    border-radius: .5rem;
+    padding: .5rem 1rem;
+    color: white;
+    background-color: #FB6026;
+    font-weight: 700;
+    transition: 200ms;
+}

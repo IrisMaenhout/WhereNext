@@ -1,0 +1,36 @@
+.filterContainer{
+    background-color: #FFF9EC;
+    padding: 2rem;
+    border-radius: .5rem;
+    margin-bottom: 4rem;
+    border: 1.5px solid #edddbb;
+    margin-top: 2rem;
+}
+
+.filterContainer label{
+    margin: 1rem 0 .5rem 0;
+    display: block;
+}
+
+.flexContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.filter{
+    background-color: #FFF9EC;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: .5rem;
+    border: 1.5px solid #edddbb;
+}
+
+.filter i{
+    margin-top: .5rem;
+    color: #d1bc8e;
+}

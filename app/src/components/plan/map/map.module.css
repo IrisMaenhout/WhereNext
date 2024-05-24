@@ -4,3 +4,7 @@
     height: 100%;
     /* flex: 1; */
 }
+
+.suggestedMarker{
+    /* filter: invert(10%) sepia(88%) saturate(3719%) hue-rotate(319deg) brightness(87%) contrast(105%); */
+}

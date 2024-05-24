@@ -25,27 +25,25 @@ function PlaceCard({ place, isSuggestion }) {
 
     const getPictureUrl = async () => {
         try {
-            const response = await fetch(`https://maps.googleapis.com/maps/api/place/photo?photoreference=${place.photos[0].photo_reference}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&maxheight=400&maxwidth=400`);
+            const response = await fetch(`https://places.googleapis.com/v1/${place.photos[0].name}/media?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&maxHeightPx=800&maxWidthPx=800`);
             
             if (response.ok) {
-                const url = response.url;
-                setCoverImage(url);
+                setCoverImage(response.url);
             } else {
                 throw new Error('Network response was not ok');
             }
+
         } catch (error) {
             console.error(error);
         }
     };
 
-    // useEffect(() => {
-    //     if (place.photos.length > 0) {
-    //         getPictureUrl();
-    //     }
-    // }, []);
+    useEffect(() => {
+        if (place.photos.length > 0) {
+            getPictureUrl();
+        }
+    }, []);
     
-    console.log(coverImage)
-    // https://places.googleapis.com/v1/NAME/media?key=API_KEY&PARAMETERS
 
     return (
         <>
@@ -54,7 +52,7 @@ function PlaceCard({ place, isSuggestion }) {
                 <div className={styles.saveBtn} onClick={(e) => e.stopPropagation()}>
                     <SavePlaceBtn />
                 </div>
-                <img src="https://www.busreis-parijs.nl/wp-content/uploads/2014/09/Eiffeltoren-in-Parijs.jpg" alt="" />
+                <img src={coverImage} alt={place.displayName.text} />
             </div>
 
             <div className={styles.cardContent}>

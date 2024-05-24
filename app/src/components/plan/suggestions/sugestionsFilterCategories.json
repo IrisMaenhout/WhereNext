@@ -1,0 +1,218 @@
+{
+    "thingsToDo": [
+        {
+            "label": "Art Gallery",
+            "value": "art_gallery"
+        },
+        {
+            "label": "Museum",
+            "value": "museum"
+        },
+        {
+            "label": "Theater",
+            "value": "performing_arts_theater"
+        },
+        {
+            "label": "Library",
+            "value": "library"
+        },
+        {
+            "label": "Amusement center",
+            "value": "amusement_center"
+        },
+        {
+            "label": "Amusement park",
+            "value": "amusement_park"
+        },
+        {
+            "label": "Aquarium",
+            "value": "aquarium"
+        },
+        {
+            "label": "Historical landmark",
+            "value": "historical_landmark"
+        },
+        {
+            "label": "Movie theater",
+            "value": "movie_theater"
+        },
+        {
+            "label": "National park",
+            "value": "national_park"
+        },
+        {
+            "label": "Night club",
+            "value": "night_club"
+        },
+        {
+            "label": "Park",
+            "value": "park"
+        },
+        {
+            "label": "Tourist attraction",
+            "value": "tourist_attraction"
+        },
+        {
+            "label": "Zoo",
+            "value": "zoo"
+        }
+
+    ],
+
+    "sport": [
+        {
+            "label": "Hiking area",
+            "value": "hiking_area"
+        },
+        {
+            "label": "Ski resort",
+            "value": "ski_resort"
+        },
+        {
+            "label": "Stadium",
+            "value": "stadium"
+        },
+        {
+            "label": "Swimming pool",
+            "value": "swimming_pool"
+        }
+    ],
+
+    "foodAndDrinks": {
+        "drinks": [
+            {
+                "label": "Bar",
+                "value": "bar"
+            },
+            {
+                "label": "Cafe",
+                "value": "cafe"
+            },
+            {
+                "label": "Coffee shop",
+                "value": "coffee_shop"
+            }
+
+        ],
+        "restaurants": {
+            "asian": [
+                {
+                    "label": "Chinese restaurant",
+                    "value": "chinese_restaurant"
+                },
+                {
+                    "label": "Indian restaurant",
+                    "value": "indian_restaurant"
+                },
+                {
+                    "label": "Indonesian restaurant",
+                    "value": "indonesian_restaurant"
+                },
+                {
+                    "label": "Japanese restaurant",
+                    "value": "japanese_restaurant"
+                },
+                {
+                    "label": "Korean restaurant",
+                    "value": "korean_restaurant"
+                },
+                {
+                    "label": "Lebanese restaurant",
+                    "value": "lebanese_restaurant"
+                },
+                {
+                    "label": "Thai restaurant",
+                    "value": "thai_restaurant"
+                },
+                {
+                    "label": "Vietnamese restaurant",
+                    "value": "vietnamese_restaurant"
+                }
+            ],
+            "american": [
+                {
+                    "label": "American restaurant",
+                    "value": "american_restaurant"
+                },
+                {
+                    "label": "Brazilian restaurant",
+                    "value": "brazilian_restaurant"
+                },
+                {
+                    "label": "Fast food restaurant",
+                    "value": "fast_food_restaurant"
+                },
+                {
+                    "label": "Mexican restaurant",
+                    "value": "mexican_restaurant"
+                }
+
+            ],
+            "european": [
+                {
+                    "label": "French restaurant",
+                    "value": "french_restaurant"
+                },
+                {
+                    "label": "Greek restaurant",
+                    "value": "greek_restaurant"
+                },
+                {
+                    "label": "Italian restaurant",
+                    "value": "italian_restaurant"
+                },
+                {
+                    "label": "Spanish restaurant",
+                    "value": "spanish_restaurant"
+                },
+                {
+                    "label": "Mediterranean restaurant",
+                    "value": "mediterranean_restaurant"
+                }
+            ],
+            "middle-eastern": [
+                {
+                    "label": "Middle eastern restaurant",
+                    "value": "middle_eastern_restaurant"
+                },
+                {
+                    "label": "Turkish restaurant",
+                    "value": "turkish_restaurant"
+                }
+            ],
+            "others": [
+                {
+                    "label": "Barbecue restaurant",
+                    "value": "barbecue_restaurant"
+                },
+                {
+                    "label": "Breakfast restaurant",
+                    "value": "breakfast_restaurant"
+                },
+                {
+                    "label": "Brunch restaurant",
+                    "value": "brunch_restaurant"
+                },
+                {
+                    "label": "Seafood restaurant",
+                    "value": "seafood_restaurant"
+                },
+                {
+                    "label": "Vegan restaurant",
+                    "value": "vegan_restaurant"
+                },
+                {
+                    "label": "Vegetarian restaurant",
+                    "value": "vegetarian_restaurant"
+                }
+            ]
+        }
+
+    }
+
+
+
+}
+
+
+

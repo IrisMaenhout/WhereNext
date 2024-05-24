@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 // import GoogleMapReact from 'google-map-react';
 import styles from './map.module.css';
 import { APIProvider, AdvancedMarker, Map as GoogleMap, Pin } from '@vis.gl/react-google-maps';
+import { PlacesContext } from '../../../context/locationsContext';
+import BookMarker from './markers/BookMarker';
+import TreeMarker from './markers/TreeMarker';
+import WalkingMarker from './markers/WalkingMarker';
+import ZooMarker from './markers/ZooMarker';
+import TouristAttractions from './markers/TouristAttractions';
 
 function Map(props) {
     const coordinates = { lat: 0, lng: 0};
@@ -24,6 +30,13 @@ function Map(props) {
     // useEffect(()=>{
     //     getUserLocation();
     // }, []);
+
+    const { places } = useContext(PlacesContext);
+
+    useEffect(() => {
+        console.log("Updated places in map:", places);
+        // Logic to update the map with new places goes here
+    }, [places]);
 
 
     return (
@@ -62,6 +75,44 @@ function Map(props) {
                 gestureHandling={'greedy'}
                 
             >
+
+                {
+                    places.map(place => (
+                        <AdvancedMarker key={`location-${place.id}-marker`} position={{lat: place.location.latitude, lng: place.location.longitude}}>
+                            {/* <Pin
+                                background={'#0f9d58'}
+                                borderColor={'#006425'}
+                                glyphColor={'#60d98f'}
+                            /> */}
+                            
+                            <div width={24} height={24}>
+                                {(place.primaryType === "park" || place.primaryType === "national_park") &&
+                                    <TreeMarker color={'#850440'} strokeColor={'#FFFFFF'}/>
+                                }
+
+                                {(place.primaryType === "library") &&
+                                    <BookMarker color={'#850440'}/>
+                                }
+
+
+                                {(place.primaryType === "hiking_area") &&
+                                    <WalkingMarker color={'#850440'}/>
+                                }
+
+                                {(place.primaryType === "zoo") &&
+                                    <ZooMarker color={'#850440'}/>
+                                }
+
+                                {(place.primaryType === "tourist_attraction" || place.primaryType === "visitor_center") &&
+                                    <TouristAttractions color={'#850440'}/>
+                                }
+
+                                
+                                {/* <BookMarker color={'#850440'}/> */}
+                            </div>
+                        </AdvancedMarker>
+                    ))
+                }
                 {/* <AdvancedMarker position={userLocation}>
                 <Pin
                     background={'#0f9d58'}
