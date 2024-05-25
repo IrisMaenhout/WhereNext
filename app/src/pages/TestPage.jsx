@@ -61,38 +61,64 @@
 
 
 
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/global/header/Header';
 import Sidebar from '../components/global/sidebar/Sidebar';
 import Map from '../components/plan/map/Map';
-import ContentContainer from '../components/plan/contentContainer/ContentContainer';
+import ContentContainerDesktop from '../components/plan/contentContainer/ContentContainerDesktop';
 import styles from './testPage.module.css';
 import Subnav from '../components/plan/subNav/Subnav';
 import PlacesSearch from '../components/plan/placesSearch/PlacesSearch';
 import Suggestions from '../components/plan/suggestions/Suggestions';
 import PlaceCard from '../components/plan/placeCard/PlaceCard';
 import { PlacesProvider } from '../context/locationsContext';
+import { SelectedPlaceProvider } from '../context/SelectedPlaceContext';
+import ContentContainerMobile from '../components/plan/contentContainer/ContentContainerMobile.jsx';
 
 function TestPage(props) {
+    const isViewedOnMobile = window.innerWidth < 800;
+    const [isSubNavActive, setIsSubNavActive] = useState(isViewedOnMobile ? false : true);
+
+
+    function handleSubNavMenuClick() {
+        setIsSubNavActive(!isSubNavActive);
+        console.log(isSubNavActive)
+    }
     return (
         <PlacesProvider>
             <div className={styles.container}>
-                <Header />
+                <Header menuBtnHandleClick={handleSubNavMenuClick} isPlaningPages={true}/>
                 <div className="contentWrapper">
                     <Sidebar />
                     <div className={styles.main}>
-                        <Subnav />
-                        <div className={styles.flexContentPlan}>
-                            <ContentContainer>
-                                {/* <PlacesSearch/> */}
+                        <Subnav isActive={isSubNavActive}/>
 
-
-                                <Suggestions/>
+                        <SelectedPlaceProvider>
+                            <div className={styles.flexContentPlan}>
+                                { isViewedOnMobile ? 
+                                    <ContentContainerMobile>
+                                         <Suggestions/>
+                                    </ContentContainerMobile>
+                                    :
                                 
-                                {/* <PlaceCard/> */}
-                            </ContentContainer>
-                            <Map />
-                        </div>
+                                    <ContentContainerDesktop>
+                                        <Suggestions/>
+                                    </ContentContainerDesktop>
+                                    
+                                }
+
+                                    
+                                    {/* <PlacesSearch/> */}
+
+
+                                   
+                                    
+                                    {/* <PlaceCard/> */}
+
+                                    
+                                <Map />
+                            </div>
+                        </SelectedPlaceProvider>
                     </div>
                 </div>
             </div>

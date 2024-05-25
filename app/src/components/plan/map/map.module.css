@@ -2,9 +2,18 @@
     width: 100%;
     /* height: 100vh; */
     height: 100%;
+    z-index: 0;
     /* flex: 1; */
 }
 
 .suggestedMarker{
     /* filter: invert(10%) sepia(88%) saturate(3719%) hue-rotate(319deg) brightness(87%) contrast(105%); */
+}
+
+
+@media screen and (max-width: 800px) {
+    .mapContainer{
+        width: 100%;
+        height: calc(100vh - 4.3rem);
+    }
 }

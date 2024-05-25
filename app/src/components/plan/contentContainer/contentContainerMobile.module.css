@@ -1,0 +1,60 @@
+/* contentContainerMobile.module.css */
+
+.fakeContentContainer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 7rem;
+    border-radius: 1rem;
+    background-color: white;
+    box-shadow: 4px 4px 15px 0px rgba(161, 165, 166, 0.5);
+    z-index: 50;
+}
+
+.fakeContentContainer .dragBarContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: .5rem;
+}
+
+.fakeContentContainer .dragBarContainer .dragBar{
+    width: 2rem;
+    height: .3rem;
+    border-radius: 2rem;
+    background-color: #DDDDDD;
+    
+}
+
+.mainContent {
+    padding: 2rem;
+}
+
+
+.contentContainer {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.content {
+    overflow-y: auto; /* Allow vertical scrolling */
+}
+
+
+
+.mobileContent .react-modal-sheet-container[style] {
+    /* z-index: 80 !important;
+    box-shadow: 4px 4px 15px 0px rgba(161, 165, 166, 0.5) !important; */
+}
+.react-modal-sheet-header {
+    /* custom styles */
+}
+.react-modal-sheet-drag-indicator {
+    /* custom styles */
+}
+.react-modal-sheet-content {
+    /* custom styles */
+}

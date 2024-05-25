@@ -3,8 +3,9 @@
     background-color: #FFE8DF;
     z-index: 10;
     display: flex;
-    gap: 4em;
-    padding: 1rem 2rem;
+    gap: 2em;
+    padding: 1.5rem 2rem;
+    flex-direction: column;
 }
 
 
@@ -26,4 +27,13 @@
 .subnav a:hover i{
     color: #FB6026;
     transition: 200ms;
+}
+
+
+@media screen and (min-width: 800px) {
+    .subnav{
+        flex-direction: row;
+        gap: 4em;
+        padding: 1rem 2rem;
+    }
 }

@@ -3,7 +3,7 @@ import styles from './header.module.css';
 import { Link } from 'react-router-dom';
 import SecondaryBtn from '../btns/secondary/btn/SecondaryBtn';
 
-function Header(isPlaningPages) {
+function Header({isPlaningPages, menuBtnHandleClick}) {
 
     const handleClick = () => {
         console.log('Button was clicked!');
@@ -14,7 +14,7 @@ function Header(isPlaningPages) {
                 <div className={styles.left}>
                     {isPlaningPages &&
 
-                        <button className={styles.hamburgerMenuMobile}>
+                        <button className={styles.hamburgerMenuMobile} onClick={menuBtnHandleClick}>
                             <i className="fi fi-rr-menu-burger"></i>
                         </button>
                     }
