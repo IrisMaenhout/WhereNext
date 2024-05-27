@@ -1,7 +1,6 @@
 import { Sheet, SheetRef } from 'react-modal-sheet';
 import { useState, useRef, Children } from 'react';
 import styles from "./contentContainerMobile.module.css";
-import zIndex from '@mui/material/styles/zIndex';
 
 export default function Content({children}) {
   const [isOpen, setOpen] = useState(true);
