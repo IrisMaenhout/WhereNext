@@ -62,20 +62,20 @@
 
 
 import React, { useState } from 'react';
-import Header from '../components/global/header/Header';
-import Sidebar from '../components/global/sidebar/Sidebar';
-import Map from '../components/plan/map/Map';
-import ContentContainerDesktop from '../components/plan/contentContainer/ContentContainerDesktop';
-import styles from './testPage.module.css';
-import Subnav from '../components/plan/subNav/Subnav';
-import PlacesSearch from '../components/plan/placesSearch/PlacesSearch';
-import Suggestions from '../components/plan/suggestions/Suggestions';
-import PlaceCard from '../components/plan/placeCard/PlaceCard';
-import { PlacesProvider } from '../context/locationsContext';
-import { SelectedPlaceProvider } from '../context/SelectedPlaceContext';
-import ContentContainerMobile from '../components/plan/contentContainer/ContentContainerMobile.jsx';
+import Header from '../../components/global/header/Header.jsx';
+import Sidebar from '../../components/global/sidebar/Sidebar.jsx';
+import Map from '../../components/plan/map/Map.jsx';
+import ContentContainerDesktop from '../../components/plan/contentContainer/ContentContainerDesktop.jsx';
+import styles from './suggestionsPage.module.css';
+import Subnav from '../../components/plan/subNav/Subnav.jsx';
+import PlacesSearch from '../../components/plan/placesSearch/PlacesSearch.jsx';
+import Suggestions from '../../components/plan/suggestions/Suggestions.jsx';
+import PlaceCard from '../../components/plan/placeCard/PlaceCard.jsx';
+import { PlacesProvider } from '../../context/locationsContext.jsx';
+import { SelectedPlaceProvider } from '../../context/SelectedPlaceContext.jsx';
+import ContentContainerMobile from '../../components/plan/contentContainer/ContentContainerMobile.jsx';
 
-function TestPage(props) {
+function SuggestionsPage(props) {
     const isViewedOnMobile = window.innerWidth < 800;
     const [isSubNavActive, setIsSubNavActive] = useState(isViewedOnMobile ? false : true);
 
@@ -126,4 +126,4 @@ function TestPage(props) {
     );
 }
 
-export default TestPage;
+export default SuggestionsPage;

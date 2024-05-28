@@ -5,18 +5,24 @@ import { idSchema, isValidObjectId } from "../../validators/idValidator.js";
 
 const deleteTripsRouter = express.Router();
 
-async function deleteTripData(tripId, req, res) {
+async function deleteData(dbId, dbName, req, res) {
     try{
-        await db.collection("trips").deleteOne({
-            _id: new ObjectId(tripId),
-          });
+
+      if(dbName === "locations"){
+        await db.collection(dbName).deleteMany({
+          tripId: dbId
+        });
+      }else{
+        await db.collection(dbName).deleteOne({
+          _id: new ObjectId(dbId),
+        });
+      }
+        
     }catch(err){
         return (res.status(400).json({error: err}))
     }
     
     // Remove the user from the participating friends in a trip
-
-    return res.json({message: 'Trip is succesfully deleted.'})
 }
 
 
@@ -37,7 +43,12 @@ deleteTripsRouter.delete("/:tripId", async (req, res) => {
   });
 
   if(trip){
-    deleteTripData(tripId, req, res);
+    // Remove all locations that are linked with this trip
+    await deleteData(tripId, "locations", req, res);
+    // Delete trip
+    await deleteData(tripId, "trips", req, res);
+    
+    return res.json({message: 'Trip and al saved locations for this trip are succesfully deleted.'})
   }else{
     return res.status(404).json({message: 'Trip not found.'})
   }

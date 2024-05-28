@@ -4,6 +4,7 @@ import { db } from "../../db/mongo.js";
 // import { adminMiddleware } from "../../middleware/adminMiddleware.js";
 // import { realEstateAgentMiddleware } from "../../middleware/realEstateAgentMiddleware.js";
 import { idSchema, isValidObjectId} from "../../validators/idValidator.js";
+import { loggedInMiddleware } from "../../middleware/loggedInMiddleware.js";
 
 const getUsersRouter = express.Router();
 
@@ -11,6 +12,13 @@ const getUsersRouter = express.Router();
 getUsersRouter.get("/", async (req, res) => {
   const users = await db.collection("users").find().toArray();
   res.json(users);
+});
+
+// Get logged in user data
+getUsersRouter.get("/loggedInUser", loggedInMiddleware, async (req, res) => {
+  const user = req.user;
+  delete user.password;
+  return res.json(user);
 });
 
 // Get user by id 
@@ -44,6 +52,7 @@ getUsersRouter.get("/:id", async (req, res) => {
     return res.status(404).json({ error: "User not found" });
   }
 });
+
 
 
 export {getUsersRouter};

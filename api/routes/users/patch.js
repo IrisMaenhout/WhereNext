@@ -7,6 +7,7 @@ import { db } from "../../db/mongo.js";
 import bcrypt from 'bcrypt';
 import { updateUserSchema } from "../../validators/userValidator.js";
 import { isValidObjectId } from "../../validators/idValidator.js";
+import { loggedInMiddleware } from "../../middleware/loggedInMiddleware.js";
 
 const patchUsersRouter = express.Router();
 
@@ -37,7 +38,7 @@ async function updateUser(user, req, res) {
 }
 
 // update data from the user that's logged in
-patchUsersRouter.patch("/loggedInUser", async (req, res) => {
+patchUsersRouter.patch("/loggedInUser", loggedInMiddleware , async (req, res) => {
 
     // Validation
     const { error, value } = updateUserSchema.validate(req.body, { abortEarly: false });

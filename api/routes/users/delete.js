@@ -2,6 +2,7 @@ import express from "express";
 import { ObjectId } from "mongodb";
 import { db } from "../../db/mongo.js";
 import { idSchema, isValidObjectId } from "../../validators/idValidator.js";
+import { loggedInMiddleware } from "../../middleware/loggedInMiddleware.js";
 
 const deleteUsersRouter = express.Router();
 
@@ -20,17 +21,10 @@ async function deleteUserData(userId, req, res) {
 }
 
 
-deleteUsersRouter.delete("/loggedInUser", async (req, res) => {
-    const loggedInUser = req.user;
-  
-    if(loggedInUser){
-       
-        deleteUserData(loggedInUser._id, req, res);
-    }else{
-        return res.status(403).json({message: 'Unauthorized'})
-    }
+deleteUsersRouter.delete("/loggedInUser", loggedInMiddleware, async (req, res) => {
+  const loggedInUser = req.user;
 
-  
+  deleteUserData(loggedInUser._id, req, res);
 });
 
 // Remove user by id

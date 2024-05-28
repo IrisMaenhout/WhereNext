@@ -33,6 +33,10 @@ import { postTripsRouter } from "./routes/trips/post.js";
 import { getTripsRouter } from "./routes/trips/get.js";
 import { deleteTripsRouter } from "./routes/trips/delete.js";
 import { patchTripsRouter } from "./routes/trips/patch.js";
+import { postLocationsRouter } from "./routes/locations/post.js";
+import { patchLocationsRouter } from "./routes/locations/patch.js";
+import { getLocationsRouter } from "./routes/locations/get.js";
+import { deleteLocationsRouter } from "./routes/locations/delete.js";
 
 
 // create an Express app
@@ -45,38 +49,38 @@ const port = process.env.PORT;
 registerMiddleware(app);
 
 
-app.use(async (req, res, next) => {
-  if (req.headers.authorization) {
-    // const { error } = idSchema.validate(req.headers.authorization);
+// app.use(async (req, res, next) => {
+//   if (req.headers.authorization) {
+//     // const { error } = idSchema.validate(req.headers.authorization);
     
 
-    // if (error) {
-    //   const errorArray = error.details.map((err) => err.message);
-    //   return res.status(400).json({ errors: errorArray });
-    // }
+//     // if (error) {
+//     //   const errorArray = error.details.map((err) => err.message);
+//     //   return res.status(400).json({ errors: errorArray });
+//     // }
 
-    if (!isValidObjectId(req.headers.authorization)) {
-      return res.status(400).json({ error: "the provided id in header authorization is invalid" });
-    }
+//     if (!isValidObjectId(req.headers.authorization)) {
+//       return res.status(400).json({ error: "the provided id in header authorization is invalid" });
+//     }
 
-    // check if user with id exists
-    const user = await db.collection("users").findOne({ _id: new ObjectId(req.headers.authorization) });
-    console.log(user);
+//     // check if user with id exists
+//     const user = await db.collection("users").findOne({ _id: new ObjectId(req.headers.authorization) });
+//     console.log(user);
 
-    if (user) {
-      req.user = user;
-      return next();
-    } else {
-      return res.status(401).json({
-        error: "Unauthorized",
-      });
-    }
+//     if (user) {
+//       req.user = user;
+//       return next();
+//     } else {
+//       return res.status(401).json({
+//         error: "Unauthorized",
+//       });
+//     }
 
-  } else {
-    req.user = undefined;
-    return next();
-  }
-});
+//   } else {
+//     req.user = undefined;
+//     return next();
+//   }
+// });
 
 
 
@@ -84,6 +88,9 @@ app.use(async (req, res, next) => {
 app.use('/users', postUsersRouter, getUsersRouter, patchUsersRouter, deleteUsersRouter);
 
 app.use('/trips', postTripsRouter, getTripsRouter, patchTripsRouter, deleteTripsRouter);
+
+
+app.use('/locations', postLocationsRouter, getLocationsRouter, patchLocationsRouter, deleteLocationsRouter);
 
 
 // app.use('/myFavorites', postFavoritesRouter, getFavoritesRouter, deleteFavoritesRouter);
