@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './header.module.css';
 import { Link } from 'react-router-dom';
 import SecondaryBtn from '../btns/secondary/btn/SecondaryBtn';
+import { LoggedInUserContext, useLoggedInUserContext } from '../../../context/LoggedInUserContext';
 
 function Header({isPlaningPages, menuBtnHandleClick}) {
+
+    // const { loggedInUserData } = useContext(useLoggedInUserContext);
+
+    // Use loggedInUserData to display user data like avatar
 
     const handleClick = () => {
         console.log('Button was clicked!');
     };
+
     return (
         <header>
             <div className={`${styles.container} ${styles.wraper}`}>

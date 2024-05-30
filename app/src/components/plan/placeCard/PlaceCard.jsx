@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 
 
-function PlaceCard({ place, isSuggestion }) {
+function PlaceCard({ place, isSuggestion, tripId }) {
     const navigate = useNavigate();
 
     function capitalizeFirstLetter(string) {
@@ -50,7 +50,7 @@ function PlaceCard({ place, isSuggestion }) {
         <div onClick={handleClick} className={`${styles.card} ${styles.suggestionsCard}`}>
             <div className={styles.topCard}>
                 <div className={styles.saveBtn} onClick={(e) => e.stopPropagation()}>
-                    <SavePlaceBtn />
+                    <SavePlaceBtn placeId={place.id} tripId={tripId} position={"right"}/>
                 </div>
                 <img src={coverImage} alt={place.displayName.text} />
             </div>

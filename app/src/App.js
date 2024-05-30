@@ -1,19 +1,27 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import SuggestionsPage from './pages/suggestionsPage/SuggestionsPage';
-import BucketList from './pages/bucketListPage/BucketList';
+import PlanningPage from './pages/planningPage/PlanningPage';
+import Login from './pages/login/Login';
+import { LoggedInUserProvider } from './context/LoggedInUserContext';
+import useLoggedInUser from './hooks/useLoginUser';
+import { useEffect } from 'react';
 
 function App() {
-  return (
-    <div>
-      <Routes>
-        <Route path="/" element={ <SuggestionsPage/> } />
-        <Route path="/bucket-list" element={ <BucketList/> } />
-        {/* <Route path="about" element={ <About/> } />
-        <Route path="contact" element={ <Contact/> } /> */}
-      </Routes>
-    </div>
-  );
+  const { loggedInUser, setLoggedInUser } = useLoggedInUser();
+  
+  if (!loggedInUser) {
+    return <Login setLogin={setLoggedInUser} />;
+  } else {
+    return (
+      <LoggedInUserProvider value={loggedInUser}>
+        <Routes>
+          <Route path="/" element={<PlanningPage />} />
+          <Route path="/bucket-list" element={<PlanningPage />} />
+          {/* other routes */}
+        </Routes>
+      </LoggedInUserProvider>
+    );
+  }
 }
 
 export default App;

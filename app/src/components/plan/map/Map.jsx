@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import styles from './map.module.css';
 import { APIProvider, AdvancedMarker, Map as GoogleMap, Pin } from '@vis.gl/react-google-maps';
-import { PlacesContext } from '../../../context/locationsContext';
+import { PlacesContext } from '../../../context/LocationsContext';
 import MarkerTypes from './markerTypes/MarkerTypes';
 import { SelectedPlaceContext } from '../../../context/SelectedPlaceContext';
 import { useNavigate } from 'react-router-dom';

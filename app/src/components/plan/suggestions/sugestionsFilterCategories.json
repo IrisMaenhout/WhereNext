@@ -208,7 +208,61 @@
             ]
         }
 
-    }
+    },
+    "accomodations": [
+        {
+            "label": "Bed and breakfast",
+            "value": "bed_and_breakfast"
+        },
+        {
+            "label": "Campground",
+            "value": "campground"
+        },
+        {
+            "label": "Camping cabin",
+            "value": "camping_cabin"
+        },
+        {
+            "label": "Cottage",
+            "value": "cottage"
+        },
+        {
+            "label": "Farmstay",
+            "value": "farmstay"
+        },
+        {
+            "label": "Guest house",
+            "value": "guest_house"
+        },
+        {
+            "label": "Hostel",
+            "value": "hostel"
+        },
+        {
+            "label": "Hotel",
+            "value": "hotel"
+        },
+        {
+            "label": "Lodging",
+            "value": "lodging"
+        },
+        {
+            "label": "Motel",
+            "value": "motel"
+        },
+        {
+            "label": "Private guest room",
+            "value": "private_guest_room"
+        },
+        {
+            "label": "Resort hotel",
+            "value": "resort_hotel"
+        },
+        {
+            "label": "Rv park",
+            "value": "rv_park"
+        }
+    ]
 
 
 

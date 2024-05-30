@@ -66,16 +66,18 @@ import Header from '../../components/global/header/Header.jsx';
 import Sidebar from '../../components/global/sidebar/Sidebar.jsx';
 import Map from '../../components/plan/map/Map.jsx';
 import ContentContainerDesktop from '../../components/plan/contentContainer/ContentContainerDesktop.jsx';
-import styles from './suggestionsPage.module.css';
+import styles from './planningPage.module.css';
 import Subnav from '../../components/plan/subNav/Subnav.jsx';
 import PlacesSearch from '../../components/plan/placesSearch/PlacesSearch.jsx';
 import Suggestions from '../../components/plan/suggestions/Suggestions.jsx';
 import PlaceCard from '../../components/plan/placeCard/PlaceCard.jsx';
-import { PlacesProvider } from '../../context/locationsContext.jsx';
+import { PlacesProvider } from '../../context/LocationsContext.jsx';
 import { SelectedPlaceProvider } from '../../context/SelectedPlaceContext.jsx';
 import ContentContainerMobile from '../../components/plan/contentContainer/ContentContainerMobile.jsx';
+import BucketList from '../../components/plan/bucketList/BucketList.jsx';
+import Accomodations from '../../components/plan/accomodations/Accomodations.jsx';
 
-function SuggestionsPage(props) {
+function PlanningPage(props) {
     const isViewedOnMobile = window.innerWidth < 800;
     const [isSubNavActive, setIsSubNavActive] = useState(isViewedOnMobile ? false : true);
 
@@ -97,12 +99,16 @@ function SuggestionsPage(props) {
                             <div className={styles.flexContentPlan}>
                                 { isViewedOnMobile ? 
                                     <ContentContainerMobile>
-                                         <Suggestions/>
+                                        <Accomodations />
+                                         {/* <Suggestions/> */}
+                                         {/* <BucketList/> */}
                                     </ContentContainerMobile>
                                     :
                                 
                                     <ContentContainerDesktop>
-                                        <Suggestions/>
+                                        <Accomodations />
+                                        {/* <Suggestions/> */}
+                                        {/* <BucketList/> */}
                                     </ContentContainerDesktop>
                                     
                                 }
@@ -126,4 +132,4 @@ function SuggestionsPage(props) {
     );
 }
 
-export default SuggestionsPage;
+export default PlanningPage;

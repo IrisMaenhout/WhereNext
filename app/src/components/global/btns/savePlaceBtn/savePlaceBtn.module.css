@@ -23,11 +23,18 @@
 .containerSaveToPagesBtns{
     background-color: white;
     position: absolute;
-    right: 0;
     margin-top: 0.5rem;
     border-radius: .5rem;
     padding: 1rem;
     box-shadow: 4px 4px 15px 4px rgba(217, 222, 224, 0.3);
+}
+
+.left{
+    left: 0;
+}
+
+.right{
+    right: 0;
 }
 
 .containerSaveToPagesBtns .page{
