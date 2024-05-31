@@ -1,12 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styles from './savePlaceBtn.module.css';
 import { LoggedInUserContext } from '../../../../context/LoggedInUserContext';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { nanoid } from "nanoid";
 
-function SavePlaceBtn({placeId, tripId, position}) {
+function SavePlaceBtn({placeId, tripId, position, isAccomodation}) {
     console.log('saveBtn', placeId);
     const loggedInUser = useContext(LoggedInUserContext);
     console.log('useer', loggedInUser._id);
     const [isContainerSaveToPagesBtnsActive, setIsContainerSaveToPagesBtnsActive] = useState(false);
+    const navigate = useNavigate();
+    const urlLocation = useLocation();
 
     const [savedPlanPages, setSavedPlanPages] = useState({
         bucketList: false,
@@ -46,7 +50,7 @@ function SavePlaceBtn({placeId, tripId, position}) {
 
     const createLocationInDb = async (updatedSavedPlanPages) => {
         try {
-            
+        const type = isAccomodation ? "accomodation" : "activity";
           const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/locations/${placeId}/addToTrip/${tripId}`, {
             method: 'POST',
             headers: {
@@ -54,7 +58,7 @@ function SavePlaceBtn({placeId, tripId, position}) {
               'authorization': loggedInUser._id
             },
             body: JSON.stringify({
-                type: "activity",
+                type: type,
                 savedLocation: updatedSavedPlanPages,
                 isBooked: false
             }),
@@ -105,10 +109,10 @@ function SavePlaceBtn({placeId, tripId, position}) {
 
     useEffect(()=>{
        getPlace(); 
-    }, [])
+    }, []);
 
 
-    const toggleSaveState = async (key) => {
+    const toggleSaveState = (key) => {
         setSavedPlanPages((prevState) => {
             const updatedState = { ...prevState, [key]: !prevState[key] };
 
@@ -117,10 +121,14 @@ function SavePlaceBtn({placeId, tripId, position}) {
             } else {
                 createLocationInDb(updatedState);
             }
-            
+
             return updatedState;
         });
     };
+
+    useEffect(()=>{
+        navigate(urlLocation, { state: nanoid() }); 
+    }, [savedPlanPages]);
 
 
     return (

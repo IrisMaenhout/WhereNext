@@ -1,0 +1,98 @@
+.flexContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* margin-bottom: 20px; */
+}
+
+.content{
+    margin-top: 3rem;
+}
+
+.itineraryItem {
+    position: relative;
+    padding-left: 3rem;
+}
+
+.stepMarker {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    background-color: #ff8c00;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    z-index: 1;
+}
+
+
+.stepNumber {
+    font-size: 12px;
+}
+
+.itineraryItem::before {
+    content: '';
+    position: absolute;
+    left: 9px; /* Center the line with the step marker */
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: repeating-linear-gradient(
+      to bottom,
+      #ececec,
+      #ececec 6px,
+      transparent 6px,
+      transparent 12px
+    );
+    border-radius: 1px; /* Rounded corners for the dotted lines */
+    z-index: 0;
+}
+
+.directions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem 0;
+}
+
+.itinerary .itineraryItem .directions .transportMethod{
+    position: absolute;
+    left: -.4rem;
+    width: 20px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 1rem;
+}
+
+.directionsBtn {
+    background-color: #ff8c00;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.addAlternative {
+    margin-top: 2rem;
+    padding: 1rem;
+    /* display: flex;
+    justify-content: end; */
+    background-color: #fff7e7;
+    border: 1px solid #f3e4c6;
+    border-radius: .5rem;
+}
+
+.addAlternativeBtn{
+    text-decoration: underline;
+    color: #fb5f26c1;
+    font-size: 16px;
+}

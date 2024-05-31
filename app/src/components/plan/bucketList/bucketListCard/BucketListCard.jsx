@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './bucketListCard.module.css';
 import SavePlaceBtn from '../../../global/btns/savePlaceBtn/SavePlaceBtn';
 import { Chart as ChartJS, defaults } from "chart.js/auto";
@@ -12,7 +12,7 @@ function BucketListCard({locationApiData, userId}) {
     const numberOfTripMembers = 6;
     
     
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
@@ -34,14 +34,27 @@ function BucketListCard({locationApiData, userId}) {
         });
     };
 
-    const getPictureUrl = () => {
+    // const getPictureUrl = () => {
 
-        fetch(`https://places.googleapis.com/v1/${googlePlaceData.photos[0].name}/media?maxHeightPx=400&maxWidthPx=400&key=${apiKey}`)
-        .then(res => res.json())
-        .then(data => {
-            console.log('img',data);
-            setCoverImage(data);
-        });
+    //     fetch(`https://places.googleapis.com/v1/${googlePlaceData.photos[0].name}/media?maxHeightPx=400&maxWidthPx=400&key=${apiKey}`)
+    //     .then(res => res.json())
+    //     .then(data => {
+    //         console.log('img',data);
+    //         setCoverImage(data);
+    //     });
+    // };
+
+    const getPictureUrl = async () => {
+        try {
+            const response = await fetch(`https://places.googleapis.com/v1/${googlePlaceData.photos[0].name}/media?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&maxHeightPx=400&maxWidthPx=400`);
+            if (response.ok) {
+                setCoverImage(response.url);
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     // Fetch data depending on googlePlacesApi
@@ -56,7 +69,7 @@ function BucketListCard({locationApiData, userId}) {
 
     useEffect(()=> {
          if (googlePlaceData && googlePlaceData.photos.length > 0) {
-            // getPictureUrl();
+            getPictureUrl();
         }
     }, [googlePlaceData])
 
@@ -197,8 +210,8 @@ function BucketListCard({locationApiData, userId}) {
                                 position={'left'}
                             />
                         </div>
-                        {/* {coverImage !== "" && <img src={coverImage} alt={googlePlaceData.displayName.text} />} */}
-                        <img src="https://www.thonhotels.com/siteassets/artikler/z_vare-hoteller_destinasjonssider/tekster-pa-destinasjonssider/brussel/visit-brussels-jean-paul-remy.jpg?mode=crop&quality=80&width=1100&height=619" alt={googlePlaceData.displayName.text} />
+                        {coverImage !== "" && <img src={coverImage} alt={googlePlaceData.displayName.text} />}
+                        {/* <img src="https://www.thonhotels.com/siteassets/artikler/z_vare-hoteller_destinasjonssider/tekster-pa-destinasjonssider/brussel/visit-brussels-jean-paul-remy.jpg?mode=crop&quality=80&width=1100&height=619" alt={googlePlaceData.displayName.text} /> */}
                     </div>
     
                     <div className={styles.right}>

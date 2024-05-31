@@ -4,130 +4,132 @@ import SavePlaceBtn from '../../global/btns/savePlaceBtn/SavePlaceBtn';
 import { useNavigate } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 
-
-function PlaceCard({ place, isSuggestion, tripId }) {
+function PlaceCard({ place, isSuggestion, tripId, locationApiData, isItinerary, onLocationFetched }) {
     const navigate = useNavigate();
+    const [googlePlaceData, setGooglePlaceData] = useState(place ? place : undefined);
+    const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
     function handleClick() {
-        navigate(`/place/${place.id}`);
+        navigate(`/place/${place ? place.id : locationApiData.googleLocationId}`);
     }
 
-    const fullStars = Math.floor(place.rating);
-    const halfStars = place.rating % 1 !== 0 ? 1 : 0;
+    const fullStars = Math.floor(googlePlaceData?.rating);
+    const halfStars = googlePlaceData?.rating % 1 !== 0 ? 1 : 0;
     const emptyStars = 5 - fullStars - halfStars;
 
     const [coverImage, setCoverImage] = useState('');
 
+    const getGooglePlaceData = () => {
+        fetch(`https://places.googleapis.com/v1/places/${locationApiData.googleLocationId}?fields=displayName,formattedAddress,photos,primaryType,types,location,rating,userRatingCount&languageCode=en&key=${apiKey}`)
+        .then(res => res.json())
+        .then(data => {
+            setGooglePlaceData(data);
+            if (data.location && onLocationFetched) {
+                onLocationFetched(data.location);
+            }
+        });
+    };
+
+    useEffect(() => {
+        if (!isSuggestion) {
+            getGooglePlaceData();
+        }
+    }, []);
 
     const getPictureUrl = async () => {
         try {
-            const response = await fetch(`https://places.googleapis.com/v1/${place.photos[0].name}/media?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&maxHeightPx=800&maxWidthPx=800`);
-            
+            const response = await fetch(`https://places.googleapis.com/v1/${googlePlaceData.photos[0].name}/media?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&maxHeightPx=800&maxWidthPx=800`);
             if (response.ok) {
                 setCoverImage(response.url);
             } else {
                 throw new Error('Network response was not ok');
             }
-
         } catch (error) {
             console.error(error);
         }
     };
 
     useEffect(() => {
-        if (place.photos.length > 0) {
+        if (googlePlaceData && googlePlaceData.photos?.length > 0) {
             getPictureUrl();
         }
-    }, []);
-    
+    }, [googlePlaceData]);
 
-    return (
-        <>
-        <div onClick={handleClick} className={`${styles.card} ${styles.suggestionsCard}`}>
-            <div className={styles.topCard}>
-                <div className={styles.saveBtn} onClick={(e) => e.stopPropagation()}>
-                    <SavePlaceBtn placeId={place.id} tripId={tripId} position={"right"}/>
-                </div>
-                <img src={coverImage} alt={place.displayName.text} />
-            </div>
-
-            <div className={styles.cardContent}>
-                <h3>{place.displayName.text}</h3>
-                {!isSuggestion && <p className={styles.time}>10:00 - 14:00</p>}
-
-                {/* <div className={styles.priceRange}>
-                    {(place.priceLevel && place.priceLevel === "PRICE_LEVEL_INEXPENSIVE") &&
-                        <p data-tooltip-id={`price-place-${place.id}`} data-tooltip-content={`Pricing: cheap`}>€</p>
-                    }
-                    {(place.priceLevel && place.priceLevel === "PRICE_LEVEL_MODERATE") &&
-                        <p data-tooltip-id={`price-place-${place.id}`} data-tooltip-content={`Pricing: moderate`}>€€</p>
-                    }
-                    {(place.priceLevel && place.priceLevel === "PRICE_LEVEL_EXPENSIVE") &&
-                        <p data-tooltip-id={`price-place-${place.id}`} data-tooltip-content={`Pricing: expensive`}>€€€</p>
-                    }
-                    
-                </div> */}
-               
-                <div className={styles.rating}>
-                    <div className={styles.stars} data-tooltip-id={`rating-place-${place.id}`} data-tooltip-content={`Rating: ${place.rating}`}>
-                        {[...Array(fullStars)].map((_, i) => (
-                            <i key={`place-full-star-${place.id}-${i}`} className={`fa-solid fa-star ${styles.colored}`}></i>
-                        ))}
-                        {halfStars === 1 && (
-                            <>
-                                <div className={styles.halfColoredStar}>
-                                    <i className={`fa-solid fa-star-half ${styles.colored}`}></i>
-                                    <i className={`fa-regular fa-star-half ${styles.notColoredHalf}`}></i>
-                                </div>
-                                <div className={styles.notColoredStars}>
-                                    {[...Array(emptyStars)].map((_, i) => (
-                                        <i key={`place-empty-star-${place.id}-${i}`} className="fa-regular fa-star"></i>
-                                    ))}
-                                </div>
-                            </>
-                        )}
-                        {halfStars === 0 && (
-                            [...Array(emptyStars)].map((_, i) => (
-                                <i key={`place-empty-star-${place.id}-${i}`} className="fa-regular fa-star"></i>
-                            ))
-                        )}
+    if (googlePlaceData !== undefined) {
+        return (
+            <>
+            <div onClick={handleClick} className={`${styles.card} ${isItinerary ?'' : styles.suggestionsCard}`}>
+                <div className={styles.topCard}>
+                    <div className={styles.saveBtn} onClick={(e) => e.stopPropagation()}>
+                        <SavePlaceBtn 
+                            placeId={place ? place.id : locationApiData.googleLocationId} 
+                            tripId={tripId ? tripId : locationApiData.tripId} 
+                            position={"right"} 
+                        />
                     </div>
-                    <p>({place.userRatingCount})</p>
+                    <img src={coverImage} alt={googlePlaceData.displayName.text} />
                 </div>
-
-                
-
-                <div className={styles.location}>
-                    <i className="fi fi-rs-marker"></i>
-                    <p>{place.formattedAddress}</p>
-                </div>
-
-                <div className={styles.categories}>
-                    {place.types.length > 0 &&
-                        (place.types.length > 2 ? (
-                            <>
-                                <p className={styles.category}>{capitalizeFirstLetter(place.types[0].replace('_', ' '))}</p>
-                                <p className={styles.category}>{capitalizeFirstLetter(place.types[1].replace('_', ' '))}</p>
-                                <p className={styles.moreCategories}>+ {place.types.length - 2}</p>
-                            </>
-                        ) : (
-                            place.types.map((type, index) => (
-                                <p key={index} className={styles.category}>{capitalizeFirstLetter(type.replace('_', ' '))}</p>
+                <div className={styles.cardContent}>
+                    <h3>{googlePlaceData.displayName.text}</h3>
+                    {!isSuggestion && <p className={styles.time}>10:00 - 14:00</p>}
+                    <div className={styles.rating}>
+                        <div className={styles.stars} data-tooltip-id={`rating-place-${place ? place.id : locationApiData.googleLocationId}`} data-tooltip-content={`Rating: ${googlePlaceData.rating}`}>
+                            {[...Array(fullStars)].map((_, i) => (
+                                <i key={`place-full-star-${place ? place.id : locationApiData.googleLocationId}-${i}`} className={`fa-solid fa-star ${styles.colored}`}></i>
+                            ))}
+                            {halfStars === 1 && (
+                                <>
+                                    <div className={styles.halfColoredStar}>
+                                        <i className={`fa-solid fa-star-half ${styles.colored}`}></i>
+                                        <i className={`fa-regular fa-star-half ${styles.notColoredHalf}`}></i>
+                                    </div>
+                                    <div className={styles.notColoredStars}>
+                                        {[...Array(emptyStars)].map((_, i) => (
+                                            <i key={`place-empty-star-${place ? place.id : locationApiData.googleLocationId}-${i}`} className="fa-regular fa-star"></i>
+                                        ))}
+                                    </div>
+                                </>
+                            )}
+                            {halfStars === 0 && (
+                                [...Array(emptyStars)].map((_, i) => (
+                                    <i key={`place-empty-star-${googlePlaceData.id}-${i}`} className="fa-regular fa-star"></i>
+                                ))
+                            )}
+                        </div>
+                        <p>({googlePlaceData.userRatingCount})</p>
+                    </div>
+                    <div className={styles.location}>
+                        <i className="fi fi-rs-marker"></i>
+                        <p>{googlePlaceData.formattedAddress}</p>
+                    </div>
+                    <div className={styles.categories}>
+                        {googlePlaceData.types.length > 0 &&
+                            (googlePlaceData.types.length > 2 ? (
+                                <>
+                                    <p className={styles.category}>{capitalizeFirstLetter(googlePlaceData.types[0].replace('_', ' '))}</p>
+                                    <p className={styles.category}>{capitalizeFirstLetter(googlePlaceData.types[1].replace('_', ' '))}</p>
+                                    <p className={styles.moreCategories}>+ {googlePlaceData.types.length - 2}</p>
+                                </>
+                            ) : (
+                                googlePlaceData.types.map((type, index) => (
+                                    <p key={index} className={styles.category}>{capitalizeFirstLetter(type.replace('_', ' '))}</p>
+                                ))
                             ))
-                        ))
-                    }
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <Tooltip id={`rating-place-${place.id}`}/>
-        <Tooltip id={`price-place-${place.id}`}/>
-        </>
-    );
+            <Tooltip id={`rating-place-${place ? place.id : locationApiData.googleLocationId}`}/>
+            <Tooltip id={`price-place-${place ? place.id : locationApiData.googleLocationId}`}/>
+            </>
+        );
+    } else {
+        return <></>
+    }
 }
 
 export default PlaceCard;

@@ -77,7 +77,7 @@ import ContentContainerMobile from '../../components/plan/contentContainer/Conte
 import BucketList from '../../components/plan/bucketList/BucketList.jsx';
 import Accomodations from '../../components/plan/accomodations/Accomodations.jsx';
 
-function PlanningPage(props) {
+function PlanningPage({children}) {
     const isViewedOnMobile = window.innerWidth < 800;
     const [isSubNavActive, setIsSubNavActive] = useState(isViewedOnMobile ? false : true);
 
@@ -99,14 +99,16 @@ function PlanningPage(props) {
                             <div className={styles.flexContentPlan}>
                                 { isViewedOnMobile ? 
                                     <ContentContainerMobile>
-                                        <Accomodations />
+                                        {children}
+                                        {/* <Accomodations /> */}
                                          {/* <Suggestions/> */}
                                          {/* <BucketList/> */}
                                     </ContentContainerMobile>
                                     :
                                 
                                     <ContentContainerDesktop>
-                                        <Accomodations />
+                                        {children}
+                                        {/* <Accomodations /> */}
                                         {/* <Suggestions/> */}
                                         {/* <BucketList/> */}
                                     </ContentContainerDesktop>

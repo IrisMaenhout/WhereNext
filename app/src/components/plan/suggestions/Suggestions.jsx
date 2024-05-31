@@ -6,12 +6,30 @@ import FilterCategories from './filterCategories/FiterCategories';
 import PrimaryBtn from '../../global/btns/primary/btn/PrimaryBtn';
 import SecondaryBtn from '../../global/btns/secondary/btn/SecondaryBtn';
 import { PlacesContext } from '../../../context/LocationsContext';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-const Suggestions = () => {
-  const page = "accomodations";
+const Suggestions = ({page}) => {
+
   // const [query, setQuery] = useState('');
   const { places, setPlaces, setError } = useContext(PlacesContext);
   const tripId = "6654e2621cbe496564c8192d";
+
+  const { state } = useLocation();
+  const [forceRerenderCardComponent, setForceRenderCardComponent] = useState(state ? state : 0);
+
+  const navigate = useNavigate();
+
+
+    useEffect(() => {
+      // run side-effect
+      function rerenderComponent(params) {
+        setForceRenderCardComponent(state);
+      }
+      const timeout = setTimeout(rerenderComponent, 100);
+      
+      return () => clearTimeout(timeout);
+    }, [state]);
+
 
   // const [places, setPlaces] = useState([]);
   // const [error, setError] = useState(null);
@@ -104,7 +122,7 @@ const Suggestions = () => {
     if (method === ':searchNearby') {
       searchPlaces();
     }
-  }, [method]);
+  }, [method, forceRerenderCardComponent]);
 
   useEffect(() => {
     console.log(places); // Log places whenever it updates
@@ -174,11 +192,15 @@ const Suggestions = () => {
     <div className={styles.suggestions}>
 
       <div className={styles.flexContainer}>
-        <h1>Suggestions</h1>
+        <div className={styles.titleContainer}>
+          <button onClick={() => navigate(-1)}><i className="fi fi-sr-angle-left"></i></button>
+          <h1>Suggestions</h1>
+        </div>
         <button className={styles.filter} onClick={() => setFilterOptionsVisible(prev => !prev)}>
           <i className={filterOptionsVisible ? 'fi fi-rr-clear-alt' : 'fi fi-rr-filter'}></i>
         </button>
       </div>
+      
       {filterOptionsVisible && 
         <div className={`${styles.filterContainer}`}>
           <div className={styles.flexContainer}>

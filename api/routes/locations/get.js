@@ -82,6 +82,29 @@ getLocationsRouter.get("/getAccomodations/inTrip/:tripId", loggedInMiddleware, a
 });
 
 
+// Get all saved locations in a trip that are saved as itinerary
+getLocationsRouter.get("/getItinerary/inTrip/:tripId", loggedInMiddleware, async (req, res) => {
+  const tripId = req.params.tripId;
+  
+  // Validation
+  
+  if(!isValidObjectId(tripId)){
+    return res.status(400).json({ error: "The provided trip id is not valid" });
+  }
+
+  const itineraryLocations = await db.collection("locations").find({
+    tripId: new ObjectId(tripId),
+    "savedLocation.itinerary": true
+  }).toArray();
+
+  if (itineraryLocations) {
+    return res.json(itineraryLocations);
+  } else {
+    return res.status(404).json({ error: "There are no accommodations saved for this trip." });
+  }
+});
+
+
 // Get a specific saved location in a trip 
 getLocationsRouter.get("/:locationId/inTrip/:tripId", loggedInMiddleware, async (req, res) => {
   const tripId = req.params.tripId;
