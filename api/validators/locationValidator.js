@@ -59,6 +59,7 @@ export const updateLocationSchema = Joi.object({
 		end: Joi.date().timestamp(),
 	}),
     isBooked: Joi.bool(),
+	order: Joi.number()
 });
 
 export const updateAccomodationLocationSchema = Joi.object({
@@ -74,6 +75,7 @@ export const updateAccomodationLocationSchema = Joi.object({
 		checkIn: Joi.date().timestamp(),
 		checkOut: Joi.date().timestamp(),
 	}),
-    isBooked: Joi.bool()
+    isBooked: Joi.bool(),
+	order: Joi.number()
 });
 

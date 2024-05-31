@@ -7,14 +7,16 @@
 
 .content{
     margin-top: 3rem;
-    display: flex;
+    background-color: #ff8c00;
+    /* display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 2rem; */
 }
 
 .itineraryItem {
     position: relative;
     padding-left: 3rem;
+    background-color: white;
 }
 
 .stepMarker {
@@ -98,4 +100,17 @@
     text-decoration: underline;
     color: #fb5f26c1;
     font-size: 16px;
+}
+
+
+/* itinerary.module.css */
+
+.droppableArea {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.droppableArea.over {
+    background-color: rgb(69, 175, 210);
 }
