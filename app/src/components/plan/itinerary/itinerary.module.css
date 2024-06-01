@@ -17,6 +17,7 @@
     position: relative;
     padding-left: 3rem;
     background-color: white;
+    min-width: 24rem;
 }
 
 .stepMarker {
@@ -113,4 +114,12 @@
 
 .droppableArea.over {
     background-color: rgb(69, 175, 210);
+}
+
+
+.itineraryFlex{
+    display: flex;
+    gap: 4rem;
+    overflow: auto;
+    /* grid-template-columns: repeat(auto-fill, minMax(21rem, 1fr)); */
 }

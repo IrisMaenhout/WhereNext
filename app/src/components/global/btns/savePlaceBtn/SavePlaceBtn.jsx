@@ -5,9 +5,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { nanoid } from "nanoid";
 
 function SavePlaceBtn({placeId, tripId, position, isAccomodation}) {
-    console.log('saveBtn', placeId);
+
     const loggedInUser = useContext(LoggedInUserContext);
-    console.log('useer', loggedInUser._id);
     const [isContainerSaveToPagesBtnsActive, setIsContainerSaveToPagesBtnsActive] = useState(false);
     const navigate = useNavigate();
     const urlLocation = useLocation();
@@ -40,8 +39,8 @@ function SavePlaceBtn({placeId, tripId, position, isAccomodation}) {
             throw new Error(response.statusText);
           }
     
-          const data = await response.json();
-          console.log(data);
+        //   const data = await response.json();
+        //   console.log(data);
         } catch (error) {
             throw new Error(error);
           // setError(error.message);
@@ -70,7 +69,7 @@ function SavePlaceBtn({placeId, tripId, position, isAccomodation}) {
           }
     
           const data = await response.json();
-          console.log(data);
+        //   console.log(data);
           setLocationInDB(data.savedLocation ? true : false);
         } catch (error) {
             throw new Error(error);
@@ -94,7 +93,7 @@ function SavePlaceBtn({placeId, tripId, position, isAccomodation}) {
           }
     
           const data = await response.json();
-          console.log('get',data);
+        //   console.log('get',data);
           setLocationInDB(data.savedLocation ? true : false);
           setSavedPlanPages(data.savedLocation || {
             bucketList: false,
