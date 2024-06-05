@@ -18,6 +18,7 @@ function SavePlaceBtn({placeId, tripId, position, isAccomodation}) {
     });
 
     const [locationInDB, setLocationInDB] = useState(false);
+    const [isClicked, setIsClicked] = useState(false);
 
 
     const uploadChangesInDb = async (updatedSavedPlanPages) => {
@@ -111,19 +112,42 @@ function SavePlaceBtn({placeId, tripId, position, isAccomodation}) {
     }, []);
 
 
-    const toggleSaveState = (key) => {
-        setSavedPlanPages((prevState) => {
-            const updatedState = { ...prevState, [key]: !prevState[key] };
+    // const toggleSaveState = (key) => {
+    //     setSavedPlanPages((prevState) => {
+    //         const updatedState = { ...prevState, [key]: !prevState[key] };
 
+    //         if (locationInDB) {
+    //             uploadChangesInDb(updatedState);
+    //         } else {
+    //             createLocationInDb(updatedState);
+    //         }
+
+    //         return updatedState;
+    //     });
+    // };
+
+
+    const toggleSaveState = (key) => {
+        setSavedPlanPages((prevState) => ({
+            ...prevState,
+            [key]: !prevState[key]
+        }));
+        setIsClicked(true);
+    };
+
+
+    useEffect(() => {
+        if(isClicked){
             if (locationInDB) {
-                uploadChangesInDb(updatedState);
+                uploadChangesInDb(savedPlanPages);
             } else {
-                createLocationInDb(updatedState);
+                createLocationInDb(savedPlanPages);
             }
 
-            return updatedState;
-        });
-    };
+            setIsClicked(false);
+        }
+        
+    }, [savedPlanPages, locationInDB]);
 
     useEffect(()=>{
         navigate(urlLocation, { state: nanoid() }); 

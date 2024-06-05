@@ -51,8 +51,16 @@ function App() {
               </PlanningPage>
             } 
           />
+
+          <Route path="/itinerary/suggestions" element={
+                <PlanningPage>
+                  <Suggestions page={"itinerary"}/>
+                </PlanningPage>
+              } 
+          />
           {/* other routes */}
         </Routes>
+
       </LoggedInUserProvider>
     );
   }

@@ -82,45 +82,45 @@ getLocationsRouter.get("/getAccomodations/inTrip/:tripId", loggedInMiddleware, a
 });
 
 
-// Get all saved locations in a trip that are saved as itinerary
-getLocationsRouter.get("/getItinerary/inTrip/:tripId/:date", loggedInMiddleware, async (req, res) => {
-  const tripId = req.params.tripId;
-  const date = req.params.date;
+// // Get all saved locations in a trip that are saved as itinerary
+// getLocationsRouter.get("/getItinerary/inTrip/:tripId/:date", loggedInMiddleware, async (req, res) => {
+//   const tripId = req.params.tripId;
+//   const date = req.params.date;
 
-  // Validate tripId
-  if (!isValidObjectId(tripId)) {
-    return res.status(400).json({ error: "The provided trip id is not valid" });
-  }
+//   // Validate tripId
+//   if (!isValidObjectId(tripId)) {
+//     return res.status(400).json({ error: "The provided trip id is not valid" });
+//   }
 
-  // Convert date string to Date object
-  const dateObj = new Date(date);
-  if (isNaN(dateObj)) {
-    return res.status(400).json({ error: "The provided date is not valid" });
-  }
+//   // Convert date string to Date object
+//   const dateObj = new Date(date);
+//   if (isNaN(dateObj)) {
+//     return res.status(400).json({ error: "The provided date is not valid" });
+//   }
 
-  const dbQuery = {
-    tripId: new ObjectId(tripId),
-    "savedLocation.itinerary": true, 
-    date: dateObj
-  };
+//   const dbQuery = {
+//     tripId: new ObjectId(tripId),
+//     "savedLocation.itinerary": true, 
+//     date: dateObj
+//   };
 
-  const options = {
-    sort: { order: 1 }
-  };
+//   const options = {
+//     sort: { order: 1 }
+//   };
 
-  try {
-    const itineraryLocations = await db.collection("locations").find(dbQuery, options).toArray();
+//   try {
+//     const itineraryLocations = await db.collection("locations").find(dbQuery, options).toArray();
     
-    if (itineraryLocations.length > 0) {
-      return res.json(itineraryLocations);
-    } else {
-      return res.status(404).json({ error: "There are no locations saved for this trip on the specified date." });
-    }
-  } catch (error) {
-    console.error("Error fetching itinerary locations:", error);
-    return res.status(500).json({ error: "An error occurred while fetching the itinerary locations." });
-  }
-});
+//     if (itineraryLocations.length > 0) {
+//       return res.json(itineraryLocations);
+//     } else {
+//       return res.status(404).json({ error: "There are no locations saved for this trip on the specified date." });
+//     }
+//   } catch (error) {
+//     console.error("Error fetching itinerary locations:", error);
+//     return res.status(500).json({ error: "An error occurred while fetching the itinerary locations." });
+//   }
+// });
 
 
 // Get a specific saved location in a trip 

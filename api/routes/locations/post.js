@@ -89,6 +89,54 @@ postLocationsRouter.post("/:googleLocationId/addToTrip/:tripId", loggedInMiddlew
     
   
 });
+
+
+// Get all saved locations in a trip that are saved as itinerary with the correct date
+postLocationsRouter.post("/getItinerary/inTrip/:tripId", loggedInMiddleware, async (req, res) => {
+    const tripId = req.params.tripId;
+    const dates = req.body.dates;
+  
+    // Validate tripId
+    if (!isValidObjectId(tripId)) {
+      return res.status(400).json({ error: "The provided trip id is not valid" });
+    }
+  
+    // Validate and convert date strings to Date objects
+    const dateObjs = dates.map(date => {
+      const dateObj = new Date(date);
+      if (isNaN(dateObj)) {
+        return null;
+      }
+      return dateObj;
+    }).filter(dateObj => dateObj !== null);
+  
+    if (dateObjs.length === 0) {
+      return res.status(400).json({ error: "The provided dates are not valid" });
+    }
+  
+    const dbQuery = {
+      tripId: new ObjectId(tripId),
+      "savedLocation.itinerary": true,
+      date: { $in: dateObjs }
+    };
+  
+    const options = {
+      sort: { order: 1 }
+    };
+  
+    try {
+      const itineraryLocations = await db.collection("locations").find(dbQuery, options).toArray();
+      
+      if (itineraryLocations.length > 0) {
+        return res.json(itineraryLocations);
+      } else {
+        return res.status(404).json({ error: "There are no locations saved for this trip on the specified dates." });
+      }
+    } catch (error) {
+      console.error("Error fetching itinerary locations:", error);
+      return res.status(500).json({ error: "An error occurred while fetching the itinerary locations." });
+    }
+});
   
   
 

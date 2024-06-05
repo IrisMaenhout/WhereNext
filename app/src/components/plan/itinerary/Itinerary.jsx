@@ -19,7 +19,8 @@ function Itinerary(props) {
     const parentContainer = useRef();
     const [itineraryElementWidth, setItineraryElementWidth] = useState(0);
 
-    const date = "2025-06-20T00:00:00.000Z";
+    const tripDayDates = ["2025-06-20T00:00:00.000Z", "2025-06-21T00:00:00.000Z", "2025-06-22T00:00:00.000Z", "2025-06-23T00:00:00.000Z"];
+    const [dates, setDates] = useState([tripDayDates[0]]);
 
     const updateWidth = useCallback(
         debounce((width) => {
@@ -59,15 +60,19 @@ function Itinerary(props) {
 
     const getItinerary = async () => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/locations/getItinerary/inTrip/${tripId}/${date}`, {
-                method: 'GET',
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/locations/getItinerary/inTrip/${tripId}`, {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'authorization': loggedInUser._id,
-                }
+                },
+                body: JSON.stringify({
+                    dates: dates
+                })
             });
 
             if (!response.ok) {
+                setItineraryPlaces([]);
                 throw new Error('Network response was not ok');
             }
 
@@ -104,20 +109,28 @@ function Itinerary(props) {
     };
 
     useEffect(() => {
-        getItinerary();
-    }, [forceRerenderCardComponent]);
+        console.log("WAY_V");
+        if (itineraryElementWidth > 500) {
+            setDates(tripDayDates);
+        } else {
+            setDates([tripDayDates[0]]);
+        }
+    }, [itineraryElementWidth]);
 
-    useEffect(()=>{
-        if(newDraggedOrder.length > 0){
+    useEffect(() => {
+        getItinerary();
+    }, [forceRerenderCardComponent, dates]);
+
+    useEffect(() => {
+        if (newDraggedOrder.length > 0) {
             console.log("newOrder", newDraggedOrder);
             newDraggedOrder.forEach((item, index) => {
                 updateOrderDB(item.googleLocationId, index);
             });
-            
+
             setItineraryPlaces(newDraggedOrder);
-            setForceRenderCardComponent((prev)=> prev++)
+            setForceRenderCardComponent(prev => prev + 1);
         }
-        
     }, [newDraggedOrder]);
 
     const handleLocationFetched = (index, location) => {
@@ -189,88 +202,39 @@ function Itinerary(props) {
                     // For when you display the itinerary on full screen
                     <>
                         <div className={styles.itineraryFlex}>
-                            <div className={styles.dropAreaDay}>
-                                <button>Day 1</button>
-                                <SortableContext items={itineraryPlaces.map(item => item._id)} strategy={verticalListSortingStrategy}>
-                                    <div className={styles.content}>
-                                    {itineraryPlaces.length > 0 ? itineraryPlaces.map((item, index) => (
-                                        <React.Fragment key={item._id}>
-                                            <DroppableArea id={`drop-${item._id}`} />
-                                            <ItineraryCard
-                                                item={item}
-                                                index={index}
-                                                locationsFetched={locationsFetched}
-                                                loggedInUser={loggedInUser}
-                                                handleLocationFetched={handleLocationFetched}
-                                                openDirectionsInGoogleMaps={openDirectionsInGoogleMaps}
-                                                itineraryPlaces={itineraryPlaces}
-                                            />
-                                            <DroppableArea id={`drop-${item._id}`} />
-                                        </React.Fragment>
-                                    )) : <p>Here you can access your planned activities and restaurants.<br />Right now there is nothing in the itinerary.</p>}
+                            {tripDayDates.map((date, i) => (
+                                <div key={`kanbanBoardDropZone-${date}`} className={styles.dropAreaDay}>
+                                    <div className={styles.dayName}>Day {i + 1}</div>
+                                    <SortableContext items={itineraryPlaces.filter(item => item.date === date).map(item => item._id)} strategy={verticalListSortingStrategy}>
+                                        <div className={styles.kanbanContent}>
+                                            {itineraryPlaces.length > 0 ? itineraryPlaces.filter(item => item.date === date).map((item, index) => (
+                                                <React.Fragment key={item._id}>
+                                                    <DroppableArea id={`drop-${item._id}`} />
+                                                    <ItineraryCard
+                                                        item={item}
+                                                        index={index}
+                                                        locationsFetched={locationsFetched}
+                                                        loggedInUser={loggedInUser}
+                                                        handleLocationFetched={handleLocationFetched}
+                                                        openDirectionsInGoogleMaps={openDirectionsInGoogleMaps}
+                                                        itineraryPlaces={itineraryPlaces}
+                                                    />
+                                                    <DroppableArea id={`drop-${item._id}`} />
+                                                </React.Fragment>
+                                            )) : <></>}
+                                        </div>
+                                    </SortableContext>
                                 </div>
-
-                                </SortableContext>
-                            </div>
-                            <div className={styles.dropAreaDay}>
-                                <button>Day 2</button>
-                                <SortableContext items={itineraryPlaces.map(item => item._id)} strategy={verticalListSortingStrategy}>
-                                    <div className={styles.content}>
-                                    {itineraryPlaces.length > 0 ? itineraryPlaces.map((item, index) => (
-                                        <React.Fragment key={item._id}>
-                                            <DroppableArea id={`drop-${item._id}`} />
-                                            <ItineraryCard
-                                                item={item}
-                                                index={index}
-                                                locationsFetched={locationsFetched}
-                                                loggedInUser={loggedInUser}
-                                                handleLocationFetched={handleLocationFetched}
-                                                openDirectionsInGoogleMaps={openDirectionsInGoogleMaps}
-                                                itineraryPlaces={itineraryPlaces}
-                                            />
-                                            <DroppableArea id={`drop-${item._id}`} />
-                                        </React.Fragment>
-                                    )) : <p>Here you can access your planned activities and restaurants.<br />Right now there is nothing in the itinerary.</p>}
-                                </div>
-
-                                </SortableContext>
-                            </div>
-                            <div className={styles.dropAreaDay}>
-                                <button>Day 3</button>
-                                <SortableContext items={itineraryPlaces.map(item => item._id)} strategy={verticalListSortingStrategy}>
-                                    <div className={styles.content}>
-                                    {itineraryPlaces.length > 0 ? itineraryPlaces.map((item, index) => (
-                                        <React.Fragment key={item._id}>
-                                            <DroppableArea id={`drop-${item._id}`} />
-                                            <ItineraryCard
-                                                item={item}
-                                                index={index}
-                                                locationsFetched={locationsFetched}
-                                                loggedInUser={loggedInUser}
-                                                handleLocationFetched={handleLocationFetched}
-                                                openDirectionsInGoogleMaps={openDirectionsInGoogleMaps}
-                                                itineraryPlaces={itineraryPlaces}
-                                            />
-                                            <DroppableArea id={`drop-${item._id}`} />
-                                        </React.Fragment>
-                                    )) : <p>Here you can access your planned activities and restaurants.<br />Right now there is nothing in the itinerary.</p>}
-                                </div>
-
-                                </SortableContext>
-                            </div>
+                            ))}
                         </div>
                     </>
-
                     :
-
-
                     <>
                         <div className={styles.filterDays}>
-                            <button>Day 1</button>
-                            <button>Day 2</button>
-                            <button>Day 3</button>
+                            {tripDayDates.map((date, i) => (
+                                <button key={`dayFilter-${i}`} onClick={() => setDates([date])}>Day {i + 1}</button>
+                            ))}
                         </div>
-
                         <SortableContext items={itineraryPlaces.map(item => item._id)} strategy={verticalListSortingStrategy}>
                             <div className={styles.content}>
                                 {itineraryPlaces.length > 0 ? itineraryPlaces.map((item, index) => (
@@ -287,7 +251,7 @@ function Itinerary(props) {
                                         />
                                         <DroppableArea id={`drop-${item._id}`} />
                                     </React.Fragment>
-                                )) : <p>Here you can access your planned activities and restaurants.<br />Right now there is nothing in the itinerary.</p>}
+                                )) : <p>There are no planned activities for this day.</p>}
                             </div>
                         </SortableContext>
                     </>
