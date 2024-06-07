@@ -9,6 +9,8 @@ import BucketList from './components/plan/bucketList/BucketList';
 import Accomodations from './components/plan/accomodations/Accomodations';
 import Suggestions from './components/plan/suggestions/Suggestions';
 import Itinerary from './components/plan/itinerary/Itinerary';
+import Overview from './components/plan/placeDetails/overview/Overview';
+import PlaceDetails from './components/plan/placeDetails/PlaceDetails';
 
 function App() {
   const { loggedInUser, setLoggedInUser } = useLoggedInUser();
@@ -55,6 +57,14 @@ function App() {
           <Route path="/itinerary/suggestions" element={
                 <PlanningPage>
                   <Suggestions page={"itinerary"}/>
+                </PlanningPage>
+              } 
+          />
+
+          <Route path="/place/:googlePlaceId/overview" element={
+                <PlanningPage>
+                  {/* <Overview /> */}
+                  <PlaceDetails />
                 </PlanningPage>
               } 
           />

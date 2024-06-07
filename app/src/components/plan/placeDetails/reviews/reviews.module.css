@@ -1,0 +1,67 @@
+/* .topContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.topContainer .titleFlex{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+} */
+
+.reviewCard{
+    padding: 2rem 0;
+}
+
+.reviewCard+.reviewCard{
+    border-top: 1px solid #D5D5D5;
+}
+
+.reviewCard a{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.reviewCard img{
+    width: 10%;
+}
+
+.rating{
+    margin: 1em 0;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.rating .stars, .notColoredStars{
+    display: flex;
+    gap: .3rem;
+}
+.stars i, .location i{
+    color: #c7cfd1;
+}
+.rating .stars .colored{
+    color: #FDB833;
+}
+
+.notColoredHalf{
+    transform: rotateY(180deg);
+}
+
+.halfColoredStar{
+    display: flex;
+    gap: -2rem;
+    position: relative;
+}
+
+.halfColoredStar i{
+    display: block;
+    position: absolute;
+    top: 0;
+}
+
+.notColoredStars{
+    margin-left: 1.7rem;
+}

@@ -3,12 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@blocknote/core": "^0.13.5",
+    "@blocknote/mantine": "^0.13.5",
+    "@blocknote/react": "^0.13.5",
     "@dnd-kit/core": "^6.1.0",
     "@dnd-kit/sortable": "^8.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@flaticon/flaticon-uicons": "^3.2.1",
+    "@liveblocks/client": "^1.12.0",
+    "@liveblocks/react": "^1.12.0",
+    "@liveblocks/yjs": "^1.12.0",
     "@mui/material": "^5.15.18",
     "@react-google-maps/api": "^2.19.3",
     "@testing-library/jest-dom": "^5.17.0",
@@ -27,7 +33,9 @@
     "react-scripts": "5.0.1",
     "react-select": "^5.8.0",
     "react-tooltip": "^5.26.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "y-webrtc": "^10.3.0",
+    "yjs": "^13.6.15"
   },
   "scripts": {
     "start": "react-scripts start",

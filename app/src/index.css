@@ -34,20 +34,17 @@ h1, h2, h3, h4, h5, h6{
 }
 
 
-p, b, i, li, button{
+p, b, i, li, button, a{
   font-family: "Nunito", sans-serif;
 }
 
-a{
-  font-family: "Nunito", sans-serif;
-}
 
 i{
   font-size: x-large;
   color: #9eacb0;
 }
 
-p, li{
+p, li, a{
   color: #6C7886;
 }
 

@@ -3,10 +3,11 @@ import styles from './itinerary.module.css';
 import PrimaryLinkBtn from '../../global/btns/primary/link/PrimaryLinkBtn';
 import { LoggedInUserContext } from '../../../context/LoggedInUserContext';
 import { useLocation } from 'react-router-dom';
-import { DndContext, PointerSensor, TouchSensor, closestCenter, useDroppable, useSensor, useSensors } from '@dnd-kit/core';
-import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { DndContext, PointerSensor, TouchSensor, closestCenter, useSensor, useSensors } from '@dnd-kit/core';
+import { SortableContext, arrayMove, rectSortingStrategy, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import ItineraryCard from './itineraryCard/ItineraryCard';
 import debounce from 'lodash/debounce'; // Make sure to install lodash with `npm install lodash`
+import DropBox from './dropbox/DropBox';
 
 function Itinerary(props) {
     const { state } = useLocation();
@@ -84,7 +85,8 @@ function Itinerary(props) {
         }
     };
 
-    const updateOrderDB = async (googleLocationId, order) => {
+    const updateOrderDB = async (googleLocationId, order, date) => {
+        console.log('date', date);
         try {
             const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/locations/${googleLocationId}/edit/${tripId}`, {
                 method: 'PATCH',
@@ -93,7 +95,8 @@ function Itinerary(props) {
                     'authorization': loggedInUser._id,
                 },
                 body: JSON.stringify({
-                    order: order
+                    order: order,
+                    date: date
                 }),
             });
 
@@ -109,7 +112,7 @@ function Itinerary(props) {
     };
 
     useEffect(() => {
-        console.log("WAY_V");
+        console.log("WAY_V")
         if (itineraryElementWidth > 500) {
             setDates(tripDayDates);
         } else {
@@ -125,7 +128,7 @@ function Itinerary(props) {
         if (newDraggedOrder.length > 0) {
             console.log("newOrder", newDraggedOrder);
             newDraggedOrder.forEach((item, index) => {
-                updateOrderDB(item.googleLocationId, index);
+                updateOrderDB(item.googleLocationId, index, item.date);
             });
 
             setItineraryPlaces(newDraggedOrder);
@@ -154,24 +157,80 @@ function Itinerary(props) {
         const { active, over } = event;
         if (!over) return;
 
-        if (active.id !== over.id) {
+        console.log('over', over);
+        console.log('Active', active);
+
+        const activeItem = itineraryPlaces.find(item => item._id === active.id);
+        const overItem = itineraryPlaces.find(item => item._id === over.id);
+
+        console.log('overItem', overItem);
+        const newDate = overItem ? overItem.date : tripDayDates[over.id.split('-')[1]];
+        console.log('dateCheck', newDate);
+
+        if (activeItem.date !== newDate) {
+            console.log("ENHYPHEN");
+            activeItem.date = newDate;
+
+            const updatedItems = itineraryPlaces
+                .filter(item => item.date === newDate)
+                .sort((a, b) => a.order - b.order);
+
+            const newIndex = updatedItems.findIndex(item => item._id === over.id);
+
             setNewDraggedOrder(() => {
-                const oldIndex = itineraryPlaces.findIndex(item => item._id === active.id);
-                const newIndex = itineraryPlaces.findIndex(item => item._id === over.id);
-                const newItems = arrayMove(itineraryPlaces, oldIndex, newIndex);
+                const oldIndex = updatedItems.findIndex(item => item._id === active.id);
+                const newItems = arrayMove(updatedItems, oldIndex, newIndex);
                 console.log("put new items order", newItems);
                 return newItems;
             });
-        }
-    };
 
-    const DroppableArea = ({ id }) => {
-        const { setNodeRef, isOver } = useDroppable({ id });
-        const style = {
-            height: '4px',
-            backgroundColor: isOver ? 'blue' : 'transparent',
-        };
-        return <div ref={setNodeRef} style={style} />;
+            setItineraryPlaces(prev => prev.map(item => {
+                if (item._id === activeItem._id) {
+                    return { ...item, date: newDate };
+                }
+                return item;
+            }));
+
+            await updateOrderDB(activeItem.googleLocationId, newIndex, newDate);
+        } else if (active.id !== over.id) {
+            console.log("THE BOYZ");
+            // const oldIndex = itineraryPlaces.findIndex(item => item._id === active.id);
+            // const newIndex = itineraryPlaces.findIndex(item => item._id === over.id);
+            // console.log('Indewxxx',newIndex, oldIndex)
+            // setNewDraggedOrder(() => {
+            //     const newItems = arrayMove(itineraryPlaces, oldIndex, newIndex);
+            //     console.log("put new items order", newItems);
+            //     return newItems;
+            // });
+
+            // setItineraryPlaces(prev => {
+            //     const updatedItems = arrayMove(prev, oldIndex, newIndex);
+            //     return updatedItems;
+            // });
+
+            // await updateOrderDB(activeItem.googleLocationId, newIndex, activeItem.date);
+
+
+            const oldIndex = itineraryPlaces.findIndex(item => item._id === active.id);
+            const newIndex = itineraryPlaces.findIndex(item => item._id === over.id);
+
+            const reorderedItems = arrayMove(
+                itineraryPlaces.filter(item => item?.date === activeItem.date),
+                oldIndex,
+                newIndex
+            );
+            console.log('comploa', reorderedItems);
+
+            const otherItems = itineraryPlaces.filter(item => item.date !== activeItem.date);
+            console.log('bana', );
+            const newItems = [...otherItems, ...reorderedItems];
+
+            setNewDraggedOrder(() => newItems);
+
+            setItineraryPlaces(newItems);
+
+            await updateOrderDB(activeItem.googleLocationId, newIndex, activeItem.date);
+        }
     };
 
     const sensors = useSensors(
@@ -199,17 +258,19 @@ function Itinerary(props) {
 
                 {
                     itineraryElementWidth > 500 ?
-                    // For when you display the itinerary on full screen
-                    <>
-                        <div className={styles.itineraryFlex}>
-                            {tripDayDates.map((date, i) => (
-                                <div key={`kanbanBoardDropZone-${date}`} className={styles.dropAreaDay}>
-                                    <div className={styles.dayName}>Day {i + 1}</div>
-                                    <SortableContext items={itineraryPlaces.filter(item => item.date === date).map(item => item._id)} strategy={verticalListSortingStrategy}>
-                                        <div className={styles.kanbanContent}>
-                                            {itineraryPlaces.length > 0 ? itineraryPlaces.filter(item => item.date === date).map((item, index) => (
-                                                <React.Fragment key={item._id}>
-                                                    <DroppableArea id={`drop-${item._id}`} />
+                        // For when you display the itinerary on full screen
+                        <>
+                            <div className={styles.itineraryFlex}>
+                                {tripDayDates.map((date, i) => (
+                                    <div key={`kanbanBoardDropZone-${date}`} className={styles.dropAreaDay}>
+                                        <DropBox
+                                            dropBoxId={`dropbox-${i}`}
+                                            index={i}
+                                            itineraryPlaces={itineraryPlaces}
+                                            date={date}
+                                        >
+                                            {itineraryPlaces.filter(item => item.date === date).length > 0 && (
+                                                itineraryPlaces.filter(item => item.date === date).map((item, index) => (
                                                     <ItineraryCard
                                                         item={item}
                                                         index={index}
@@ -219,42 +280,38 @@ function Itinerary(props) {
                                                         openDirectionsInGoogleMaps={openDirectionsInGoogleMaps}
                                                         itineraryPlaces={itineraryPlaces}
                                                     />
-                                                    <DroppableArea id={`drop-${item._id}`} />
-                                                </React.Fragment>
-                                            )) : <></>}
-                                        </div>
-                                    </SortableContext>
-                                </div>
-                            ))}
-                        </div>
-                    </>
-                    :
-                    <>
-                        <div className={styles.filterDays}>
-                            {tripDayDates.map((date, i) => (
-                                <button key={`dayFilter-${i}`} onClick={() => setDates([date])}>Day {i + 1}</button>
-                            ))}
-                        </div>
-                        <SortableContext items={itineraryPlaces.map(item => item._id)} strategy={verticalListSortingStrategy}>
-                            <div className={styles.content}>
-                                {itineraryPlaces.length > 0 ? itineraryPlaces.map((item, index) => (
-                                    <React.Fragment key={item._id}>
-                                        <DroppableArea id={`drop-${item._id}`} />
-                                        <ItineraryCard
-                                            item={item}
-                                            index={index}
-                                            locationsFetched={locationsFetched}
-                                            loggedInUser={loggedInUser}
-                                            handleLocationFetched={handleLocationFetched}
-                                            openDirectionsInGoogleMaps={openDirectionsInGoogleMaps}
-                                            itineraryPlaces={itineraryPlaces}
-                                        />
-                                        <DroppableArea id={`drop-${item._id}`} />
-                                    </React.Fragment>
-                                )) : <p>There are no planned activities for this day.</p>}
+                                                )))
+                                            }
+                                        </DropBox>
+                                    </div>
+                                ))}
                             </div>
-                        </SortableContext>
-                    </>
+                        </>
+                        :
+                        <>
+                            <div className={styles.filterDays}>
+                                {tripDayDates.map((date, i) => (
+                                    <button key={`dayFilter-${i}`} onClick={() => setDates([date])}>Day {i + 1}</button>
+                                ))}
+                            </div>
+                            <SortableContext items={itineraryPlaces.map(item => item._id)} strategy={verticalListSortingStrategy}>
+                                <div className={styles.content}>
+                                    {itineraryPlaces.length > 0 ? itineraryPlaces.map((item, index) => (
+                                        <React.Fragment key={item._id}>
+                                            <ItineraryCard
+                                                item={item}
+                                                index={index}
+                                                locationsFetched={locationsFetched}
+                                                loggedInUser={loggedInUser}
+                                                handleLocationFetched={handleLocationFetched}
+                                                openDirectionsInGoogleMaps={openDirectionsInGoogleMaps}
+                                                itineraryPlaces={itineraryPlaces}
+                                            />
+                                        </React.Fragment>
+                                    )) : <p>There are no planned activities for this day.</p>}
+                                </div>
+                            </SortableContext>
+                        </>
                 }
             </div>
         </DndContext>

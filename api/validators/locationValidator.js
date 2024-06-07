@@ -53,7 +53,7 @@ export const updateLocationSchema = Joi.object({
         itinerary: Joi.bool().required(),
         accomodations: Joi.bool().required()
     }),
-	date:  Joi.date().greater('now'),
+	date:  Joi.string(),
 	time: Joi.object({
 		start: Joi.date().timestamp(),
 		end: Joi.date().timestamp(),

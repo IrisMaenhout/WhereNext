@@ -1,0 +1,11 @@
+.topContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.topContainer .titleFlex{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}

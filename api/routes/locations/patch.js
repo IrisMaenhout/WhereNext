@@ -15,9 +15,11 @@ async function updateLocationData(location, req, res) {
     
     // if the location is saved in the db, update the data
     if (location) {
-        const { _id, ...data } = req.body;
+        const { _id, date, ...data } = req.body;
+        const formatedDate = date ? new Date(date) : null;
+        console.log(formatedDate, date);
 
-        const newData = { ...location, ...data };
+        const newData = date ? {...location, date: formatedDate, ...date} : { ...location, ...data };
 
         await db.collection("locations").replaceOne({ _id: new ObjectId(location._id) }, newData);
 

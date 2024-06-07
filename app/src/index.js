@@ -4,14 +4,24 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
-import 'react-tooltip/dist/react-tooltip.css'
+import 'react-tooltip/dist/react-tooltip.css';
+import { RoomProvider } from "./liveblocks.config";
+// import { Editor } from "./Editor";
+import { ClientSideSuspense } from "@liveblocks/react";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-    <App />
-    </BrowserRouter>
+    
+
+    <RoomProvider id="my-room" initialPresence={{}}>
+      {/* <ClientSideSuspense fallback="Loading…">
+        {() => <Editor />}
+      </ClientSideSuspense> */}
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </RoomProvider>
   </React.StrictMode>
 );
 

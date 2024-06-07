@@ -1,0 +1,248 @@
+.card{
+    width: 100%;
+}
+
+.card h2{
+    margin-bottom: 1em;
+}
+
+.topCard{
+    position: relative;
+}
+
+.topCard img{
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 1rem;
+    height: 250px;
+}
+
+.saveBtnContainer{
+    z-index: 5;
+    position: absolute;
+    margin: 1rem;
+    top: 1rem;
+    right: 1rem;
+    /* display: flex;
+    justify-content: space-between;
+    width: 100%; */
+}
+
+.goBackArrowContainer{
+    z-index: 5;
+    position: absolute;
+    margin: 1rem;
+    top: 1rem;
+    left: 1rem;
+}
+
+
+
+.goBackArrow{
+    color: white;
+    cursor: pointer;
+    padding: .5rem;
+}
+
+.cardContent{
+    margin-top: 1em;
+}
+
+.cardContent .time{
+    margin-top: .5em;
+}
+
+.rating{
+    margin-top: 1em;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.rating .stars, .notColoredStars{
+    display: flex;
+    gap: .3rem;
+}
+.stars i, .location i{
+    color: #c7cfd1;
+}
+.rating .stars .colored{
+    color: #FDB833;
+}
+
+.notColoredHalf{
+    transform: rotateY(180deg);
+}
+
+.halfColoredStar{
+    display: flex;
+    gap: -2rem;
+    position: relative;
+}
+
+.halfColoredStar i{
+    display: block;
+    position: absolute;
+    top: 0;
+}
+
+.notColoredStars{
+    margin-left: 1.7rem;
+}
+
+.priceRange p{
+    width: fit-content;
+}
+
+.priceRange{
+    margin: 1rem 0;
+}
+
+.location{
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.location i{
+    font-size: large;
+}
+
+.categoriesContainer{
+    margin-top: 2rem;
+}
+
+.categories{
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-top: 1rem;
+}
+
+.categories p{
+    background-color: #FFE9BE;
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+}
+
+.categories .moreCategories {
+    background-color: #ecbe62;
+    color: white;
+    font-weight: 600;
+}
+
+/* .tabs{
+    display: flex;
+    margin: 2rem 0;
+}
+
+.tabs a {
+    display: block;
+    padding: .5rem 1rem;
+    border-bottom: 2px solid #ECF1F7;
+    text-align: center;
+    width: 100%;
+}
+
+
+.tabs .activeTab, .tabs a:hover{
+    color: #FB6026;
+    font-weight: 700;
+    border-bottom: 2px solid #FB6026;
+    transition: 200ms;
+} */
+
+
+
+.practicalInfo{
+    background-color: #FFF0D0;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    border-radius: .5rem;
+    margin-bottom: 2rem;
+}
+
+.practicalInfo a div i{
+    color: #FB6026;
+}
+
+.practicalInfo a div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    background-color: white;
+    border-radius: 100%;
+    border: 1.5px solid #FB6026;
+}
+
+.practicalInfo a p{
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+.practicalInfo a:hover div{
+    background-color: #FB6026;
+    transition: 200ms;
+}
+
+.practicalInfo a:hover p{
+    color: #FB6026;
+    transition: 200ms;
+}
+
+.practicalInfo a:hover div i{
+    color: white;
+    transition: 200ms;
+}
+
+
+/* .practicalInfo .fi{
+    margin-bottom: -.5rem;
+} */
+
+.openingHoursContainer{
+    margin-top: 2rem;
+}
+
+.openingHoursContainer h4, .openingHoursContainer p{
+    margin-bottom: 1em;
+}
+
+.openingHoursContainer p .open{
+    color: #8FD763;
+    font-weight: 700;
+}
+
+.openingHoursContainer p .closed{
+    color: #e33838;
+    font-weight: 700;
+}
+
+.openingHoursContainer table {
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: .5rem;
+}
+  
+.openingHoursContainer td, th {
+    border: 1px solid #C8D4DD;
+    text-align: left;
+    padding: 8px;
+}
+  
+.openingHoursContainer tr:nth-child(even) {
+    background-color: #F7F9FC;
+}
+
+.tableContainer{
+    border-radius: .5rem;
+    overflow: hidden;
+    border: 1px solid #C8D4DD;
+}
+

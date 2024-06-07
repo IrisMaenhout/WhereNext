@@ -14,7 +14,7 @@ function PlaceCard({ place, isSuggestion, tripId, locationApiData, isItinerary, 
     }
 
     function handleClick() {
-        // navigate(`/place/${place ? place.id : locationApiData.googleLocationId}`);
+        navigate(`/place/${place ? place.id : locationApiData.googleLocationId}/overview`);
     }
 
     const fullStars = Math.floor(googlePlaceData?.rating);
