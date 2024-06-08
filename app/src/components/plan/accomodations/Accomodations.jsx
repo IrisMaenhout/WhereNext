@@ -5,8 +5,10 @@ import PlaceCard from '../placeCard/PlaceCard';
 import { useLocation } from 'react-router-dom';
 import PrimaryBtn from '../../global/btns/primary/btn/PrimaryBtn';
 import PrimaryLinkBtn from '../../global/btns/primary/link/PrimaryLinkBtn';
+import { PlacesContext } from '../../../context/LocationsContext';
 
 function Accomodations(props) {
+    const { places, setPlaces, setError } = useContext(PlacesContext);
     const { state } = useLocation();
     const loggedInUser = useContext(LoggedInUserContext);
     const tripId = "6654e2621cbe496564c8192d";

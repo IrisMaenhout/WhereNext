@@ -1,4 +1,8 @@
 
+/* .gm-style:focus {
+    outline: none;
+} */
+
 .wrapper{
     /* Use this wraper to optimilize your responsive design for large screens */
 }
@@ -35,6 +39,8 @@
     gap: 4rem;
     margin-top: 2rem;
 }
+
+
 
 @media screen and (min-width: 800px) {
     .contentWrapper{

@@ -34,7 +34,7 @@ h1, h2, h3, h4, h5, h6{
 }
 
 
-p, b, i, li, button, a{
+p, b, i, li, button, a, input[type="text"], select, label, ::placeholder{
   font-family: "Nunito", sans-serif;
 }
 

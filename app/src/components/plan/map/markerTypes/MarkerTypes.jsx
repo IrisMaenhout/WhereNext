@@ -21,6 +21,13 @@ import FishMarker from './markers/FishMarker';
 import BreakfastMarker from './markers/BreakfastMarker';
 import TheaterMarker from './markers/TheaterMarker';
 import LocationMarker from './markers/LocationMarker';
+import BAndBMarker from './markers/BAndBMarker';
+import CabinMarker from './markers/CabinMarker';
+import HotelMarker from './markers/HotelMarker';
+import HostelMarker from './markers/HostelMarker';
+import CaravanMarker from './markers/CaravanMarker';
+import TentMarker from './markers/TentMarker';
+import HouseMarker from './markers/HouseMarker';
 
 function MarkerTypes({place, page}){
     const colors = {
@@ -29,11 +36,15 @@ function MarkerTypes({place, page}){
             strokeColor: "white"
         },
         bucketList: {
-            color: "#46b3a8",
+            color: "#b39246",
             strokeColor: "white"
         },
         itinerary: {
             color: "#b39246",
+            strokeColor: "white"
+        },
+        detail: {
+            color: "#3db8ad",
             strokeColor: "white"
         }
     }
@@ -71,6 +82,7 @@ function MarkerTypes({place, page}){
 
     }else if(placePrimaryCategory === "tourist_attraction" || placePrimaryCategory === "visitor_center" || placePrimaryCategory === "landmark" || placePrimaryCategory === "point_of_interest"){
         return <TouristAttractions color={colors[page].color} strokeColor={colors[page].strokeColor}/>
+        
 
     }else if(placePrimaryCategory === "historical_landmark"){
         return <HistoricalMarker color={colors[page].color} strokeColor={colors[page].strokeColor}/>
@@ -105,7 +117,27 @@ function MarkerTypes({place, page}){
         
     }else if(placePrimaryCategory === "food" || placePrimaryCategory === "restaurant" || placePrimaryCategory === "american_restaurant" || placePrimaryCategory === "barbecue_restaurant" || placePrimaryCategory === "brazilian_restaurant" || placePrimaryCategory === "chinese_restaurant"|| placePrimaryCategory === "fast_food_restaurant"|| placePrimaryCategory === "french_restaurant"|| placePrimaryCategory === "greek_restaurant"|| placePrimaryCategory === "hamburger_restaurant"|| placePrimaryCategory === "indian_restaurant"|| placePrimaryCategory === "indonesian_restaurant"|| placePrimaryCategory === "italian_restaurant" || placePrimaryCategory === "japanese_restaurant" || placePrimaryCategory === "korean_restaurant" || placePrimaryCategory === "lebanese_restaurant" || placePrimaryCategory === "meal_delivery" || placePrimaryCategory === "meal_takeaway" || placePrimaryCategory === "mediterranean_restaurant" || placePrimaryCategory === "mexican_restaurant" || placePrimaryCategory === "middle_eastern_restaurant" || placePrimaryCategory === "pizza_restaurant" || placePrimaryCategory === "ramen_restaurant" || placePrimaryCategory === "sandwich_shop" || placePrimaryCategory === "seafood_restaurant" || placePrimaryCategory === "spanish_restaurant" || placePrimaryCategory === "steak_house" || placePrimaryCategory === "thai_restaurant" || placePrimaryCategory === "sushi_restaurant"|| placePrimaryCategory === "turkish_restaurant" || placePrimaryCategory === "vietnamese_restaurant"|| placePrimaryCategory === "grocery_store" || placePrimaryCategory === "vegan_restaurant"|| placePrimaryCategory === "vegetarian_restaurant"){
         return <FoodMarker color={colors[page].color} strokeColor={colors[page].strokeColor}/>
-        
+
+    }else if(placePrimaryCategory === "bed_and_breakfast"){
+        return <BAndBMarker color={colors[page].color} strokeColor={colors[page].strokeColor}/>
+
+    }else if(placePrimaryCategory === "campground"){
+        return <TentMarker color={colors[page].color} strokeColor={colors[page].strokeColor}/>
+
+    }else if(placePrimaryCategory === "camping_cabin" || placePrimaryCategory === "cottage"){
+        return <CabinMarker color={colors[page].color} strokeColor={colors[page].strokeColor}/>
+
+    }else if(placePrimaryCategory === "rv_park"){
+        return <CaravanMarker color={colors[page].color} strokeColor={colors[page].strokeColor}/>
+    
+    }else if(placePrimaryCategory === "extended_stay_hotel" || placePrimaryCategory === "hotel" || placePrimaryCategory === "lodging" || placePrimaryCategory === "motel" || placePrimaryCategory === "resort_hotel"){
+        return <HotelMarker color={colors[page].color} strokeColor={colors[page].strokeColor}/>
+
+    }else if(placePrimaryCategory === "farmstay" || placePrimaryCategory === "guest_house" || placePrimaryCategory === "private_guest_room"){
+        return <HouseMarker color={colors[page].color} strokeColor={colors[page].strokeColor}/>
+    
+    }else if(placePrimaryCategory === "hostel"){
+        return <HostelMarker color={colors[page].color} strokeColor={colors[page].strokeColor}/>
     
     }else{
         console.log('No marker',place);

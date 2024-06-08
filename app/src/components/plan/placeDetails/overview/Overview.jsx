@@ -6,6 +6,7 @@ import { Tooltip } from 'react-tooltip';
 import PlaceDetailTabs from '../../../global/btns/tabs/placeDetailTabs/PlaceDetailTabs';
 
 function Overview({fullStars, halfStars, emptyStars, googlePlaceId, googlePlaceData, tripId, handleGoBackArrowFunc, coverImage}) {
+
     function splitString(str) {
         const index = str.indexOf(':');
         if (index !== -1) {
@@ -17,7 +18,6 @@ function Overview({fullStars, halfStars, emptyStars, googlePlaceId, googlePlaceD
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
-
 
     return (
         <>

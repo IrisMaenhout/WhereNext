@@ -3,8 +3,8 @@ import React from 'react';
 function SkiMarker({color, strokeColor}) {
     return (
         <svg width="59" height="59" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g clip-path="url(#clip0_710_850)">
-        <path d="M12,0A10.011,10.011,0,0,0,2,10c0,5.282,8.4,12.533,9.354,13.343l.646.546.646-.546C13.6,22.533,22,15.282,22,10A10.011,10.011,0,0,0,12,0Zm0,15a5,5,0,1,1,5-5A5.006,5.006,0,0,1,12,15Z" fill={color} stroke={strokeColor} stroke-width="1"/>
+      <g clipPath="url(#clip0_710_850)">
+        <path d="M12,0A10.011,10.011,0,0,0,2,10c0,5.282,8.4,12.533,9.354,13.343l.646.546.646-.546C13.6,22.533,22,15.282,22,10A10.011,10.011,0,0,0,12,0Zm0,15a5,5,0,1,1,5-5A5.006,5.006,0,0,1,12,15Z" fill={color} stroke={strokeColor} strokeWidth="1"/>
         <circle cx="12" cy="10" r="6" fill={color}/>
         <rect x="6" y="4" width="10" height="10" fill="url(#pattern0_710_916)"/>
         </g>

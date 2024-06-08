@@ -4,11 +4,13 @@ import Overview from './overview/Overview';
 import Reviews from './reviews/Reviews';
 import VisitingInfo from './visitingInfo/VisitingInfo';
 import { LoggedInUserContext } from '../../../context/LoggedInUserContext';
+import { PlacesContext } from '../../../context/LocationsContext';
 
 function PlaceDetails(props) {
+    const { places, setPlaces, setError } = useContext(PlacesContext);
     const { googlePlaceId } = useParams();
     const navigate = useNavigate();
-    const [googlePlaceData, setGooglePlaceData] = useState(undefined);
+    // const [googlePlaceData, setGooglePlaceData] = useState(undefined);
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
     const { state } = useLocation();
     const [savedLocationData, setSavedLocationData] = useState([]);
@@ -16,8 +18,8 @@ function PlaceDetails(props) {
     const tripId = "6654e2621cbe496564c8192d";
     const [forceRerenderCardComponent, setForceRenderCardComponent] = useState(state ? state : 0);
 
-    const fullStars = Math.floor(googlePlaceData?.rating);
-    const halfStars = googlePlaceData?.rating % 1 !== 0 ? 1 : 0;
+    const fullStars = Math.floor(places[0]?.rating);
+    const halfStars = places[0]?.rating % 1 !== 0 ? 1 : 0;
     const emptyStars = 5 - fullStars - halfStars;
 
     const [coverImage, setCoverImage] = useState('');
@@ -51,21 +53,22 @@ function PlaceDetails(props) {
       }, [forceRerenderCardComponent]);
 
     const getGooglePlaceData = () => {
-        fetch(`https://places.googleapis.com/v1/places/${googlePlaceId}?fields=displayName,formattedAddress,photos,primaryType,types,location,rating,userRatingCount,currentOpeningHours,regularOpeningHours,internationalPhoneNumber,priceLevel,websiteUri,editorialSummary,goodForGroups,reservable,reviews&languageCode=en&key=${apiKey}`)
+        fetch(`https://places.googleapis.com/v1/places/${places.length === 1 ?places[0].id : googlePlaceId}?fields=displayName,id,formattedAddress,photos,primaryType,types,location,rating,userRatingCount,currentOpeningHours,regularOpeningHours,internationalPhoneNumber,websiteUri,editorialSummary,goodForGroups,reservable,reviews&languageCode=en&key=${apiKey}`)
             .then(res => res.json())
             .then(data => {
-                setGooglePlaceData(data);
+                setPlaces([data]);
                 console.log('content', data);
             });
     };
 
     useEffect(() => {
         getGooglePlaceData();
+        console.log('somthing',places, places[0]);
     }, []);
 
     const getPictureUrl = async () => {
         try {
-            const response = await fetch(`https://places.googleapis.com/v1/${googlePlaceData.photos[0].name}/media?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&maxHeightPx=800&maxWidthPx=800`);
+            const response = await fetch(`https://places.googleapis.com/v1/${places[0].photos[0].name}/media?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&maxHeightPx=800&maxWidthPx=800`);
             if (response.ok) {
                 setCoverImage(response.url);
             } else {
@@ -77,10 +80,10 @@ function PlaceDetails(props) {
     };
 
     useEffect(() => {
-        if (googlePlaceData && googlePlaceData.photos?.length > 0) {
+        if (places.length !== 0 && places[0].photos?.length > 0) {
             getPictureUrl();
         }
-    }, [googlePlaceData]);
+    }, [places]);
 
     function handleGoBackArrowFunc() {
         navigate(-1);
@@ -88,34 +91,34 @@ function PlaceDetails(props) {
 
     
 
-    if (googlePlaceData !== undefined) {
+    if (places.length !== 0) {
         return (
-            // <Overview 
-            //     fullStars={fullStars}
-            //     halfStars={halfStars}
-            //     emptyStars={emptyStars}
-            //     googlePlaceId={googlePlaceId}
-            //     googlePlaceData={googlePlaceData}
-            //     tripId={tripId}
-            //     handleGoBackArrowFunc={handleGoBackArrowFunc}
-            //     coverImage={coverImage}
-            // />
+            <Overview 
+                fullStars={fullStars}
+                halfStars={halfStars}
+                emptyStars={emptyStars}
+                googlePlaceId={googlePlaceId}
+                googlePlaceData={places[0]}
+                tripId={tripId}
+                handleGoBackArrowFunc={handleGoBackArrowFunc}
+                coverImage={coverImage}
+            />
 
             // <Reviews
-            //     googlePlaceData={googlePlaceData}
+            //     googlePlaceData={places[0]}
             //     googlePlaceId={googlePlaceId} 
             //     tripId={tripId}
             //     handleGoBackArrowFunc={handleGoBackArrowFunc}
             
             // />
 
-            <VisitingInfo 
-                handleGoBackArrowFunc={handleGoBackArrowFunc}
-                googlePlaceData={googlePlaceData}
-                googlePlaceId={googlePlaceId}
-                tripId={tripId}
-                savedLocationData={savedLocationData}
-            />
+            // <VisitingInfo 
+            //     handleGoBackArrowFunc={handleGoBackArrowFunc}
+            //     googlePlaceData={places[0]}
+            //     googlePlaceId={googlePlaceId}
+            //     tripId={tripId}
+            //     savedLocationData={savedLocationData}
+            // />
         );
     } else {
         return <></>

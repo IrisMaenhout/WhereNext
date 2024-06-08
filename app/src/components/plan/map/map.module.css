@@ -3,8 +3,67 @@
     /* height: 100vh; */
     height: 100%;
     z-index: 0;
+    position: relative;
     /* flex: 1; */
 }
+
+.mapTools{
+    display: grid;
+    position: absolute;
+    top: 1rem;
+    gap: 2rem;
+    z-index: 5;
+    width: 100%;
+    grid-template-columns: 3fr 1fr;
+    padding: 0 2rem;
+}
+
+.mapTools div{
+    display: 100%;
+}
+
+.mapTools div input, .mapTools div select{
+    display: block;
+    width: 100%;
+}
+.suggestionsBox{
+    background-color:white;
+    border-radius: .5rem;
+    padding: .5rem 1rem;
+    margin-top: .5rem;
+    z-index: 20;
+}
+
+/* .suggestionsBox .suggestionOption + .suggestionsBox .suggestedMarker{
+    border-top: 1px solid #B3C3C8;
+    padding-top: .5rem;
+} */
+
+
+
+.suggestionsBox p{
+    padding: .5rem 0;
+}
+
+.suggestionsBox p:hover{
+    color: #FB6026;
+    transition: 200ms;
+    cursor: pointer;
+}
+
+.searchbarFunctionality input{
+    
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB60lEQVR4nO2WPW4UQRCFR4A34ScDiSsAd1gTQ4AR7cCvqlZdbY1/ZDBwgUktrgGGoyAhEmxLLMJ2TmwHENmq7Z71Rst0r7VCwiV1NP36q+mqejNVdRX/Sjjnel6wrEwfg9AwCE7joqEK7doz23Op0MD8PDAdBaGzaUsZh16wNDOwaZprQejdxMHfwoBeeeABEd20tSryUAXbgWlvnARjx7TlbyoRqozfQbA27bCU5EbcG+Hl1ysR6pn7nXUDLLZwJXqWBXXO9S5qirXcpJWxOQILftZ1vdBZ6AXLbU1LauWcux4E+3bGquBFZ2EQfErgl1VheMbrVOsPnUUq+GEi695SsHV76vJhBphOTLTp3K1SsKrejnWmk7mCAdwpAGPmq1aiR21nZ4BpN4m2i8GMt7FB6X32OAWmvdJxUsZBPINdjrBnhp+6ciMXHIS2UuJHTb9/I0vsBUtjnx5gsatOZeVxEPozMg9eeVqVRGDstHCzQbvC6W41etMRVAW/1onuFYEb++IkePLtfXMkMwcbNVupe9+Ma5qg7f5iuIV9ZWws/vojIDjWAZ4YrPXqmeF1XS+Y4Zv3KtP3aDI4tYRsZKx7JxvpUuG54b2/2/6ZWLI1cL/6L+DrE9euTF/mBm7hyvRVmT7PFXwVVYpzRPdsy7bGqCcAAAAASUVORK5CYII=") no-repeat scroll .5rem 7px;
+    background-size: 20px;
+    background-color: #FFFFFF;
+    padding: .5rem 1rem;
+    padding-left: 2.5rem;
+    border-radius: .5rem;
+    border: 1px solid #B3C3C8;
+    max-width: 30rem;
+}
+
+
 
 .suggestedMarker{
     /* filter: invert(10%) sepia(88%) saturate(3719%) hue-rotate(319deg) brightness(87%) contrast(105%); */
@@ -17,3 +76,24 @@
         height: calc(100vh - 4.3rem);
     }
 }
+
+/* .mapComponent{
+    position: relative;
+} */
+
+/* .searchbar{
+    position: absolute;
+    right: 4rem;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    gap: .5rem;
+} */
+
+/* .suggestions{
+    background-color: white;
+    border-radius: .5rem;
+    padding: 1rem;
+    width: 40%;
+} */
