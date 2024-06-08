@@ -1,9 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import BucketListCard from './bucketListCard/BucketListCard';
-import { LoggedInUserContext, useLoggedInUserContext } from '../../../context/LoggedInUserContext';
+
 import { useLocation } from 'react-router-dom';
 import PrimaryLinkBtn from '../../global/btns/primary/link/PrimaryLinkBtn';
 import styles from './bucketList.module.css';
+import { LoggedInUserContext } from '../../../context/LoggedInUserContext';
+import { PlacesContext } from '../../../context/LocationsContext';
+import { Tooltip } from 'react-tooltip';
 // import { LoggedInUserContext } from '../../../context/LoggedInUserContext';
 
 function BucketList(props) {
@@ -11,6 +14,8 @@ function BucketList(props) {
     // const { loggedInUserData } = useContext(useLoggedInUserContext);
 
     const loggedInUser = useContext(LoggedInUserContext);
+    const { places, setPlaces } = useContext(PlacesContext);
+    const [ isCardViewSimple, setIsCardViewSimple ] = useState(true);
 
     // console.log('loggedInUserData', loggedInUserData);
     const tripId = "6654e2621cbe496564c8192d";
@@ -60,26 +65,50 @@ function BucketList(props) {
         getBucketListItems();
       }, [forceRerenderCardComponent]);
 
+      const toggleCardView = () => {
+        setIsCardViewSimple((isSimple)=> !isSimple);
+      }
 
 
     return (
+        <>
         <div>
             <div className={styles.flexContainer}>
                 <h1>Bucketlist</h1>
-                <PrimaryLinkBtn url={`${window.location.href}/suggestions`}>
-                  Add
-                </PrimaryLinkBtn>
+
+                <div className={styles.topBtns}>
+                  <button 
+                    onClick={toggleCardView}
+                    data-tooltip-id={`toggle-${!isCardViewSimple ? 'simple': 'voting'}-view-btn`}
+                    data-tooltip-content={!isCardViewSimple ? 'Simple list': 'List for voting'}
+                    className={styles.toggleCardView}
+                  >
+                    {
+                      isCardViewSimple ?
+                      <i className="fi fi-ss-people-poll"></i>
+                      :
+                      <i className="fi fi-rr-list"></i>
+                    }
+                  </button>
+                  <PrimaryLinkBtn url={`${window.location.href}/suggestions`}>
+                    Add
+                  </PrimaryLinkBtn>
+                </div>
+                
             </div>
 
-            <div className='gridBucketListSidebar'>
-            {
+            <div className={`gridBucketListSidebar ${isCardViewSimple? 'gridSimpleCards' : 'gridVotingCards'}`}>
+            { 
               bucketListItems.length > 0 &&
               bucketListItems.map((item)=> (
-                  <BucketListCard key={`bucket-list-item-${item._id}`} locationApiData={item} userId={loggedInUser._id}/>
+                  <BucketListCard key={`bucket-list-item-${item._id}`} locationApiData={item} userId={loggedInUser._id} setPlaces={setPlaces} isCardViewSimple={isCardViewSimple}/>
               ))
             }
             </div>
         </div>
+
+      <Tooltip id={`toggle-${!isCardViewSimple ? 'simple': 'voting'}-view-btn`} border='1px solid #B0BDC7' style={{backgroundColor: '#EDF2FC', color: '#6C7886'}} place='bottom'/>
+      </>
     );
 }
 

@@ -89,7 +89,7 @@ function PlanningPage({children}) {
     return (
         <PlacesProvider>
             <div className={styles.container}>
-                <Header menuBtnHandleClick={handleSubNavMenuClick} isPlaningPages={true}/>
+                <Header menuBtnHandleClick={handleSubNavMenuClick} isPlaningPages={true} isTripsOverviewPage={false}/>
                 <div className="contentWrapper">
                     <Sidebar />
                     <div className={styles.main}>

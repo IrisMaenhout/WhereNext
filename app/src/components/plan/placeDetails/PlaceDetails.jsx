@@ -91,18 +91,18 @@ function PlaceDetails(props) {
 
     
 
-    if (places.length !== 0) {
+    if (places.length === 1) {
         return (
-            <Overview 
-                fullStars={fullStars}
-                halfStars={halfStars}
-                emptyStars={emptyStars}
-                googlePlaceId={googlePlaceId}
-                googlePlaceData={places[0]}
-                tripId={tripId}
-                handleGoBackArrowFunc={handleGoBackArrowFunc}
-                coverImage={coverImage}
-            />
+            // <Overview 
+            //     fullStars={fullStars}
+            //     halfStars={halfStars}
+            //     emptyStars={emptyStars}
+            //     googlePlaceId={googlePlaceId}
+            //     googlePlaceData={places[0]}
+            //     tripId={tripId}
+            //     handleGoBackArrowFunc={handleGoBackArrowFunc}
+            //     coverImage={coverImage}
+            // />
 
             // <Reviews
             //     googlePlaceData={places[0]}
@@ -112,13 +112,13 @@ function PlaceDetails(props) {
             
             // />
 
-            // <VisitingInfo 
-            //     handleGoBackArrowFunc={handleGoBackArrowFunc}
-            //     googlePlaceData={places[0]}
-            //     googlePlaceId={googlePlaceId}
-            //     tripId={tripId}
-            //     savedLocationData={savedLocationData}
-            // />
+            <VisitingInfo 
+                handleGoBackArrowFunc={handleGoBackArrowFunc}
+                googlePlaceData={places[0]}
+                googlePlaceId={googlePlaceId}
+                tripId={tripId}
+                savedLocationData={savedLocationData}
+            />
         );
     } else {
         return <></>

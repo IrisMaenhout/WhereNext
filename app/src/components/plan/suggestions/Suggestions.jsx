@@ -13,6 +13,7 @@ const Suggestions = ({page}) => {
   // const [query, setQuery] = useState('');
   const { places, setPlaces, setError } = useContext(PlacesContext);
   const tripId = "6654e2621cbe496564c8192d";
+  const [ getCurrentPlaces, setGetCurrentPlaces] = useState(false);
 
   const { state } = useLocation();
   const [forceRerenderCardComponent, setForceRenderCardComponent] = useState(state ? state : 0);
@@ -111,8 +112,9 @@ const Suggestions = ({page}) => {
       }
 
       const data = await response.json();
-      console.log(data);
+      console.log('fetched suggestion',data);
       setPlaces(data.places || []);
+      setGetCurrentPlaces(true);
     } catch (error) {
       setError(error.message);
     }
@@ -140,6 +142,8 @@ const Suggestions = ({page}) => {
   }
 
   function onSave(){
+    setPlaces([]);
+    setGetCurrentPlaces(false)
     searchPlaces();
   }
   
@@ -188,95 +192,100 @@ const Suggestions = ({page}) => {
   }
   ];
 
-  return (
-    <div className={styles.suggestions}>
-
-      <div className={styles.flexContainer}>
-        <div className={styles.titleContainer}>
-          <button onClick={() => navigate(-1)}><i className="fi fi-sr-angle-left"></i></button>
-          <h1>Suggestions</h1>
-        </div>
-        <button className={styles.filter} onClick={() => setFilterOptionsVisible(prev => !prev)}>
-          <i className={filterOptionsVisible ? 'fi fi-rr-clear-alt' : 'fi fi-rr-filter'}></i>
-        </button>
-      </div>
-      
-      {filterOptionsVisible && 
-        <div className={`${styles.filterContainer}`}>
-          <div className={styles.flexContainer}>
-            <h3>Filter on categories</h3>
-            <PrimaryBtn onClick={onSave}>
-              Save
-            </PrimaryBtn>
+  if(getCurrentPlaces){
+    return (
+      <div className={styles.suggestions}>
+  
+        <div className={styles.flexContainer}>
+          <div className={styles.titleContainer}>
+            <button onClick={() => navigate(-1)}><i className="fi fi-sr-angle-left"></i></button>
+            <h1>Suggestions</h1>
           </div>
-
-          {
-            page === "accomodations" ?
-            <>
-              <label>Accomodations</label>
-              <FilterCategories 
-                groupedOptions={groupedOptionsAccomodations}
-                defaultSelected={[
-                  filterCategories.accomodations[0],
-                  filterCategories.accomodations[1],
-                  filterCategories.accomodations[3],
-                  filterCategories.accomodations[5],
-                  filterCategories.accomodations[6],
-                  filterCategories.accomodations[7]
-                ]}
-                handleChange={(selectedValues) => handleChangeFilterInputs('accomodations', selectedValues)}
-              />
-            </>
-            
-            :
-            
-            <>
-              <label>Things to do</label>
-              <FilterCategories 
-                groupedOptions={groupedOptionsThingsToDo}
-                defaultSelected={[
-                  filterCategories.thingsToDo[1],
-                  filterCategories.thingsToDo[7],
-                  filterCategories.thingsToDo[9],
-                  filterCategories.thingsToDo[12],
-                  filterCategories.sport[0]
-                ]}
-                handleChange={(selectedValues) => handleChangeFilterInputs('thingsToDo', selectedValues)}
-              />
-              <label>Restaurants</label>
-              <FilterCategories 
-                groupedOptions={groupedOptionsFoodAndDrinks}
-                defaultSelected={includeTypes.foodAndDrinks}
-                handleChange={(selectedValues) => handleChangeFilterInputs('foodAndDrinks', selectedValues)}
-              />
-            
-            </>
-            
-          }
-          
+          <button className={styles.filter} onClick={() => setFilterOptionsVisible(prev => !prev)}>
+            <i className={filterOptionsVisible ? 'fi fi-rr-clear-alt' : 'fi fi-rr-filter'}></i>
+          </button>
         </div>
-      }
-      
-      
-
-      <div className='gridPlanSidebar'>
-        {
-          places.length > 0 ?
-
-          places.map((place)=> (
-            <PlaceCard key={`suggestions-place-${place.id}`} place={place} isSuggestion={true} tripId={tripId}/>
-          ))
-
-          :
-
-          <p>There are no results for these categories</p>
-
+        
+        {filterOptionsVisible && 
+          <div className={`${styles.filterContainer}`}>
+            <div className={styles.flexContainer}>
+              <h3>Filter on categories</h3>
+              <PrimaryBtn onClick={onSave}>
+                Save
+              </PrimaryBtn>
+            </div>
+  
+            {
+              page === "accomodations" ?
+              <>
+                <label>Accomodations</label>
+                <FilterCategories 
+                  groupedOptions={groupedOptionsAccomodations}
+                  defaultSelected={[
+                    filterCategories.accomodations[0],
+                    filterCategories.accomodations[1],
+                    filterCategories.accomodations[3],
+                    filterCategories.accomodations[5],
+                    filterCategories.accomodations[6],
+                    filterCategories.accomodations[7]
+                  ]}
+                  handleChange={(selectedValues) => handleChangeFilterInputs('accomodations', selectedValues)}
+                />
+              </>
+              
+              :
+              
+              <>
+                <label>Things to do</label>
+                <FilterCategories 
+                  groupedOptions={groupedOptionsThingsToDo}
+                  defaultSelected={[
+                    filterCategories.thingsToDo[1],
+                    filterCategories.thingsToDo[7],
+                    filterCategories.thingsToDo[9],
+                    filterCategories.thingsToDo[12],
+                    filterCategories.sport[0]
+                  ]}
+                  handleChange={(selectedValues) => handleChangeFilterInputs('thingsToDo', selectedValues)}
+                />
+                <label>Restaurants</label>
+                <FilterCategories 
+                  groupedOptions={groupedOptionsFoodAndDrinks}
+                  defaultSelected={includeTypes.foodAndDrinks}
+                  handleChange={(selectedValues) => handleChangeFilterInputs('foodAndDrinks', selectedValues)}
+                />
+              
+              </>
+              
+            }
+            
+          </div>
         }
+        
+        
+  
+        <div className='gridPlanSidebar'>
+          {
+            places.length > 0 ?
+  
+            places.map((place)=> (
+              <PlaceCard key={`suggestions-place-${place.id}`} place={place} isSuggestion={true} tripId={tripId}/>
+            ))
+  
+            :
+  
+            <p>There are no results for these categories</p>
+  
+          }
+        </div>
+  
+        
       </div>
-
-      
-    </div>
-  );
+    );
+  }else{
+    return <></>
+  }
+  
 };
 
 export default Suggestions;

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import SecondaryBtn from '../btns/secondary/btn/SecondaryBtn';
 import { LoggedInUserContext, useLoggedInUserContext } from '../../../context/LoggedInUserContext';
 
-function Header({isPlaningPages, menuBtnHandleClick}) {
+function Header({isPlaningPages, menuBtnHandleClick, isTripsOverviewPage}) {
 
     // const { loggedInUserData } = useContext(useLoggedInUserContext);
 
@@ -42,20 +42,32 @@ function Header({isPlaningPages, menuBtnHandleClick}) {
 
                 <nav className={styles.right}>
 
-                    {/* Desktop nav links */}
-                    <SecondaryBtn style={styles.navElementDesktop}onClick={handleClick}>Invite a friend</SecondaryBtn>
+                    {
+                        isTripsOverviewPage ?
 
-                    <Link to={"../trip-settings"} className={styles.navElementDesktop}>Trip settings</Link>
+                        <></>
+
+                        :
+
+                        <>
+                            {/* Desktop nav links */}
+                            <SecondaryBtn style={styles.navElementDesktop}onClick={handleClick}>Invite a friend</SecondaryBtn>
+
+                            <Link to={"../trip-settings"} className={styles.navElementDesktop}>Trip settings</Link>
 
 
-                     {/* Mobile nav links */}
-                    <button className={styles.navElementMobile}>
-                        <i className="fi fi-rr-user-add"></i>
-                    </button>
+                            {/* Mobile nav links */}
+                            <button className={styles.navElementMobile}>
+                                <i className="fi fi-rr-user-add"></i>
+                            </button>
 
-                    <Link className={styles.navElementMobile}>
-                        <i className="fi fi-rr-settings"></i>
-                    </Link>
+                            <Link className={styles.navElementMobile}>
+                                <i className="fi fi-rr-settings"></i>
+                            </Link>
+                        
+                        </>
+
+                    }
 
 
                     {/* Avatar for both mobile and desktop */}

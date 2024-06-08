@@ -88,7 +88,7 @@ function SavePlaceBtn({placeId, tripId, position, isAccomodation}) {
             }
           });
     
-          if (!response.ok) {
+          if (!response.ok ||response.status === 404) {
             console.log(response);
             setLocationInDB(false);
           }
@@ -102,6 +102,7 @@ function SavePlaceBtn({placeId, tripId, position, isAccomodation}) {
             accomodations: false
         });
         } catch (error) {
+            console.log(error);
             // throw new Error(error);
           // setError(error.message);
         }

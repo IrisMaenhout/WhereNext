@@ -1,0 +1,13 @@
+.sidebar{
+    position: fixed;
+    left: 0;
+    background-color: white;
+    padding: 2rem 1rem;
+    border-right: 1px solid #E4E4E4;
+    box-shadow: 4px 4px 15px 0px rgba(217, 222, 224, 0.3);
+    height: 100%;
+}
+
+.sidebar h3{
+    margin-bottom: 1rem;
+}

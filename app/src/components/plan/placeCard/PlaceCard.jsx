@@ -123,8 +123,8 @@ function PlaceCard({ place, isSuggestion, tripId, locationApiData, isItinerary, 
                     </div>
                 </div>
             </div>
-            <Tooltip id={`rating-place-${place ? place.id : locationApiData.googleLocationId}`}/>
-            <Tooltip id={`price-place-${place ? place.id : locationApiData.googleLocationId}`}/>
+            <Tooltip id={`rating-place-${place ? place.id : locationApiData.googleLocationId}`} border='1px solid #B0BDC7' style={{backgroundColor: '#EDF2FC', color: '#6C7886'}} place='bottom' opacity={1}/>
+            {/* <Tooltip id={`price-place-${place ? place.id : locationApiData.googleLocationId}`}/> */}
             </>
         );
     } else {

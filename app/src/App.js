@@ -11,9 +11,25 @@ import Suggestions from './components/plan/suggestions/Suggestions';
 import Itinerary from './components/plan/itinerary/Itinerary';
 import Overview from './components/plan/placeDetails/overview/Overview';
 import PlaceDetails from './components/plan/placeDetails/PlaceDetails';
+import TripOverview from './components/trip/TripOverview';
+
 
 function App() {
   const { loggedInUser, setLoggedInUser } = useLoggedInUser();
+
+
+  // const onPop = (e) => {
+  //   console.log('popEcente', e);
+    
+  // }
+
+  // useEffect(()=> {
+  //   window.addEventListener('popstate', onPop)
+   
+  //   return () => window.removeEventListener("popstate", onPop);
+  // }, [onPop])
+
+
   
   if (!loggedInUser) {
     return <Login setLogin={setLoggedInUser} />;
@@ -22,6 +38,7 @@ function App() {
       <LoggedInUserProvider value={loggedInUser}>
         <Routes>
           <Route path="/" element={<PlanningPage />} />
+          <Route path="/my-trips" element={<TripOverview />} />
           <Route path="/bucket-list" element={
               <PlanningPage>
                 <BucketList />

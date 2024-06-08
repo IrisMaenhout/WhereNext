@@ -2,8 +2,11 @@ import React from 'react';
 import styles from './visitingInfo.module.css';
 import PlaceDetailHeader from '../placeDetailHeader/PlaceDetailHeader';
 import Editor from '../../../global/editor/Editor';
+import PollStatistics from '../../bucketList/pollStatistics/PollStatistics';
 
 function VisitingInfo({handleGoBackArrowFunc, googlePlaceData, googlePlaceId, tripId, savedLocationData}) {
+    const numberOfTripMembers = 6;
+
     return (
         <div className={styles.visitingInfo}>
             <PlaceDetailHeader 
@@ -50,6 +53,21 @@ function VisitingInfo({handleGoBackArrowFunc, googlePlaceData, googlePlaceId, tr
 
             <div>
                 <h3>Interest in this activity</h3>
+
+                <div className={styles.pollStatisticsContainer}>
+                    <PollStatistics
+                         numberOfTripMembers={numberOfTripMembers}
+                         locationApiData={savedLocationData}
+                    />
+                </div>
+            </div>
+
+
+            <div>
+                <h3>Friends & individual excitement</h3>
+
+                
+
             </div>
 
 

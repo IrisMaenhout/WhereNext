@@ -8,98 +8,17 @@
     box-shadow: 4px 4px 15px 4px rgba(217, 222, 224, 0.3);
 }
 
-.bucketListCard .topCard, .bucketListCard .averageGroupInterestPercentage, .bucketListCard .groupInterestGraph{
-    background-color: #FFFFFF;
-    border-radius: .5rem;
-    padding: .5rem;
-}
-
-.bucketListCard .topCard{
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 1rem;
-    /* position: relative; */
-}
-
-.bucketListCard .topCard .left{
-    position: relative;
-}
-
-.bucketListCard .topCard img{
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 1rem;
-    height: 100%;
-}
-
-.bucketListCard .saveBtn{
-    z-index: 5;
-    position: absolute;
-    top: .5rem;
-    left: .5rem;
-}
-
-
-.bucketListCard .location{
-    display: flex;
-    gap: .5rem;
-    align-items: center;
-    margin-top: 1.5rem;
-}
-
-.bucketListCard .location i{
+.bucketListCard .infoRatingIcon{
     font-size: large;
+    left: 5rem;
+    padding: .2rem;
+    position: absolute;
 }
 
-
-.categories{
-    margin-top: 1rem;
-    border-top: 1px solid #e2e2e2;
-    display: flex;
-    gap: 1rem;
-    padding-top: 1rem;
-}
-
-.categories p{
-    background-color: #FFE9BE;
-    padding: .5rem 1rem;
-    border-radius: .5rem;
-}
-
-.categories .moreCategories {
-    background-color: #ecbe62;
-    color: white;
-    font-weight: 600;
-}
-
-.bucketListCard .averageGroupInterestPercentage{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: .5rem 1rem;
-
-}
-
-.averageGroupInterestPercentage div{
+.bucketListCard .flexRatingTitle{
     display: flex;
     gap: .5rem;
-    align-items: center;
-}
-
-.averageGroupInterestPercentage div p{
-    font-size: 14px;
-    color: #adb4b6;
-}
-
-.bucketListCard .averageGroupInterestPercentage .percentage{
-    color: #FB6026;
-    font-size: 21px;
-}
-
-.bucketListCard .graph{
-    min-height: 12rem;
-    padding: 1rem;
+    position: relative;
 }
 
 

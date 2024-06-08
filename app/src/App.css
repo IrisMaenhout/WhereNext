@@ -36,8 +36,22 @@
 .gridBucketListSidebar{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-    gap: 4rem;
     margin-top: 2rem;
+}
+
+.gridVotingCards{
+    gap: 4rem;
+}
+
+.gridSimpleCards{
+    gap: 2rem;
+}
+
+.highlightTripCalendar{
+    display: block;
+    background-color: #FFD37E;
+    height: .5rem;
+    width: 100%;
 }
 
 

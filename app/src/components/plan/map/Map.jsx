@@ -106,7 +106,7 @@ function Map(props) {
     return (
         <div className={styles.mapComponent}>
             <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY} language='en'>
-                {places.length !== 0 &&
+                {/* {places.length !== 0 && */}
                     <>
                         <div className={styles.mapContainer}>
                             <div className={styles.mapTools}>
@@ -155,21 +155,21 @@ function Map(props) {
                                 disableDefaultUI={true}
                                 streetViewControl={true}
                             >
-                                {places.map(place => (
+                                {places.length !== 0 && (places.map((place, i) => (
                                     <AdvancedMarker
-                                        key={`location-${place.id}-marker`}
+                                        key={`location-${i}-marker`}
                                         position={{ lat: place.location.latitude, lng: place.location.longitude }}
                                         onClick={() => handleMarkerClick(place.id)}
                                     >
                                         <div width={24} height={24}>
                                             <MarkerTypes place={place} page={"detail"} />
                                         </div>
-                                    </AdvancedMarker>
+                                    </AdvancedMarker>)
                                 ))}
                             </GoogleMap>
                         </div>
                     </>
-                }
+                {/* } */}
             </APIProvider>
         </div>
     );

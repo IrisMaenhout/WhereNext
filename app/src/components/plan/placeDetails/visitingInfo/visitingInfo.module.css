@@ -11,7 +11,7 @@
 }
 
 .visitingInfo h3{
-    margin: 2rem 0 .5rem 0;
+    margin: 3rem 0 1rem 0;
 }
 
 
@@ -43,5 +43,44 @@
     max-height: 25rem;
     overflow-y: auto;
     padding: 2rem 0;
+
+     /* WebKit-based browsers (Chrome, Safari, newer versions of Edge) */
+     scrollbar-width: thin; /* Firefox */
+     scrollbar-color: #FDB833 #f1f1f1; /* Firefox */
     /* background-color: #FBFBFB; */
+}
+
+/* For WebKit-based browsers */
+.editorContainer::-webkit-scrollbar {
+    width: 12px;
+}
+
+.editorContainer::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.editorContainer::-webkit-scrollbar-thumb {
+    background-color: #FDB833;
+    border-radius: 10px;
+    border: 3px solid #f1f1f1; /* Adds padding around the thumb */
+}
+
+.editorContainer::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+/* For Firefox */
+.editorContainer {
+    scrollbar-width: thin;
+    scrollbar-color: #FDB833 #f1f1f1;
+}
+
+.pollStatisticsContainer{
+    background-color: #FFE9BE;
+    border-radius: 1rem;
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
 }
