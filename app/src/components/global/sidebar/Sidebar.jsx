@@ -22,7 +22,7 @@ function Sidebar(props) {
                         <p>Research</p>
                     </Link>
 
-                    <Link to={""}>
+                    {/* <Link to={""}>
                         <i className="fi fi-rs-ticket-airline"></i>
                         <p>Tickets</p>
                     </Link>
@@ -30,7 +30,7 @@ function Sidebar(props) {
                     <Link to={""}>
                         <i className="fi fi-rr-suitcase-alt"></i>
                         <p>Packing list</p>
-                    </Link>
+                    </Link> */}
 
                 </div>
 

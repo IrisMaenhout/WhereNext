@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Calendar from './calendar/Calendar';
 import styles from './calendarSidebar.module.css';
 
-function CalendarSidebar() {
+function CalendarSidebar({trips}) {
+
+    const [selectedTrip, setSelectedTrip] = useState();
+
+    function handleClickOnTripCalendar() {
+      console.log("Zie je dit?");
+      // setSelectedTrip()
+    }
+
     const dates = [
         '2024-06-23', '2024-06-24', '2024-06-25'
     ]
@@ -25,15 +33,25 @@ function CalendarSidebar() {
                     
                     HTMLButtonElement.innerHTML = `
                     <span>${day}</span>
-                    <span class="highlightTripCalendar"></span>
+                    <span class="highlightTripCalendar" onclick="handleClickOnTripCalendar()"></span>
                     `;
                 }
                     
             })
           
         },
-      },
-  };
+        clickArrow(event, self) {
+          console.log(self.selectedYear, self.selectedMonth);
+        },
+        clickYear(event, self) {
+          console.log(self.selectedYear, self.selectedMonth);
+        },
+        clickMonth(e, self) {
+          console.log(self.selectedYear, self.selectedMonth);
+        },
+    },
+};
+ 
 
   
 

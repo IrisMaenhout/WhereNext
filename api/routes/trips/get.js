@@ -4,6 +4,7 @@ import { db } from "../../db/mongo.js";
 // import { adminMiddleware } from "../../middleware/adminMiddleware.js";
 // import { realEstateAgentMiddleware } from "../../middleware/realEstateAgentMiddleware.js";
 import { isValidObjectId } from "../../validators/idValidator.js";
+import { loggedInMiddleware } from "../../middleware/loggedInMiddleware.js";
 
 const getTripsRouter = express.Router();
 
@@ -11,6 +12,30 @@ const getTripsRouter = express.Router();
 getTripsRouter.get("/", async (req, res) => {
   const trips = await db.collection("trips").find().toArray();
   res.json(trips);
+});
+
+// Get all trips for the logged in user
+getTripsRouter.get("/my-trips", loggedInMiddleware, async (req, res) => {
+  const loggedInUserId = req.user._id;
+  console.log(loggedInUserId);
+
+  const trips = await db.collection("trips").find({
+    members: { $all: [loggedInUserId] }
+  }).toArray();
+
+  if (trips) {
+    const tripsWithFormattedDates = trips.map(trip => {
+      return {
+        ...trip,
+        startDateString: new Date(trip.startDate).toLocaleDateString(),
+        endDateString: new Date(trip.endDate).toLocaleDateString()
+      };
+    });
+
+    return res.json(tripsWithFormattedDates);
+  } else {
+    return res.status(404).json({ error: "There are no trips found for this user." });
+  }
 });
 
 // Get trip by id 

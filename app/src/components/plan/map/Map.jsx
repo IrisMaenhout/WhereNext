@@ -17,6 +17,7 @@ function Map(props) {
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
     const [searchBarValue, setSearchBarValue] = useState('');
     const [searchSuggestions, setSearchSuggestions] = useState(undefined);
+    const [mapType, setMaptype] = useState('simple');
     
     
 
@@ -133,14 +134,6 @@ function Map(props) {
                                     </Combobox>
                                 </div>
 
-                                <div className={styles.mapTypeSelect}>
-                                    <select name="cars" id="cars">
-                                        <option value="volvo">Volvo</option>
-                                        <option value="saab">Saab</option>
-                                        <option value="mercedes">Mercedes</option>
-                                        <option value="audi">Audi</option>
-                                    </select>
-                                </div>
                             </div>
 
 
@@ -149,7 +142,7 @@ function Map(props) {
                                 defaultCenter={mapCenter}
                                 defaultZoom={places.length === 1 ? 15 : 12}
                                 minZoom={4}
-                                mapId={process.env.REACT_APP_SIMPLE_MAP_STYLE_ID}
+                                mapId={mapType === "simple" ? process.env.REACT_APP_SIMPLE_MAP_STYLE_ID : process.env.REACT_APP_COMPLEX_MAP_STYLE_ID}
                                 gestureHandling={'greedy'}
                                 reuseMaps={true}
                                 disableDefaultUI={true}

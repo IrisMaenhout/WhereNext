@@ -34,6 +34,7 @@
     "react-scripts": "5.0.1",
     "react-select": "^5.8.0",
     "react-tooltip": "^5.26.4",
+    "react-world-flags": "^1.6.0",
     "vanilla-calendar-pro": "^2.9.6",
     "web-vitals": "^2.1.4",
     "y-webrtc": "^10.3.0",

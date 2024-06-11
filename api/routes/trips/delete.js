@@ -26,10 +26,11 @@ async function deleteData(dbId, dbName, req, res) {
 }
 
 
-// Remove user by id
+// Remove trip and all locations that belonged to it
 deleteTripsRouter.delete("/:tripId", async (req, res) => {
   const tripId = req.params.tripId;
 
+  console.log('tripId: ', tripId);
   // Validation
   const { error } = idSchema.validate(tripId);
 

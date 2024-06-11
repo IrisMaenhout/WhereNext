@@ -1,0 +1,99 @@
+.btnContainer{
+    position: relative;
+}
+
+.saveBtn i:hover{
+    /* margin-top: .5rem; */
+    color: #FB6026;
+    transition: 200ms;
+    scale: 1.2;
+}
+
+
+.containerSaveToPagesBtns{
+    background-color: white;
+    position: absolute;
+    margin-top: 0.5rem;
+    border-radius: .5rem;
+    padding: 1rem;
+    box-shadow: 4px 4px 15px 4px rgba(217, 222, 224, 0.3);
+}
+
+.right{
+    right: 0;
+}
+
+.containerSaveToPagesBtns .page{
+    display: flex;
+    /* align-items: center; */
+    gap: 1rem;
+}
+
+.page+.page{
+    margin-top: .5rem;
+}
+
+.page:hover i, .page:hover p{
+   color: #FB6026;
+   transition: 200ms;
+   scale: 1.1;
+   cursor: pointer;
+}
+
+.containerSaveToPagesBtns .page div{
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+}
+
+.containerSaveToPagesBtns .page div i{
+    font-size: large;
+}
+
+.containerSaveToPagesBtns .addBtn, .containerSaveToPagesBtns .addedBtn{
+    /* color: #FB6026; */
+    font-size: 1.5rem;
+}
+
+.containerSaveToPagesBtns .addedBtn{
+    color: #FB6026;
+}
+
+.containerSaveToPagesBtns .addedBtn:hover{
+    color: #db3b01;
+    transition: 200ms;
+    font-size: 1.7rem;
+}
+
+.containerSaveToPagesBtns .addBtn:hover{
+    /* color: #FB6026; */
+    color: #FB6026;
+    transition: 200ms;
+    font-size: 1.7rem;
+}
+
+
+.deletePopupWidth{
+    max-width: 32rem;
+}
+
+.deleteBtn{
+    width: 100%;
+    margin-top: 2rem;
+    background-color: #941816;
+    color: white;
+    font-weight: 700;
+    padding: 1rem;
+    border-radius: .5rem;
+    font-size: medium;
+}
+
+.deleteBtn:hover{
+    scale: 1.05;
+    background-color: #b40c0a;
+    transition: 200ms;
+}
+
+.successMessage{
+    color: rgb(46, 179, 46);
+}

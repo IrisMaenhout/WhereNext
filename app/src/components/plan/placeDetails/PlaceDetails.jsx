@@ -8,13 +8,14 @@ import { PlacesContext } from '../../../context/LocationsContext';
 
 function PlaceDetails(props) {
     const { places, setPlaces, setError } = useContext(PlacesContext);
+    const loggedInUser = useContext(LoggedInUserContext);
     const { googlePlaceId } = useParams();
     const navigate = useNavigate();
     // const [googlePlaceData, setGooglePlaceData] = useState(undefined);
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
     const { state } = useLocation();
     const [savedLocationData, setSavedLocationData] = useState([]);
-    const loggedInUser = useContext(LoggedInUserContext);
+    
     const tripId = "6654e2621cbe496564c8192d";
     const [forceRerenderCardComponent, setForceRenderCardComponent] = useState(state ? state : 0);
 

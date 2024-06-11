@@ -10,16 +10,16 @@ export const createTripSchema = Joi.object({
 	endDate: Joi.date().greater(Joi.ref('startDate')).required(),
     country: Joi.object({
 		name: Joi.string().required(),
-		image: Joi.string().required()
-	}).required(),
-    cities: Joi.array().items(
-        Joi.object({
+		// image: Joi.string().required()
+        location: Joi.object({
             lat: Joi.number().required(),
             lng: Joi.number().required()
-        })
-    ).required(),
-	budget: Joi.number().positive(),
-	password: Joi.string().required()
+        }).required()
+	}).required(),
+    cities: Joi.array().items(Joi.string()).required(),
+    datesArray: Joi.array().items(Joi.date()).required()
+	// budget: Joi.number().positive(),
+	// password: Joi.string().required()
 });
 
 
@@ -33,17 +33,17 @@ export const updateTripSchema = Joi.object({
     tripName: Joi.string(),
 	startDate: Joi.date().greater('now'),
 	endDate: Joi.date().greater(Joi.ref('startDate')),
+    datesArray: Joi.array().items(Joi.date()),
     country: Joi.object({
 		name: Joi.string(),
-		image: Joi.string()
-	}),
-    cities: Joi.array().items(
-        Joi.object({
-            lat: Joi.number(),
-            lng: Joi.number()
+		// image: Joi.string()
+        location: Joi.object({
+            lat: Joi.number().required(),
+            lng: Joi.number().required()
         })
-    ),
+	}),
+    cities: Joi.array().items(Joi.string()),
     members: Joi.array().items(Joi.string()),
-	budget: Joi.number().positive(),
-	password: Joi.string()
+	// budget: Joi.number().positive(),
+	// password: Joi.string()
 });

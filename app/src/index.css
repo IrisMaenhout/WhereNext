@@ -34,7 +34,7 @@ h1, h2, h3, h4, h5, h6{
 }
 
 
-p, b, i, li, button, a, input[type="text"], select, label, ::placeholder{
+p, b, i, li, button, a, input[type="text"], select, label, ::placeholder, span{
   font-family: "Nunito", sans-serif;
 }
 
@@ -44,7 +44,7 @@ i{
   color: #9eacb0;
 }
 
-p, li, a{
+p, li, a, input, select{
   color: #6C7886;
 }
 

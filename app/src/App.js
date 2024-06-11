@@ -12,6 +12,8 @@ import Itinerary from './components/plan/itinerary/Itinerary';
 import Overview from './components/plan/placeDetails/overview/Overview';
 import PlaceDetails from './components/plan/placeDetails/PlaceDetails';
 import TripOverview from './components/trip/TripOverview';
+import JoinTrip from './components/trip/joinTrip/JoinTrip';
+import AddTrip from './components/trip/addTrip/AddTrip';
 
 
 function App() {
@@ -39,7 +41,10 @@ function App() {
         <Routes>
           <Route path="/" element={<PlanningPage />} />
           <Route path="/my-trips" element={<TripOverview />} />
-          <Route path="/bucket-list" element={
+          <Route path="/add-trip" element={<AddTrip />} />
+          <Route path="/trip/:tripId/edit" element={<AddTrip isEditPage={true}/>} />
+          <Route path="/join-trip/:tripId" element={<JoinTrip />} />
+          <Route path="/trip/:tripId/plan/bucket-list" element={
               <PlanningPage>
                 <BucketList />
               </PlanningPage>

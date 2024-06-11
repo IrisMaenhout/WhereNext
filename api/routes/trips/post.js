@@ -27,7 +27,7 @@ postTripsRouter.post("/add", loggedInMiddleware, async (req, res) => {
         return res.status(400).json({ error: errorArray });
     }
 
-    const { tripName, startDate, endDate, password, country, cities } = value;
+    const { tripName, startDate, endDate, country, cities, datesArray } = value;
     // const salt = await bcrypt.genSalt(10);
     
     // //   Hash given password
@@ -39,8 +39,9 @@ postTripsRouter.post("/add", loggedInMiddleware, async (req, res) => {
         endDate: endDate,
         country: country,
         cities: cities,
-        members: [loggedInUserId.toString()],
-        password: password,
+        members: [loggedInUserId],
+        // password: password,
+        datesArray: datesArray,
         createdOn: Date.now()
     });
 

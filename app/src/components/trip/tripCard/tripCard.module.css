@@ -1,0 +1,105 @@
+.card{
+    width: 100%;
+}
+
+.card .coverImg{
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 1rem;
+    display: block;
+    margin: .5rem 0 1rem 0;
+}
+
+
+.selectedCardImg{
+    height: 20rem;
+}
+
+.card .topInfo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.card .topInfo .travelCompanions{
+    display: flex;
+    justify-content: space-between;
+}
+
+.card .topInfo .avatar{
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    border: 2px solid white;
+}
+
+.card .topInfo .avatar+.avatar{
+   margin-left: -1rem;
+}
+
+
+
+
+.card .settingBtns{
+    display: flex;
+    gap: 2rem;
+}
+
+
+.card .settingBtns .shareBtn i{
+    margin-right: .5rem;
+}
+
+.shareBtn:hover, .shareBtn:hover i, .quickSettingBtns:hover i{
+    color: #FB6026;
+    cursor: pointer;
+    transition: 200ms;
+    font-weight: 800;
+    scale: 1.1;
+}
+
+
+.card i{
+    font-size: medium
+}
+
+.extraInfo{
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+    margin-top: 1rem;
+}
+
+.card .flex{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.card .flex i{
+    margin-top: .25rem;
+}
+
+.shareLink{
+    color: #FB6026;
+    font-weight: 600;
+    margin-top: 1rem;
+
+}
+
+.shareLink:hover{
+    cursor: pointer;
+    transition: 200ms;
+    scale: 1.05;
+    color: #d84d1b;
+}
+
+.succesMessage{
+    color: rgb(100, 164, 100);
+    margin-top: 1rem;
+}
