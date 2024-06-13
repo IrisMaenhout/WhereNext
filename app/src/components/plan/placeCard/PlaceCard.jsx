@@ -4,7 +4,7 @@ import SavePlaceBtn from '../../global/btns/savePlaceBtn/SavePlaceBtn';
 import { useNavigate } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 
-function PlaceCard({ place, isSuggestion, tripId, locationApiData, isItinerary, onLocationFetched }) {
+function PlaceCard({ place, isSuggestion, tripId, locationApiData, isItinerary, onLocationFetched, setPlaces}) {
     const navigate = useNavigate();
     const [googlePlaceData, setGooglePlaceData] = useState(place ? place : undefined);
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -14,7 +14,7 @@ function PlaceCard({ place, isSuggestion, tripId, locationApiData, isItinerary, 
     }
 
     function handleClick() {
-        navigate(`/place/${place ? place.id : locationApiData.googleLocationId}/overview`);
+        navigate(`/trip/${tripId}/place/${place ? place.id : locationApiData.googleLocationId}/overview`);
     }
 
     const fullStars = Math.floor(googlePlaceData?.rating);
@@ -28,6 +28,15 @@ function PlaceCard({ place, isSuggestion, tripId, locationApiData, isItinerary, 
         .then(res => res.json())
         .then(data => {
             setGooglePlaceData(data);
+            console.log('GoogleData', data);
+            
+                setPlaces((prevPlacesArray) => (
+                    [
+                        ...prevPlacesArray,
+                        data
+                    ]
+                ));
+            
             if (data.location && onLocationFetched) {
                 onLocationFetched(data.location);
             }
@@ -69,6 +78,7 @@ function PlaceCard({ place, isSuggestion, tripId, locationApiData, isItinerary, 
                             placeId={place ? place.id : locationApiData.googleLocationId} 
                             tripId={tripId ? tripId : locationApiData.tripId} 
                             position={"right"} 
+                            isAccomodation={false}
                         />
                     </div>
                     <img src={coverImage} alt={googlePlaceData.displayName.text} />

@@ -19,16 +19,7 @@
     margin-bottom: 1rem;
 }
 
-.titleContainer{
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}
 
-.titleContainer button i{
-    display: block;
-    margin-top: .3rem;
-}
 
 .filter{
     background-color: #FFF9EC;
@@ -44,10 +35,4 @@
 .filter i{
     margin-top: .5rem;
     color: #d1bc8e;
-}
-
-.cityButtons{
-    display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
 }

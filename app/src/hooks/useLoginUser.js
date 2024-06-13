@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 export default function useLoggedInUser() {
   const getUser = () => {
-    const loggedInUserString = sessionStorage.getItem('loggedInUser');
+    const loggedInUserString = localStorage.getItem('loggedInUser');
     if (!loggedInUserString) return null;
     const loggedInUserObj = JSON.parse(loggedInUserString);
     return loggedInUserObj;
@@ -11,7 +11,7 @@ export default function useLoggedInUser() {
   const [loggedInUser, setLoggedInUser] = useState(getUser());
 
   const saveUser = loggedInUserObj => {
-    sessionStorage.setItem('loggedInUser', JSON.stringify(loggedInUserObj));
+    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUserObj));
     setLoggedInUser(loggedInUserObj);
   };
 

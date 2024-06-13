@@ -2,16 +2,16 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styles from './accomodations.module.css';
 import { LoggedInUserContext } from '../../../context/LoggedInUserContext';
 import PlaceCard from '../placeCard/PlaceCard';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import PrimaryBtn from '../../global/btns/primary/btn/PrimaryBtn';
 import PrimaryLinkBtn from '../../global/btns/primary/link/PrimaryLinkBtn';
 import { PlacesContext } from '../../../context/LocationsContext';
 
 function Accomodations(props) {
+    const { tripId } = useParams();
     const { places, setPlaces, setError } = useContext(PlacesContext);
     const { state } = useLocation();
     const loggedInUser = useContext(LoggedInUserContext);
-    const tripId = "6654e2621cbe496564c8192d";
     const [accomodations, setAccomodations] = useState([]);
     const [forceRerenderCardComponent, setForceRenderCardComponent] = useState(state ? state : 0);
 
@@ -46,15 +46,21 @@ function Accomodations(props) {
             }
 
             const data = await response.json();
+            console.log(data)
             setAccomodations(data);
+            // Render markers on the map
         } catch (error) {
             console.error(error);
         }
     };
 
     useEffect(() => {
+        if(!accomodations){
+            setPlaces([]); 
+        }
         getAccomodations();
     }, [forceRerenderCardComponent]);
+
 
     return (
         <div className={styles.suggestions}>
@@ -64,6 +70,7 @@ function Accomodations(props) {
                   Add
                 </PrimaryLinkBtn>
             </div>
+
             <div className='gridPlanSidebar'>
                 {accomodations.length > 0 ? accomodations.map((item) => (
                     <PlaceCard 
@@ -71,8 +78,11 @@ function Accomodations(props) {
                         locationApiData={item} 
                         userId={loggedInUser._id} 
                         isSuggestion={false} 
+                        setPlaces={setPlaces}
+                        tripId={tripId}
                     />
-                )) : <p>Here you can access your saved accomodations. Now there are no saved accomodations.</p>}
+                )) : <p>Here you can access your saved accomodations. <br/>
+                    Now there are no saved accomodations.</p>}
             </div>
         </div>
     );

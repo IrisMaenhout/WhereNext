@@ -1,0 +1,23 @@
+.filterBtn{
+    background-color: #E6EBEF;
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+    color: #68747E;
+    font-size: 16px;
+}
+
+.filterBtn:hover{
+    background-color: #edad2c;
+    color: white;
+    font-weight: 800;
+    scale: 1.1;
+    cursor: pointer;
+    transition: 200ms;
+}
+
+.selected{
+    background-color: #FDB833;
+    color: white;
+    font-weight: 800;
+}
+

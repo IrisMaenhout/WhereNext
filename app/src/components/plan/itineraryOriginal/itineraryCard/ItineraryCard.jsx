@@ -1,38 +1,45 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from '../itinerary.module.css';
 import PlaceCard from '../../placeCard/PlaceCard';
 import SecondaryBtn from '../../../global/btns/secondary/btn/SecondaryBtn';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import BucketListCard from '../../bucketList/bucketListCard/BucketListCard';
 import { PlacesContext } from '../../../../context/LocationsContext';
 
-function ItineraryCard({ item, index, locationsFetched, loggedInUser, handleLocationFetched, openDirectionsInGoogleMaps, itineraryPlaces, isSimpleCardView, moveCard, tripDayDates, handleDayChange, handleTimeChange }) {
+function ItineraryCard({ item, index, locationsFetched, loggedInUser, handleLocationFetched, openDirectionsInGoogleMaps, itineraryPlaces, isSimpleCardView }) {
     const { setPlaces } = useContext(PlacesContext);
+
+    console.log('setPlaces function:', setPlaces);
+
+    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+        id: item._id,
+    });
+
+
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+        opacity: isDragging ? 0.5 : 1,
+        zIndex: isDragging ? 0.5 : 1,
+        scale: isDragging ? 0.5 : 1,
+    };
 
     const handleClick = (event) => {
         event.stopPropagation();
     };
 
     return (
-        <div className={styles.itineraryItem}>
+        <div
+            ref={setNodeRef}
+            style={style}
+            {...attributes}
+            {...listeners}
+            key={`itineraryLocation-${item._id}`}
+            className={styles.itineraryItem}
+        >
             <div className={styles.stepMarker}>
                 <span className={styles.stepNumber}>{index + 1}</span>
-            </div>
-
-            <div className={styles.rearangeOrderContainer}>
-                <div>
-                    <select value={item.date} onChange={(e) => handleDayChange(index, e.target.value)}>
-                        {tripDayDates.map(date => (
-                            <option key={date} value={date}>{new Date(date).toLocaleDateString()}</option>
-                        ))}
-                    </select>
-                    <input type="time" value={item.time || ''} onChange={(e) => handleTimeChange(index, e.target.value)} />
-                </div>
-                
-                <div>
-                    <button onClick={() => moveCard(index, 'up')} disabled={index === 0}><i className="fa-solid fa-angle-up"></i></button>
-                    <button onClick={() => moveCard(index, 'down')} disabled={index === itineraryPlaces.length - 1}><i className="fa-solid fa-angle-down"></i></button>
-                </div>
-
             </div>
             {isSimpleCardView ?
                 <BucketListCard 
@@ -52,7 +59,6 @@ function ItineraryCard({ item, index, locationsFetched, loggedInUser, handleLoca
                     setPlaces={setPlaces}
                 />
             }
-            
             <div className={styles.addAlternative}>
                 <button className={styles.addAlternativeBtn} onClick={handleClick}>Add alternative</button>
             </div>

@@ -9,7 +9,7 @@ export const createUserSchema = Joi.object({
     firstname: Joi.string().required(),
 	lastname: Joi.string().required(),
 	email: Joi.string().email().required(),
-	phoneNr: Joi.number().positive().required(),
+	image: Joi.string().required(),
 	password: Joi.string().required()
 });
 
@@ -24,6 +24,6 @@ export const updateUserSchema = Joi.object({
     firstname: Joi.string(),
 	lastname: Joi.string(),
 	email: Joi.string().email(),
-	phoneNr: Joi.number().positive(),
+	image: Joi.string(),
 	password: Joi.string()
 });

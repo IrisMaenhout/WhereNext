@@ -60,7 +60,7 @@ postUsersRouter.post("/add", async (req, res) => {
     }
 
 
-    const {firstname, lastname, email, phoneNr, password} = value;
+    const {firstname, lastname, email, image, password} = value;
     const salt = await bcrypt.genSalt(10);
   
     //   Hash given password
@@ -76,7 +76,7 @@ postUsersRouter.post("/add", async (req, res) => {
           firstname: firstname,
           lastname: lastname,
           email: email,
-          phoneNr: phoneNr,
+          image: image,
           password: hashPassword,
           registeredOn: Date.now()
       });

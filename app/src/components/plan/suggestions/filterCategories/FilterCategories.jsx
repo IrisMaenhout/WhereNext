@@ -11,7 +11,7 @@ import Select from 'react-select';
   
 
 
-function FiterCategories({groupedOptions, defaultSelected, handleChange}) {
+function FilterCategories({groupedOptions, defaultSelected, handleChange}) {
     // const options = [
     //     { value: 'chocolate', label: 'Chocolate' },
     //     { value: 'strawberry', label: 'Strawberry' },
@@ -57,4 +57,4 @@ function FiterCategories({groupedOptions, defaultSelected, handleChange}) {
     );
 }
 
-export default FiterCategories;
+export default FilterCategories;

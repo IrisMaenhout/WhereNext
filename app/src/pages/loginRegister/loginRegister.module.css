@@ -1,0 +1,132 @@
+.authContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    /* z-index: 20; */
+    /* w-full h-full flex justify-center items-center absolute top-0 z-30 bg-slate-100 */
+}
+
+.authorizationCard{
+    background-color: white;
+    position: relative;
+    border-radius: 1rem;
+    width: 80%;
+    box-shadow: 4px 4px 15px 4px rgba(217, 222, 224, 0.3);
+    border-radius: 1rem;
+    border: 1px solid #e4e6e4;
+}
+
+.cardContent{
+    padding: 1rem 4rem;
+    width: 100%;
+    /* p-8 md:w-[50%] w-full */
+}
+
+.scrollContainer{
+    width: 100%;
+    /* p-8 md:w-[50%] w-full md:overflow-y-scroll */
+}
+
+.cardContent .title{
+    /* mt-4 font-bold text-2xl mb-10 */
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.cardContent label{
+    display: block;
+    margin-bottom: 0.5rem;
+    /* mb-2 block */
+}
+
+.errorMessage{
+    display: block;
+    color: #dd4a4a;
+    margin-bottom: 1em;
+    /* margin-top: -1em; */
+    /* text-red-500 mb-4 mt-[-1em] */
+}
+.errorMessage:last-of-type{
+    margin-bottom: 2em;
+}
+
+.submitBtn{
+    width: 100%;
+    margin: 2rem 0;
+    /* w-full mt-12 */
+
+    padding: 1em;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: 200ms;
+    border: none;
+    font-size: medium;
+    cursor: pointer;
+}
+
+.submitBtn:hover{
+    font-weight: 600;
+}
+
+.toOtherPage{
+    margin: 0 auto;
+    width: max-content;
+}
+
+.toOtherPage a{
+    display: inline-block;
+    color: #FB6026;
+    font-weight: 600;
+    margin-left: 1rem;
+    text-decoration: underline;
+    margin-bottom: 2rem ;
+}
+
+.authorizationCard .sideImage{
+    width: 45%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: 0 1rem 1rem 0;
+    display: none;
+    /* w-full md:block h-[500px] object-cover rounded-r-lg hidden h-[520px] w-[45%] */
+}
+
+@media only screen and (min-width: 600px) {
+    .authorizationCard{
+      min-width: 800px;
+      display: flex;
+      justify-content: space-between;
+      /* max-height: 420px; */
+    }
+
+    .cardContent{
+        width: 50%;
+    }
+
+    .authorizationCard .sideImage{
+        display: block;
+        /* w-full md:block h-[500px] object-cover rounded-r-lg hidden h-[520px] w-[45%] */
+    }
+
+    .scrollContainer{
+        /* width: 50%; */
+        max-height: 520px;
+        overflow-y: scroll;
+    }
+
+    .inputsFlex{
+        display: flex;
+        gap: 5rem;
+        width: 100%;
+    }
+
+    .inputsFlex div{
+        width: 100%;
+    }
+
+}
+  

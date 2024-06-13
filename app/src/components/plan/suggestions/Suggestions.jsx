@@ -2,50 +2,96 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './suggestions.module.css';
 import PlaceCard from '../placeCard/PlaceCard';
 import filterCategories from './sugestionsFilterCategories.json';
-import FilterCategories from './filterCategories/FiterCategories';
-import PrimaryBtn from '../../global/btns/primary/btn/PrimaryBtn';
-import SecondaryBtn from '../../global/btns/secondary/btn/SecondaryBtn';
 import { PlacesContext } from '../../../context/LocationsContext';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import useLoggedInUser from '../../../hooks/useLoginUser';
+import FilterBtn from '../../global/btns/filterBtn/FilterBtn';
+import FilterOptions from './filterOptions/FilterOptions';
 
-const Suggestions = ({page}) => {
-
-  // const [query, setQuery] = useState('');
+const Suggestions = ({ page }) => {
+  const { loggedInUser } = useLoggedInUser();
+  const { tripId } = useParams();
   const { places, setPlaces, setError } = useContext(PlacesContext);
-  const tripId = "6654e2621cbe496564c8192d";
-  const [ getCurrentPlaces, setGetCurrentPlaces] = useState(false);
+  const [getCurrentPlaces, setGetCurrentPlaces] = useState(false);
+  const [citiesLocations, setCitiesLocations] = useState([]);
+  const [selectedCity, setSelectedCity] = useState(null);
+
 
   const { state } = useLocation();
   const [forceRerenderCardComponent, setForceRenderCardComponent] = useState(state ? state : 0);
 
   const navigate = useNavigate();
 
+  // Refresh component when a location gets saved to the database
+  useEffect(() => {
+    function rerenderComponent() {
+      setForceRenderCardComponent(state);
+    }
+    const timeout = setTimeout(rerenderComponent, 100);
+    return () => clearTimeout(timeout);
+  }, [state]);
 
-    useEffect(() => {
-      // run side-effect
-      function rerenderComponent(params) {
-        setForceRenderCardComponent(state);
+
+  // Get the longitude & latidude of the cities that the user wants to visit
+  async function getLocationOfCity(city) {
+    const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${city}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`);
+    const data = await response.json();
+    if (data.results && data.results.length > 0) {
+      const location = data.results[0].geometry.location;
+      return {
+        lat: location.lat,
+        lng: location.lng
+      };
+    } else {
+      throw new Error(`Location not found for city: ${city}`);
+    }
+  }
+
+  // Get trip data from db
+  const getTripData = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/trips/${tripId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': loggedInUser._id,
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
-      const timeout = setTimeout(rerenderComponent, 100);
-      
-      return () => clearTimeout(timeout);
-    }, [state]);
 
+      const data = await response.json();
+      console.log('tripData', data);
 
-  // const [places, setPlaces] = useState([]);
-  // const [error, setError] = useState(null);
-  const location = {
-    lat: 51.049999,
-    lng: 3.733333
+      const citiesLocationsArr = await Promise.all(data.cities.map(async (city) => {
+        const location = await getLocationOfCity(city);
+        return {
+          city,
+          ...location
+        };
+      }));
+
+      console.log(citiesLocationsArr, 'citiesArray');
+      setCitiesLocations(citiesLocationsArr);
+      if (citiesLocationsArr.length > 0) {
+        setSelectedCity(citiesLocationsArr[0]);
+      }
+    } catch (error) {
+      console.error('Failed to fetch this trip:', error);
+    }
   };
 
+  useEffect(() => {
+    getTripData();
+  }, [tripId]);
+
+
+  // default values for the activity filters 
   const [filterOptionsVisible, setFilterOptionsVisible] = useState(false);
 
-  // const [selectedCategories, setSelectedCategories] = useState([
-
-  // ]);
   const [includeTypes, setIncludeTypes] = useState({
-    // Set default values for the first select input
     thingsToDo: [
       filterCategories.thingsToDo[1].value,
       filterCategories.thingsToDo[7].value,
@@ -53,10 +99,7 @@ const Suggestions = ({page}) => {
       filterCategories.thingsToDo[12].value,
       filterCategories.sport[0].value
     ],
-    // Set default values for the second select input
-    foodAndDrinks: [
-      
-    ],
+    foodAndDrinks: [],
     accomodations: [
       filterCategories.accomodations[0].value,
       filterCategories.accomodations[1].value,
@@ -67,24 +110,22 @@ const Suggestions = ({page}) => {
     ]
   });
 
-  const method = ':searchNearby';
-  //:searchText
 
-
-
-  // const [type, setType] = useState('restaurant');
 
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
   const filtersOnFetch = page === "accomodations" ? includeTypes.accomodations : [
     ...includeTypes.thingsToDo,
     ...includeTypes.foodAndDrinks
-  ]
-  
+  ];
+
+  // Fetch location specific data from google maps api
   const searchPlaces = async () => {
-    console.log('filterFetch',filtersOnFetch);
+    console.log('filterFetch', filtersOnFetch);
+    if (!selectedCity) return;
+
     try {
-      const response = await fetch(`https://places.googleapis.com/v1/places${method}`, {
+      const response = await fetch(`https://places.googleapis.com/v1/places:searchNearby`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -95,14 +136,13 @@ const Suggestions = ({page}) => {
           "locationRestriction": {
             "circle": {
               "center": {
-                "latitude": location.lat,
-                "longitude": location.lng
+                "latitude": selectedCity.lat,
+                "longitude": selectedCity.lng
               },
               "radius": 2000.0
-            } 
+            }
           },
           "includedTypes": filtersOnFetch,
-          // "excludedTypes": ["hotel"],
           "languageCode": "en",
         }),
       });
@@ -112,7 +152,7 @@ const Suggestions = ({page}) => {
       }
 
       const data = await response.json();
-      console.log('fetched suggestion',data);
+      console.log('fetched suggestion', data);
       setPlaces(data.places || []);
       setGetCurrentPlaces(true);
     } catch (error) {
@@ -121,81 +161,31 @@ const Suggestions = ({page}) => {
   };
 
   useEffect(() => {
-    if (method === ':searchNearby') {
-      searchPlaces();
-    }
-  }, [method, forceRerenderCardComponent]);
-
-  useEffect(() => {
-    console.log(places); // Log places whenever it updates
-  }, [places]);
+    searchPlaces();
   
+  }, [forceRerenderCardComponent, selectedCity]);
 
 
+  // Handle input change of the location filters
   function handleChangeFilterInputs(category, selectedValues) {
     const selectedCategories = selectedValues.map((category) => category.value);
-    console.log('selectedCat',selectedCategories)
+    console.log('selectedCat', selectedCategories);
     setIncludeTypes(prevIncludeTypes => ({
       ...prevIncludeTypes,
       [category]: selectedCategories
     }));
   }
 
-  function onSave(){
+  // Handle save of the values in the location filters
+  function onSave() {
     setPlaces([]);
-    setGetCurrentPlaces(false)
+    setGetCurrentPlaces(false);
     searchPlaces();
   }
-  
 
-
-
-  const groupedOptionsAccomodations = [{
-    label: 'Accomodations',
-    options: filterCategories.accomodations,
-  }];
-
-
-
-  const groupedOptionsThingsToDo = [{
-    label: 'Things to do',
-    options: filterCategories.thingsToDo,
-  },
-  {
-    label: 'Sport',
-    options: filterCategories.sport,
-  }];
-
-  const groupedOptionsFoodAndDrinks = [{
-    label: 'Drinks',
-    options: filterCategories.foodAndDrinks.drinks,
-  },
-  {
-    label: 'Asian restaurants',
-    options: filterCategories.foodAndDrinks.restaurants.asian,
-  },
-  {
-    label: 'American restaurants',
-    options: filterCategories.foodAndDrinks.restaurants.american,
-  },
-  {
-    label: 'European restaurants',
-    options: filterCategories.foodAndDrinks.restaurants.european,
-  },
-  {
-    label: 'Middle-eastern restaurants',
-    options: filterCategories.foodAndDrinks.restaurants['middle-eastern'],
-  },
-  {
-    label: 'Other restaurants',
-    options: filterCategories.foodAndDrinks.restaurants.others,
-  }
-  ];
-
-  if(getCurrentPlaces){
     return (
       <div className={styles.suggestions}>
-  
+
         <div className={styles.flexContainer}>
           <div className={styles.titleContainer}>
             <button onClick={() => navigate(-1)}><i className="fi fi-sr-angle-left"></i></button>
@@ -205,86 +195,47 @@ const Suggestions = ({page}) => {
             <i className={filterOptionsVisible ? 'fi fi-rr-clear-alt' : 'fi fi-rr-filter'}></i>
           </button>
         </div>
-        
-        {filterOptionsVisible && 
-          <div className={`${styles.filterContainer}`}>
-            <div className={styles.flexContainer}>
-              <h3>Filter on categories</h3>
-              <PrimaryBtn onClick={onSave}>
-                Save
-              </PrimaryBtn>
-            </div>
-  
-            {
-              page === "accomodations" ?
-              <>
-                <label>Accomodations</label>
-                <FilterCategories 
-                  groupedOptions={groupedOptionsAccomodations}
-                  defaultSelected={[
-                    filterCategories.accomodations[0],
-                    filterCategories.accomodations[1],
-                    filterCategories.accomodations[3],
-                    filterCategories.accomodations[5],
-                    filterCategories.accomodations[6],
-                    filterCategories.accomodations[7]
-                  ]}
-                  handleChange={(selectedValues) => handleChangeFilterInputs('accomodations', selectedValues)}
-                />
-              </>
-              
-              :
-              
-              <>
-                <label>Things to do</label>
-                <FilterCategories 
-                  groupedOptions={groupedOptionsThingsToDo}
-                  defaultSelected={[
-                    filterCategories.thingsToDo[1],
-                    filterCategories.thingsToDo[7],
-                    filterCategories.thingsToDo[9],
-                    filterCategories.thingsToDo[12],
-                    filterCategories.sport[0]
-                  ]}
-                  handleChange={(selectedValues) => handleChangeFilterInputs('thingsToDo', selectedValues)}
-                />
-                <label>Restaurants</label>
-                <FilterCategories 
-                  groupedOptions={groupedOptionsFoodAndDrinks}
-                  defaultSelected={includeTypes.foodAndDrinks}
-                  handleChange={(selectedValues) => handleChangeFilterInputs('foodAndDrinks', selectedValues)}
-                />
-              
-              </>
-              
-            }
-            
+
+
+        {filterOptionsVisible && (
+        <FilterOptions
+          page={page} 
+          filterCategories={filterCategories} 
+          includeTypes={includeTypes} 
+          handleChangeFilterInputs={handleChangeFilterInputs} 
+          onSave={onSave} 
+        />
+      )}
+      
+
+        {
+          citiesLocations.length > 1 &&
+
+          <div className={styles.cityButtons}>
+            {citiesLocations.map((cityLocation) => (
+                <FilterBtn key={cityLocation.city} isSelected={selectedCity && selectedCity.city === cityLocation.city ? true : false} handleClick={()=> setSelectedCity(cityLocation)} title={cityLocation.city}/>
+            ))}
           </div>
         }
-        
-        
-  
-        <div className='gridPlanSidebar'>
-          {
-            places.length > 0 ?
-  
-            places.map((place)=> (
-              <PlaceCard key={`suggestions-place-${place.id}`} place={place} isSuggestion={true} tripId={tripId}/>
-            ))
-  
-            :
-  
-            <p>There are no results for these categories</p>
-  
-          }
-        </div>
-  
-        
+
+        {
+          getCurrentPlaces ?
+
+          <div className='gridPlanSidebar'>
+            {places.length > 0 && places.map((place) => {
+              return (
+                <PlaceCard key={`suggestions-place-${place.id}`} place={place} isSuggestion={true} tripId={tripId} isItinerary={false}/>
+              )
+            })}
+          </div>
+
+          : 
+
+          <p>Loading suggestions...</p>
+
+        }
       </div>
     );
-  }else{
-    return <></>
-  }
   
 };
 

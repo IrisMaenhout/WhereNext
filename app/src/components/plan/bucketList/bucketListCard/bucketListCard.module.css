@@ -1,11 +1,13 @@
-.bucketListCard{
-    background-color: #FFE9BE;
+.card{
     border-radius: 1rem;
-    padding: .5rem;
     display: flex;
     flex-direction: column;
     gap: .5rem;
+}
+.bucketListCard{
+    background-color: #FFE9BE;
     box-shadow: 4px 4px 15px 4px rgba(217, 222, 224, 0.3);
+    padding: .5rem;
 }
 
 .bucketListCard .infoRatingIcon{

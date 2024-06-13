@@ -19,7 +19,7 @@ async function updateLocationData(location, req, res) {
         const formatedDate = date ? new Date(date) : null;
         console.log(formatedDate, date);
 
-        const newData = date ? {...location, date: formatedDate, ...date} : { ...location, ...data };
+        const newData = date ? {...location, date: formatedDate, ...data} : { ...location, ...data };
 
         await db.collection("locations").replaceOne({ _id: new ObjectId(location._id) }, newData);
 

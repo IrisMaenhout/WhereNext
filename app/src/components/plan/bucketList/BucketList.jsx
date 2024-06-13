@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import BucketListCard from './bucketListCard/BucketListCard';
 
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import PrimaryLinkBtn from '../../global/btns/primary/link/PrimaryLinkBtn';
 import styles from './bucketList.module.css';
 import { LoggedInUserContext } from '../../../context/LoggedInUserContext';
@@ -10,7 +10,7 @@ import { Tooltip } from 'react-tooltip';
 // import { LoggedInUserContext } from '../../../context/LoggedInUserContext';
 
 function BucketList(props) {
-
+    const {tripId} = useParams();
     // const { loggedInUserData } = useContext(useLoggedInUserContext);
 
     const loggedInUser = useContext(LoggedInUserContext);
@@ -18,7 +18,7 @@ function BucketList(props) {
     const [ isCardViewSimple, setIsCardViewSimple ] = useState(true);
 
     // console.log('loggedInUserData', loggedInUserData);
-    const tripId = "6654e2621cbe496564c8192d";
+    // const tripId = "6654e2621cbe496564c8192d";
 
     const [bucketListItems, setBucketListItems] = useState([]);
 

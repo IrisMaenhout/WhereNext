@@ -25,7 +25,7 @@ function TripCard({ isCurrentlyHappening, tripData }) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': '2yNyogMFgtUewZQbO3oYHiK4cYKVMGATxE1vrupzwlzlmTR5sYhy2018'
+                    'Authorization': process.env.REACT_APP_PEXEL_API_KEY
                 }
             });
 
@@ -89,7 +89,7 @@ function TripCard({ isCurrentlyHappening, tripData }) {
                 </div>
                 <div className={styles.flex}>
                     <i className="fi fi-rr-clock-five"></i>
-                    <p><b>{diffInDays}</b> {diffInDays === 1 ? 'day' : 'days'}</p>
+                    <p><b>{ Math.abs(diffInDays)}</b> days</p>
                 </div>
             </div>
         </div>

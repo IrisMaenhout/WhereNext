@@ -7,6 +7,7 @@ import { LoggedInUserContext } from '../../../context/LoggedInUserContext';
 import { PlacesContext } from '../../../context/LocationsContext';
 
 function PlaceDetails(props) {
+    const { tripId } = useParams();
     const { places, setPlaces, setError } = useContext(PlacesContext);
     const loggedInUser = useContext(LoggedInUserContext);
     const { googlePlaceId } = useParams();
@@ -16,7 +17,6 @@ function PlaceDetails(props) {
     const { state } = useLocation();
     const [savedLocationData, setSavedLocationData] = useState([]);
     
-    const tripId = "6654e2621cbe496564c8192d";
     const [forceRerenderCardComponent, setForceRenderCardComponent] = useState(state ? state : 0);
 
     const fullStars = Math.floor(places[0]?.rating);
@@ -117,7 +117,7 @@ function PlaceDetails(props) {
                 handleGoBackArrowFunc={handleGoBackArrowFunc}
                 googlePlaceData={places[0]}
                 googlePlaceId={googlePlaceId}
-                tripId={tripId}
+                tripId={JSON.stringify(tripId)}
                 savedLocationData={savedLocationData}
             />
         );

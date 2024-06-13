@@ -17,7 +17,7 @@ function TripOverview(props) {
     const [upcomingTrips, setUpcomingTrips] = useState([]);
     const [pastTrips, setPastTrips] = useState([]);
     const [selectedYear, setSelectedYear] = useState('All');
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [isPopupOpen, setIsPopupOpen] = useState(true);
     const [newTripData, setNewTripData] = useState({
         title:  '',
         country: '',

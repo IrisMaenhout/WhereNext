@@ -9,7 +9,7 @@ import ReactDOMServer from 'react-dom/server';
 import MinimalPlaceCard from '../../placeCard/minimalPlaceCard/MinimalPlaceCard';
 import PollStatistics from '../pollStatistics/PollStatistics';
 
-function BucketListCard({locationApiData, userId, setPlaces, isCardViewSimple}) {
+function BucketListCard({locationApiData, userId, setPlaces, isCardViewSimple, isItinerary}) {
     const [googlePlaceData, setGooglePlaceData] = useState(null);
     const [locationApiDataUpToDate, setLocationApiDataUpToDate] = useState(locationApiData);
     const [coverImage, setCoverImage] = useState('');
@@ -20,7 +20,7 @@ function BucketListCard({locationApiData, userId, setPlaces, isCardViewSimple}) 
 
 
     function handleClick() {
-        navigate(`/place/${locationApiData.googleLocationId}/overview`);
+        navigate(`/trip/${locationApiData._id}/place/${locationApiData.googleLocationId}/overview`);
     }
 
 
@@ -107,7 +107,7 @@ function BucketListCard({locationApiData, userId, setPlaces, isCardViewSimple}) 
     }else{
         return (
             <>
-            <div className={`${styles.card} ${styles.bucketListCard}`}>
+            <div className={`${styles.card} ${!isItinerary && styles.bucketListCard}`}>
                 <MinimalPlaceCard 
                     handleClick={handleClick}
                     googlePlaceData={googlePlaceData}

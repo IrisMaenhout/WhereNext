@@ -1,7 +1,6 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import PlanningPage from './pages/planningPage/PlanningPage';
-import Login from './pages/login/Login';
 import { LoggedInUserProvider } from './context/LoggedInUserContext';
 import useLoggedInUser from './hooks/useLoginUser';
 import { useEffect } from 'react';
@@ -14,6 +13,7 @@ import PlaceDetails from './components/plan/placeDetails/PlaceDetails';
 import TripOverview from './components/trip/TripOverview';
 import JoinTrip from './components/trip/joinTrip/JoinTrip';
 import AddTrip from './components/trip/addTrip/AddTrip';
+import LoginRegister from './pages/loginRegister/LoginRegister';
 
 
 function App() {
@@ -34,7 +34,7 @@ function App() {
 
   
   if (!loggedInUser) {
-    return <Login setLogin={setLoggedInUser} />;
+    return <LoginRegister setLogin={setLoggedInUser} isLogin={true}/>;
   } else {
     return (
       <LoggedInUserProvider value={loggedInUser}>
@@ -50,40 +50,40 @@ function App() {
               </PlanningPage>
             } 
           />
-          <Route path="/bucket-list/suggestions" element={
+          <Route path="/trip/:tripId/plan/bucket-list/suggestions" element={
               <PlanningPage>
                 <Suggestions page={"bucketList"}/>
               </PlanningPage>
             } 
           />
-          <Route path="/accomodations" element={
+          <Route path="/trip/:tripId/plan/accomodations" element={
               <PlanningPage>
                 <Accomodations />
               </PlanningPage>
             } 
           />
-          <Route path="/accomodations/suggestions" element={
+          <Route path="/trip/:tripId/plan/accomodations/suggestions" element={
               <PlanningPage>
                 <Suggestions page={"accomodations"}/>
               </PlanningPage>
             } 
           />
 
-          <Route path="/itinerary" element={
+          <Route path="/trip/:tripId/plan/itinerary" element={
               <PlanningPage>
                 <Itinerary />
               </PlanningPage>
             } 
           />
 
-          <Route path="/itinerary/suggestions" element={
+          <Route path="/trip/:tripId/plan/itinerary/suggestions" element={
                 <PlanningPage>
                   <Suggestions page={"itinerary"}/>
                 </PlanningPage>
               } 
           />
 
-          <Route path="/place/:googlePlaceId/overview" element={
+          <Route path="/trip/:tripId/place/:googlePlaceId/overview" element={
                 <PlanningPage>
                   {/* <Overview /> */}
                   <PlaceDetails />

@@ -76,6 +76,7 @@ import { SelectedPlaceProvider } from '../../context/SelectedPlaceContext.jsx';
 import ContentContainerMobile from '../../components/plan/contentContainer/ContentContainerMobile.jsx';
 import BucketList from '../../components/plan/bucketList/BucketList.jsx';
 import Accomodations from '../../components/plan/accomodations/Accomodations.jsx';
+import { useParams } from 'react-router-dom';
 
 function PlanningPage({children}) {
     const isViewedOnMobile = window.innerWidth < 800;

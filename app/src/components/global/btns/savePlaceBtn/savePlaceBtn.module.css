@@ -79,3 +79,39 @@
     transition: 200ms;
     font-size: 1.7rem;
 }
+
+.popUpInputs{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.popUpInputs div, .popUpInputs input, .popUpInputs select{
+    display: block;
+    width: 100%;
+}
+
+
+.popUpInputs label {
+    margin-bottom: 0.5rem; /* Add some space between label and input */
+}
+
+.popUpInputs input, .popUpInputs select {
+    display: block;
+    padding: .5rem;
+    width: 100%;
+    font-size: 16px;
+    color: #444444;
+    border-radius: .2rem;
+    border: 1px solid #cccccc;
+}
+
+
+.primaryBtnPopup{
+    display: block;
+    width: 100%;
+    margin-top: 2rem;
+    text-align: center;
+    padding: .8rem;
+    font-size: large;
+}

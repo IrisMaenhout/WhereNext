@@ -7,11 +7,9 @@ export const createLocationSchema = Joi.object({
         itinerary: Joi.bool().required(),
         accomodations: Joi.bool().required()
     }).required(),
-	date:  Joi.date().greater('now'),
-	time: Joi.object({
-		start: Joi.date().timestamp(),
-		end: Joi.date().timestamp(),
-	}),
+	date:  Joi.any(),
+	startTime: Joi.any(),
+	endTime: Joi.any(),
     isBooked: Joi.bool().required()
 });
 
@@ -24,10 +22,8 @@ export const createAccomodationLocationSchema = Joi.object({
     }).required(),
 	startDate: Joi.date().greater('now'),
 	endDate: Joi.date().greater(Joi.ref('startDate')),
-	time: Joi.object({
-		checkIn: Joi.date().timestamp(),
-		checkOut: Joi.date().timestamp(),
-	}),
+	startTime: Joi.any(),
+	endTime: Joi.any(),
     isBooked: Joi.bool().required()
 });
 
@@ -53,11 +49,9 @@ export const updateLocationSchema = Joi.object({
         itinerary: Joi.bool().required(),
         accomodations: Joi.bool().required()
     }),
-	date:  Joi.string(),
-	time: Joi.object({
-		start: Joi.date().timestamp(),
-		end: Joi.date().timestamp(),
-	}),
+	date:  Joi.any(),
+	startTime: Joi.any(),
+	endTime: Joi.any(),
     isBooked: Joi.bool(),
 	order: Joi.number()
 });
@@ -71,10 +65,8 @@ export const updateAccomodationLocationSchema = Joi.object({
     }),
 	startDate: Joi.date().greater('now'),
 	endDate: Joi.date().greater(Joi.ref('startDate')),
-	time: Joi.object({
-		checkIn: Joi.date().timestamp(),
-		checkOut: Joi.date().timestamp(),
-	}),
+	startTime: Joi.any(),
+	endTime: Joi.any(),
     isBooked: Joi.bool(),
 	order: Joi.number()
 });
