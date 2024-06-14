@@ -33,6 +33,9 @@ const port = process.env.PORT;
 // register middleware
 registerMiddleware(app);
 
+app.use('/', (res, req) => {
+  return {message: 'Hello there'}
+})
 // Routes to create, delete, update or get users
 app.use('/users', postUsersRouter, getUsersRouter, patchUsersRouter, deleteUsersRouter);
 
