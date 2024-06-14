@@ -7,7 +7,6 @@ import styles from './bucketList.module.css';
 import { LoggedInUserContext } from '../../../context/LoggedInUserContext';
 import { PlacesContext } from '../../../context/LocationsContext';
 import { Tooltip } from 'react-tooltip';
-// import { LoggedInUserContext } from '../../../context/LoggedInUserContext';
 
 function BucketList(props) {
     const {tripId} = useParams();
@@ -16,9 +15,6 @@ function BucketList(props) {
     const loggedInUser = useContext(LoggedInUserContext);
     const { places, setPlaces } = useContext(PlacesContext);
     const [ isCardViewSimple, setIsCardViewSimple ] = useState(true);
-
-    // console.log('loggedInUserData', loggedInUserData);
-    // const tripId = "6654e2621cbe496564c8192d";
 
     const [bucketListItems, setBucketListItems] = useState([]);
 
@@ -53,9 +49,7 @@ function BucketList(props) {
     
           const data = await response.json();
 
-          console.log(data);
           setBucketListItems(data);
-        //   setPlaces(data.places || []);
         } catch (error) {
         //   setError(error.message);
         }
