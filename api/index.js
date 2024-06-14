@@ -6,27 +6,10 @@ import { db } from "./db/mongo.js";
 
 import { registerMiddleware } from "./middleware/index.js";
 
-// import { getUsersRouter } from "./routes/users/get.js";
 import { postUsersRouter } from "./routes/users/post.js";
 import { getUsersRouter } from "./routes/users/get.js";
 import { patchUsersRouter } from "./routes/users/patch.js";
-// import { patchUsersRouter } from "./routes/users/patch.js";
-// import { deleteUsersRouter } from "./routes/users/delete.js";
 
-// import { postAgenciesRouter } from "./routes/realEstateAgencies/post.js";
-// import { patchAgenciesRouter } from "./routes/realEstateAgencies/patch.js";
-// import { getAgenciesRouter } from "./routes/realEstateAgencies/get.js";
-// import { deleteRealEstateAgenciesRouter } from "./routes/realEstateAgencies/delete.js";
-// import { postRealEstatesRouter } from "./routes/realEstate/post.js";
-// import { patchRealEstatesRouter } from "./routes/realEstate/patch.js";
-// import { getRealEstatesRouter } from "./routes/realEstate/get.js";
-// import { deleteRealEstatesRouter } from "./routes/realEstate/delete.js";
-// import { postFavoritesRouter } from "./routes/favorites/post.js";
-// import { getFavoritesRouter } from "./routes/favorites/get.js";
-// import { deleteFavoritesRouter } from "./routes/favorites/delete.js";
-// import { postMessagesRouter } from "./routes/messages/post.js";
-// import { patchMessagesRouter } from "./routes/messages/patch.js";
-// import { getMessagesRouter } from "./routes/messages/get.js";
 import { idSchema, isValidObjectId } from "./validators/idValidator.js";
 import { deleteUsersRouter } from "./routes/users/delete.js";
 import { postTripsRouter } from "./routes/trips/post.js";
