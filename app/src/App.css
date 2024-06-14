@@ -69,7 +69,7 @@
 
 @media screen and (min-width: 800px) {
     .contentWrapper{
-        margin-left: 6.7rem;
+        margin-left: 5rem;
         display: flex;
         flex: 1; /* This ensures it takes up the remaining height */
         

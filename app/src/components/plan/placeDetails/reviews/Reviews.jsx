@@ -28,8 +28,9 @@ function Reviews({googlePlaceData, googlePlaceId, tripId, handleGoBackArrowFunc}
                 googlePlaceData={googlePlaceData}
                 googlePlaceId={googlePlaceId}
                 tripId={tripId}
-            
             />
+
+            <PlaceDetailTabs selected={'reviews'}/>
             
                             
             {/* <PlaceDetailTabs /> */}

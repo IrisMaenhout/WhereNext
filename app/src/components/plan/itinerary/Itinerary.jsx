@@ -13,6 +13,7 @@ function Itinerary(props) {
     const { state } = useLocation();
     const { places, setPlaces } = useContext(PlacesContext);
     const [itineraryPlaces, setItineraryPlaces] = useState([]);
+    // const [itineraryAlternativeGroups, setItineraryAlternativeGroups] = useState([]);
     const loggedInUser = useContext(LoggedInUserContext);
     // const tripId = "6654e2621cbe496564c8192d";
     const [forceRerenderCardComponent, setForceRenderCardComponent] = useState(state ? state : 0);
@@ -80,11 +81,19 @@ function Itinerary(props) {
             const data = await response.json();
             console.log('TIP_DATA', data);
             setTripDates(data.datesArray || []);
+            setDayFilter(data.datesArray[0])
 
         } catch (error) {
             console.error(error);
         }
     };
+
+    // useEffect(()=>{
+    //     if(tripDayDates){
+    //         setDayFilter(tripDayDates[0])
+
+    //     }
+    // }, [])
 
 
     const getItinerary = async () => {
@@ -108,7 +117,7 @@ function Itinerary(props) {
 
             const data = await response.json();
             setItineraryPlaces(data);
-            console.log(data);
+            console.log('ItineraryData', data);
         } catch (error) {
             console.error(error);
         }
@@ -146,7 +155,7 @@ function Itinerary(props) {
     useEffect(() => {
         getTripDates();
         
-    }, [forceRerenderCardComponent]);
+    }, []);
 
 
     useEffect(()=> {
@@ -209,12 +218,9 @@ function Itinerary(props) {
     };
 
     const handleDayFilterClick = (date) => {
+        setPlaces([]);
         setDayFilter(date);
-
-        console.log('HIIIIIIIIIIIIIII');
-        console.log('DAY', date, dayFilter)
     }
-
 
     return (
         <div className={styles.itinerary} ref={parentContainer}>
@@ -244,6 +250,7 @@ function Itinerary(props) {
                 <div className={styles.itineraryFlex}>
                     {tripDayDates.map((date, i) => (
                         <div key={`kanbanBoardDay-${date}`} className={styles.kanbanBoardDay}>
+                            <p className={styles.dayLabel}>Day {i+1}</p>
                             {itineraryPlaces.filter(item => item.date === date).length > 0 && (
                                 itineraryPlaces.filter(item => item.date === date).map((item, index) => (
                                     <ItineraryCard
@@ -262,6 +269,7 @@ function Itinerary(props) {
                                         handleDayChange={handleDayChange}
                                         handleTimeChange={handleTimeChange}
                                     />
+
                                 ))
                             )}
                         </div>
@@ -271,7 +279,7 @@ function Itinerary(props) {
                 <>
                     <div className={styles.filterDays}>
                         {tripDayDates.map((date, i) => (
-                            <FilterBtn key={`dayFilter-${i}`} title={`Day ${i + 1}`} handleClick={() => handleDayFilterClick(date)}/>
+                            <FilterBtn key={`dayFilter-${i}`} title={`Day ${i + 1}`} handleClick={() => handleDayFilterClick(date)} isSelected={dayFilter === date}/>
 
                         ))}
                     </div>

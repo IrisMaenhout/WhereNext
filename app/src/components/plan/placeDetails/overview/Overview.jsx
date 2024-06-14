@@ -19,6 +19,24 @@ function Overview({fullStars, halfStars, emptyStars, googlePlaceId, googlePlaceD
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
+    function handleOpenRoute() {
+        // const currentLocationUser =  navigator.geolocation.getCurrentPosition;
+        // console.log(currentLocationUser);
+
+        if ("geolocation" in navigator) {
+            /* geolocation is available */
+            navigator.geolocation.getCurrentPosition((position) => {
+                console.log(position.coords.latitude, position.coords.longitude);
+                const url = `https://www.google.com/maps/dir/${position.coords.latitude},${position.coords.longitude}/${googlePlaceData.location.latitude},${googlePlaceData.location.longitude}`;
+                window.open(url, '_blank');
+            });
+        } else {
+            /* geolocation IS NOT available */
+            alert("We can't op this route becuse you don't have geolocation");
+        }
+          
+    }
+
     return (
         <>
             <div className={styles.card}>
@@ -63,17 +81,17 @@ function Overview({fullStars, halfStars, emptyStars, googlePlaceId, googlePlaceD
                             <i className="fi fi-rs-marker"></i>
                             <p>{googlePlaceData.formattedAddress}</p>
                         </div>
-                        <PlaceDetailTabs />
+                        <PlaceDetailTabs selected={'overview'}/>
                         <div className={styles.extraInfo}>
 
                             <div className={styles.practicalInfo}>
-                                <a href={googlePlaceData.websiteUri}>
+                                <button onClick={handleOpenRoute}>
                                     <div>
                                         <i className="fa-solid fa-route"></i>
                                     </div>
                                     
                                     <p>Route</p>
-                                </a>
+                                </button>
                                 {googlePlaceData.websiteUri && <a href={googlePlaceData.websiteUri} target='_blank' rel="noreferrer">
                                     <div>
                                         <i className="fi fi-rr-globe" style={{marginBottom: "-.5rem"}}></i>

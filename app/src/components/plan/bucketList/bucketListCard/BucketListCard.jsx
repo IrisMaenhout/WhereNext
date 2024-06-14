@@ -20,7 +20,7 @@ function BucketListCard({locationApiData, userId, setPlaces, isCardViewSimple, i
 
 
     function handleClick() {
-        navigate(`/trip/${locationApiData._id}/place/${locationApiData.googleLocationId}/overview`);
+        navigate(`/trip/${locationApiData.tripId}/place/${locationApiData.googleLocationId}/overview`);
     }
 
 
@@ -56,7 +56,7 @@ function BucketListCard({locationApiData, userId, setPlaces, isCardViewSimple, i
         // if(googlePlaceData?.photos !== undefined){
         //     getPictureUrl();
         // }
-       
+       console.log('IKEA____', locationApiDataUpToDate)
     }, []);
 
     useEffect(()=> {

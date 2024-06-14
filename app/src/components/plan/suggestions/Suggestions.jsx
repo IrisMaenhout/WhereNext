@@ -21,6 +21,7 @@ const Suggestions = ({ page }) => {
   const [forceRerenderCardComponent, setForceRenderCardComponent] = useState(state ? state : 0);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Refresh component when a location gets saved to the database
   useEffect(() => {
@@ -63,7 +64,6 @@ const Suggestions = ({ page }) => {
       }
 
       const data = await response.json();
-      console.log('tripData', data);
 
       const citiesLocationsArr = await Promise.all(data.cities.map(async (city) => {
         const location = await getLocationOfCity(city);
@@ -73,7 +73,6 @@ const Suggestions = ({ page }) => {
         };
       }));
 
-      console.log(citiesLocationsArr, 'citiesArray');
       setCitiesLocations(citiesLocationsArr);
       if (citiesLocationsArr.length > 0) {
         setSelectedCity(citiesLocationsArr[0]);
@@ -121,7 +120,6 @@ const Suggestions = ({ page }) => {
 
   // Fetch location specific data from google maps api
   const searchPlaces = async () => {
-    console.log('filterFetch', filtersOnFetch);
     if (!selectedCity) return;
 
     try {
@@ -152,7 +150,6 @@ const Suggestions = ({ page }) => {
       }
 
       const data = await response.json();
-      console.log('fetched suggestion', data);
       setPlaces(data.places || []);
       setGetCurrentPlaces(true);
     } catch (error) {
@@ -169,7 +166,6 @@ const Suggestions = ({ page }) => {
   // Handle input change of the location filters
   function handleChangeFilterInputs(category, selectedValues) {
     const selectedCategories = selectedValues.map((category) => category.value);
-    console.log('selectedCat', selectedCategories);
     setIncludeTypes(prevIncludeTypes => ({
       ...prevIncludeTypes,
       [category]: selectedCategories
@@ -188,7 +184,11 @@ const Suggestions = ({ page }) => {
 
         <div className={styles.flexContainer}>
           <div className={styles.titleContainer}>
-            <button onClick={() => navigate(-1)}><i className="fi fi-sr-angle-left"></i></button>
+            <button onClick={() => {
+              setPlaces([]);
+              navigate(location.pathname.substring(0, location.pathname.lastIndexOf('/')))
+              }}
+            ><i className="fi fi-sr-angle-left"></i></button>
             <h1>Suggestions</h1>
           </div>
           <button className={styles.filter} onClick={() => setFilterOptionsVisible(prev => !prev)}>

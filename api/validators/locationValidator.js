@@ -35,7 +35,7 @@ export const addIntrestScoreForLoggedInUser = Joi.object({
 });
 
 export const addNote = Joi.object({
-	content: Joi.string().required()
+	content: Joi.any().required()
 });
 
 

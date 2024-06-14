@@ -6,11 +6,10 @@ import VisitingInfo from './visitingInfo/VisitingInfo';
 import { LoggedInUserContext } from '../../../context/LoggedInUserContext';
 import { PlacesContext } from '../../../context/LocationsContext';
 
-function PlaceDetails(props) {
-    const { tripId } = useParams();
+function PlaceDetails({page}) {
+    const { tripId, googlePlaceId } = useParams();
     const { places, setPlaces, setError } = useContext(PlacesContext);
     const loggedInUser = useContext(LoggedInUserContext);
-    const { googlePlaceId } = useParams();
     const navigate = useNavigate();
     // const [googlePlaceData, setGooglePlaceData] = useState(undefined);
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -24,6 +23,8 @@ function PlaceDetails(props) {
     const emptyStars = 5 - fullStars - halfStars;
 
     const [coverImage, setCoverImage] = useState('');
+
+    const location = useLocation();
 
     const getLocationDB = async () => {
         try {
@@ -41,17 +42,15 @@ function PlaceDetails(props) {
     
           const data = await response.json();
 
-          console.log("dbData",data);
           setSavedLocationData(data);
-        //   setPlaces(data.places || []);
         } catch (error) {
-        //   setError(error.message);
+          setError(error.message);
         }
       };
     
       useEffect(() => {
         getLocationDB();
-      }, [forceRerenderCardComponent]);
+      }, [forceRerenderCardComponent, tripId, googlePlaceId]);
 
     const getGooglePlaceData = () => {
         fetch(`https://places.googleapis.com/v1/places/${places.length === 1 ?places[0].id : googlePlaceId}?fields=displayName,id,formattedAddress,photos,primaryType,types,location,rating,userRatingCount,currentOpeningHours,regularOpeningHours,internationalPhoneNumber,websiteUri,editorialSummary,goodForGroups,reservable,reviews&languageCode=en&key=${apiKey}`)
@@ -87,40 +86,48 @@ function PlaceDetails(props) {
     }, [places]);
 
     function handleGoBackArrowFunc() {
-        navigate(-1);
+        setPlaces([]);
+        navigate(-1)
     }
 
     
 
     if (places.length === 1) {
-        return (
-            // <Overview 
-            //     fullStars={fullStars}
-            //     halfStars={halfStars}
-            //     emptyStars={emptyStars}
-            //     googlePlaceId={googlePlaceId}
-            //     googlePlaceData={places[0]}
-            //     tripId={tripId}
-            //     handleGoBackArrowFunc={handleGoBackArrowFunc}
-            //     coverImage={coverImage}
-            // />
-
-            // <Reviews
-            //     googlePlaceData={places[0]}
-            //     googlePlaceId={googlePlaceId} 
-            //     tripId={tripId}
-            //     handleGoBackArrowFunc={handleGoBackArrowFunc}
+        if(page === "overview"){
+            return(
+                <Overview 
+                    fullStars={fullStars}
+                    halfStars={halfStars}
+                    emptyStars={emptyStars}
+                    googlePlaceId={googlePlaceId}
+                    googlePlaceData={places[0]}
+                    tripId={tripId}
+                    handleGoBackArrowFunc={handleGoBackArrowFunc}
+                    coverImage={coverImage}
+                />
+            )
             
-            // />
-
-            <VisitingInfo 
-                handleGoBackArrowFunc={handleGoBackArrowFunc}
-                googlePlaceData={places[0]}
-                googlePlaceId={googlePlaceId}
-                tripId={JSON.stringify(tripId)}
-                savedLocationData={savedLocationData}
-            />
-        );
+        }else if(page === "visiting-info"){
+            return (
+                <VisitingInfo 
+                    handleGoBackArrowFunc={handleGoBackArrowFunc}
+                    googlePlaceData={places[0]}
+                    googlePlaceId={googlePlaceId}
+                    tripId={tripId}
+                    savedLocationData={savedLocationData}
+                />
+            )
+        }else if(page === "reviews"){
+            return (
+                <Reviews
+                    googlePlaceData={places[0]}
+                    googlePlaceId={googlePlaceId} 
+                    tripId={tripId}
+                    handleGoBackArrowFunc={handleGoBackArrowFunc}
+                
+                />
+            )
+        }
     } else {
         return <></>
     }

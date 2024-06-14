@@ -2,6 +2,16 @@
     width: 100%;
 }
 
+.card:hover{
+    transition: 200ms;
+    size: 1.1;
+    /* background-color: #FB6026; */
+    padding: 2rem;
+    border-radius: 1rem;
+    border: 1px solid #ffb093;
+    box-shadow: 4px 4px 15px 4px #fb5f2648;
+}
+
 .card .coverImg{
     width: 100%;
     object-fit: cover;
@@ -83,23 +93,4 @@
 
 .card .flex i{
     margin-top: .25rem;
-}
-
-.shareLink{
-    color: #FB6026;
-    font-weight: 600;
-    margin-top: 1rem;
-
-}
-
-.shareLink:hover{
-    cursor: pointer;
-    transition: 200ms;
-    scale: 1.05;
-    color: #d84d1b;
-}
-
-.succesMessage{
-    color: rgb(100, 164, 100);
-    margin-top: 1rem;
 }

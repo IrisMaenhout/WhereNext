@@ -3,12 +3,12 @@ import styles from './tripSettingsBtn.module.css';
 import { LoggedInUserContext } from '../../../../context/LoggedInUserContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Popup from '../../popups/Popup';
+import { nanoid } from "nanoid";
 
-function TripSettingsBtn({ tripId }) {
+function TripSettingsBtn({ tripId, children,  isInSideBar, position}) {
     const loggedInUser = useContext(LoggedInUserContext);
     const [isContainerBtnsActive, setIsContainerBtnsActive] = useState(false);
     const navigate = useNavigate();
-    const urlLocation = useLocation();
     const [successMessage, setSuccessMessage] = useState();
     const [isPopupActive, setIsPopupActive] = useState(false);
 
@@ -30,8 +30,7 @@ function TripSettingsBtn({ tripId }) {
             const data = await response.json();
             console.log(data);
             setSuccessMessage('This trip has been successfully deleted.');
-            navigate('/my-trips'); // Navigate to another page after successful deletion
-
+            window.location.reload();
         } catch (error) {
             console.error(error.message);
         }
@@ -50,18 +49,18 @@ function TripSettingsBtn({ tripId }) {
     return (
         <div className={styles.btnContainer}>
             <button 
-                className={styles.saveBtn} 
+                className={`${isInSideBar ? styles.navItem : styles.btnInCard} ${styles.saveBtn}`} 
                 onClick={(e) => {
                     e.stopPropagation();
                     setIsPopupActive(false);
                     setIsContainerBtnsActive((prev) => !prev);
                 }}
             >
-                <i className="fa-solid fa-ellipsis"></i>
+                {children}
             </button>
 
             {isContainerBtnsActive && (
-                <div className={`${styles.containerSaveToPagesBtns} ${styles.right}`}>
+                <div className={`${styles.containerSaveToPagesBtns} ${styles.right} ${isInSideBar ? styles.horizontalFlexContainer : styles.verticalFlexContainer}`}>
                     <div className={styles.page} onClick={() => handleClickSettingBtn('edit')}>
                         <i className="fa-regular fa-pen-to-square"></i>
                         <p>Edit</p>

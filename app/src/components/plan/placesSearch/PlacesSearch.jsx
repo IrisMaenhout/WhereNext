@@ -46,7 +46,6 @@ const PlacesSearch = () => {
 
       const data = await response.json();
       setPlaces(data.places || []);
-      console.log(places);
     } catch (error) {
       setError(error.message);
     }

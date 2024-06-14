@@ -1,9 +1,51 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Calendar from './calendar/Calendar';
 import styles from './calendarSidebar.module.css';
+import { LoggedInUserContext } from '../../../context/LoggedInUserContext';
 
 function CalendarSidebar({trips}) {
+  const loggedInUser = useContext(LoggedInUserContext);
+  const [allTripDates, setAllTripDates] = useState([]);
+  const [tripsData, setTripsData] = useState([]);
+  
 
+  const getTrips = async () => {
+    try {
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/trips/my-trips`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': loggedInUser._id,
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        data.forEach((trip)=>{
+          console.log(trip)
+          setAllTripDates((prevValue) => (
+            [
+              ...prevValue,
+              ...trip.datesArray
+            ]
+          ))
+        })
+
+        console.log(allTripDates);
+        
+    } catch (error) {
+        console.error('Failed to fetch trips:', error);
+    }
+  };
+
+
+    useEffect(()=>{
+      getTrips();
+    }, []);
+    
     const [selectedTrip, setSelectedTrip] = useState();
 
     function handleClickOnTripCalendar() {

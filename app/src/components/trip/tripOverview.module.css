@@ -1,38 +1,60 @@
-.popupAddTripWidth{
-    width: 50%;
+.main{
+    width: 85%;
+    margin: 0 auto;
+    padding: 4rem 0;
 }
 
-.addTripPopup {
+.yearFilter{
     display: flex;
     gap: 2rem;
 }
 
-.addTripPopup > div {
-    flex: 1; /* Ensure each child takes up equal space */
-    display: flex;
-    flex-direction: column; /* Stack label and input vertically */
-}
-
-.addTripPopup label {
-    margin-bottom: 0.5rem; /* Add some space between label and input */
-}
-
-.titleInput, .countrySelect {
-    display: block;
-    padding: .5rem;
-    width: 100%;
-    font-size: 16px;
-    color: #444444;
-    border-radius: .2rem;
-    border: 1px solid #cccccc;
-}
-
-
-.primaryBtnPopup{
-    display: block;
-    width: 100%;
-    margin-top: 2rem;
+.pastTrips h2, .upcomingTrips h2{
+    width: 100;
     text-align: center;
-    padding: .8rem;
-    font-size: large;
+    background-color: #F1F1F1;
+    padding: 1rem;
+    color: #FB6026;
+    border-radius: .5rem;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+}
+
+.currentTrips{
+    background-color: #FFF7E6;
+    padding: 4rem;
+    border-radius: 1rem;
+    border: 1px solid #e5d2ab;
+}
+
+.currentTrips h2{
+    text-align: center;
+    color: #FB6026;
+    margin-bottom: 2rem;
+}
+
+.liveIcon{
+    font-size: 32px;
+    color: #FB6026;
+    margin-right: 1rem;
+}
+
+.main .currentTrips .currentTripCard:hover{
+    transition: 200ms;
+    size: 1.1;
+    /* background-color: #FB6026; */
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: #f1d9a7;
+    border: none ;
+    box-shadow: none;
+    color: white;
+}
+
+.main .currentTrips .currentTripCard:hover p, .main .currentTrips .currentTripCard:hover i, .main .currentTrips .currentTripCard:hover b, .main .currentTrips .currentTripCard:hover h3, .main .currentTrips .currentTripCard:hover button{
+    color: rgb(72, 71, 71);
+}
+
+.card:hover{
+    
 }

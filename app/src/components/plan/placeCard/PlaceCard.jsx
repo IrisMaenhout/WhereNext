@@ -24,7 +24,7 @@ function PlaceCard({ place, isSuggestion, tripId, locationApiData, isItinerary, 
     const [coverImage, setCoverImage] = useState('');
 
     const getGooglePlaceData = () => {
-        fetch(`https://places.googleapis.com/v1/places/${locationApiData.googleLocationId}?fields=displayName,formattedAddress,photos,primaryType,types,location,rating,userRatingCount&languageCode=en&key=${apiKey}`)
+        fetch(`https://places.googleapis.com/v1/places/${locationApiData.googleLocationId}?fields=id,displayName,formattedAddress,photos,primaryType,types,location,rating,userRatingCount&languageCode=en&key=${apiKey}`)
         .then(res => res.json())
         .then(data => {
             setGooglePlaceData(data);
@@ -67,6 +67,7 @@ function PlaceCard({ place, isSuggestion, tripId, locationApiData, isItinerary, 
             getPictureUrl();
         }
     }, [googlePlaceData]);
+
 
     if (googlePlaceData !== undefined) {
         return (

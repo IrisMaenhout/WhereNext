@@ -23,7 +23,7 @@
     position: absolute;
     margin: 1rem;
     top: 1rem;
-    right: 1rem;
+    right: 0;
     /* display: flex;
     justify-content: space-between;
     width: 100%; */
@@ -34,7 +34,7 @@
     position: absolute;
     margin: 1rem;
     top: 1rem;
-    left: 1rem;
+    left: 0;
 }
 
 
@@ -166,11 +166,11 @@
     margin-bottom: 2rem;
 }
 
-.practicalInfo a div i{
+.practicalInfo a div i, .practicalInfo button div i{
     color: #FB6026;
 }
 
-.practicalInfo a div{
+.practicalInfo a div, .practicalInfo button div{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -181,22 +181,25 @@
     border: 1.5px solid #FB6026;
 }
 
-.practicalInfo a p{
+.practicalInfo a p, .practicalInfo button p{
     text-align: center;
     margin-top: 0.5rem;
+    font-size: 16px;
 }
 
-.practicalInfo a:hover div{
+.practicalInfo a:hover div, .practicalInfo button:hover div{
     background-color: #FB6026;
     transition: 200ms;
+    scale: 1.1;
 }
 
-.practicalInfo a:hover p{
+.practicalInfo a:hover p, .practicalInfo button:hover p{
     color: #FB6026;
     transition: 200ms;
+    font-weight: 600;
 }
 
-.practicalInfo a:hover div i{
+.practicalInfo a:hover div i, .practicalInfo button:hover div i{
     color: white;
     transition: 200ms;
 }

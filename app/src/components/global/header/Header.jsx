@@ -1,12 +1,39 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styles from './header.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SecondaryBtn from '../btns/secondary/btn/SecondaryBtn';
-import { LoggedInUserContext, useLoggedInUserContext } from '../../../context/LoggedInUserContext';
+
+import PrimaryBtn from '../btns/primary/btn/PrimaryBtn';
+import { LoggedInUserContext } from '../../../context/LoggedInUserContext';
+import Popup from '../popups/Popup';
+import CountrySelect from '../inputs/countrySelect/CountrySelect';
 
 function Header({isPlaningPages, menuBtnHandleClick, isTripsOverviewPage}) {
 
-    // const { loggedInUserData } = useContext(useLoggedInUserContext);
+    const loggedInUserData = useContext(LoggedInUserContext);
+
+    const navigate = useNavigate();
+    
+    const [formErrorMessages, setFormErrorMessages] = useState({
+        title: null,
+        country: null
+    })
+
+
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [newTripData, setNewTripData] = useState({
+        title:  '',
+        country: '',
+        lat: null,
+        lng: null,
+    });
+
+
+    const handleTitleChange = (e) => {
+        const title = e.target.value;
+        setNewTripData({ ...newTripData, title });
+        // sessionStorage.setItem('title', title);
+    };
 
     // Use loggedInUserData to display user data like avatar
 
@@ -14,8 +41,17 @@ function Header({isPlaningPages, menuBtnHandleClick, isTripsOverviewPage}) {
         console.log('Button was clicked!');
     };
 
+
+    function submitcreateTripForm(){
+        console.log('submit', newTripData);
+        
+        sessionStorage.setItem('newTripData', JSON.stringify(newTripData));
+        navigate('/add-trip');
+    }
+
     return (
-        <header>
+        <>
+        <header className={styles.overviewTripsHeader}>
             <div className={`${styles.container} ${styles.wraper}`}>
                 <div className={styles.left}>
                     {isPlaningPages &&
@@ -42,42 +78,50 @@ function Header({isPlaningPages, menuBtnHandleClick, isTripsOverviewPage}) {
 
                 <nav className={styles.right}>
 
-                    {
-                        isTripsOverviewPage ?
-
-                        <></>
-
-                        :
-
-                        <>
-                            {/* Desktop nav links */}
-                            <SecondaryBtn style={styles.navElementDesktop}onClick={handleClick}>Invite a friend</SecondaryBtn>
-
-                            <Link to={"../trip-settings"} className={styles.navElementDesktop}>Trip settings</Link>
-
-
-                            {/* Mobile nav links */}
-                            <button className={styles.navElementMobile}>
-                                <i className="fi fi-rr-user-add"></i>
-                            </button>
-
-                            <Link className={styles.navElementMobile}>
-                                <i className="fi fi-rr-settings"></i>
-                            </Link>
-                        
-                        </>
-
-                    }
-
+                    <PrimaryBtn onClick={()=> setIsPopupOpen(true)}>Add new trip</PrimaryBtn>
 
                     {/* Avatar for both mobile and desktop */}
                     <Link to={"../account"}>
-                        <img className={styles.avatar} src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww" alt="avatar" />
+                        <img className={styles.avatar} src={loggedInUserData.image} alt="avatar" />
                     </Link>
                 </nav>
             
             </div>
         </header>
+
+
+        {
+            isPopupOpen &&
+
+            <Popup title={'Where do you want to go?'} classNames={styles.popupAddTripWidth} handleClose={()=> setIsPopupOpen(false)}>
+                <div className={styles.addTripPopup}>
+                    <div>
+                        <label htmlFor="title">Title</label>
+                        <input
+                            type="text"
+                            name="title"
+                            placeholder="Give this trip a title"
+                            className={styles.titleInput}
+                            value={newTripData.title}
+                            onChange={handleTitleChange}
+                        />
+                    </div>
+                    <div>
+                        <CountrySelect
+                            className={styles.countrySelect}
+                            // onChange={handleCountryChange}
+                            setNewTripData ={setNewTripData}
+                        />
+                    </div>
+                </div>
+
+                <PrimaryBtn onClick={submitcreateTripForm} style={styles.primaryBtnPopup}>
+                    Continue
+                </PrimaryBtn>
+            </Popup>
+
+        }
+        </>
     );
 }
 

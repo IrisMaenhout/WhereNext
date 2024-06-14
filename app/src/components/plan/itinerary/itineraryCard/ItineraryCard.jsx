@@ -25,10 +25,9 @@ function ItineraryCard({ item, index, locationsFetched, loggedInUser, handleLoca
                             <option key={date} value={date}>{new Date(date).toLocaleDateString()}</option>
                         ))}
                     </select>
-                    <input type="time" value={item.time || ''} onChange={(e) => handleTimeChange(index, e.target.value)} />
                 </div>
                 
-                <div>
+                <div className={styles.orderArrowBtns}>
                     <button onClick={() => moveCard(index, 'up')} disabled={index === 0}><i className="fa-solid fa-angle-up"></i></button>
                     <button onClick={() => moveCard(index, 'down')} disabled={index === itineraryPlaces.length - 1}><i className="fa-solid fa-angle-down"></i></button>
                 </div>
@@ -53,10 +52,28 @@ function ItineraryCard({ item, index, locationsFetched, loggedInUser, handleLoca
                 />
             }
             
-            <div className={styles.addAlternative}>
-                <button className={styles.addAlternativeBtn} onClick={handleClick}>Add alternative</button>
-            </div>
-            {!(itineraryPlaces.length === index + 1) && (
+            {/* <div className={styles.addAlternative}>
+                <button className={styles.addAlternativeBtn} onClick={() => setShowAlternatives(!showAlternatives)}>Show alternatives</button>
+            </div> */}
+            {/* {showAlternatives && item.alternatives && item.alternatives.length > 0 && (
+                <div className={styles.alternativesContainer}>
+                    <h3>Multiple Options</h3>
+                    {item.alternatives.map((alt, altIndex) => (
+                        <div key={alt._id} className={styles.alternativeItem}>
+                            <h4>Option {altIndex + 1}:</h4>
+                            <div className={styles.alternativeCard}>
+                                <img src={alt.image} alt={alt.name} className={styles.alternativeImage} />
+                                <div className={styles.alternativeDetails}>
+                                    <h5>{alt.name}</h5>
+                                    <p>{alt.savedLocation.startTime} - {alt.savedLocation.endTime}</p>
+                                    <p>Rating: {alt.rating} ({alt.reviewCount} reviews)</p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )} */}
+            {/* {!(itineraryPlaces.length === index + 1) && (
                 <div className={styles.directions}>
                     <i className={`fi fi-br-walking ${styles.transportMethod}`}></i>
                     <span>6 min · 0.28 km</span>
@@ -64,7 +81,7 @@ function ItineraryCard({ item, index, locationsFetched, loggedInUser, handleLoca
                         Directions
                     </SecondaryBtn>
                 </div>
-            )}
+            )} */}
         </div>
     );
 }

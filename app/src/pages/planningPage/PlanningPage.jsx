@@ -67,34 +67,25 @@ import Sidebar from '../../components/global/sidebar/Sidebar.jsx';
 import Map from '../../components/plan/map/Map.jsx';
 import ContentContainerDesktop from '../../components/plan/contentContainer/ContentContainerDesktop.jsx';
 import styles from './planningPage.module.css';
-import Subnav from '../../components/plan/subNav/Subnav.jsx';
-import PlacesSearch from '../../components/plan/placesSearch/PlacesSearch.jsx';
-import Suggestions from '../../components/plan/suggestions/Suggestions.jsx';
-import PlaceCard from '../../components/plan/placeCard/PlaceCard.jsx';
 import { PlacesProvider } from '../../context/LocationsContext.jsx';
 import { SelectedPlaceProvider } from '../../context/SelectedPlaceContext.jsx';
 import ContentContainerMobile from '../../components/plan/contentContainer/ContentContainerMobile.jsx';
-import BucketList from '../../components/plan/bucketList/BucketList.jsx';
-import Accomodations from '../../components/plan/accomodations/Accomodations.jsx';
-import { useParams } from 'react-router-dom';
+import PlanHeader from '../../components/global/header/PlanHeader.jsx';
 
 function PlanningPage({children}) {
     const isViewedOnMobile = window.innerWidth < 800;
-    const [isSubNavActive, setIsSubNavActive] = useState(isViewedOnMobile ? false : true);
 
-
-    function handleSubNavMenuClick() {
-        setIsSubNavActive(!isSubNavActive);
-        console.log(isSubNavActive)
-    }
     return (
         <PlacesProvider>
             <div className={styles.container}>
-                <Header menuBtnHandleClick={handleSubNavMenuClick} isPlaningPages={true} isTripsOverviewPage={false}/>
+                <Sidebar />
+                {/* <Header menuBtnHandleClick={handleSubNavMenuClick} isPlaningPages={true} isTripsOverviewPage={false}/> */}
+                <PlanHeader />
                 <div className="contentWrapper">
-                    <Sidebar />
+                    
                     <div className={styles.main}>
-                        <Subnav isActive={isSubNavActive}/>
+
+                        {/* <Subnav isActive={isSubNavActive}/> */}
 
                         <SelectedPlaceProvider>
                             <div className={styles.flexContentPlan}>
@@ -125,7 +116,7 @@ function PlanningPage({children}) {
                                     {/* <PlaceCard/> */}
 
                                     
-                                <Map />
+                                <Map/>
                             </div>
                         </SelectedPlaceProvider>
                     </div>

@@ -124,9 +124,9 @@ function AddTrip({isEditPage}) {
         // input: true,
         type: 'multiple',
         settings: {
-        //   range: {
-        //     disablePast: true,
-        //   },
+          range: {
+            disablePast: true,
+          },
           selection: {
             day: 'multiple-ranged',
           },
@@ -227,7 +227,7 @@ function AddTrip({isEditPage}) {
 
                 //   console.log(data);
                 //   sessionStorage.setItem("tripId", JSON.stringify(data._id));
-                  navigate(`/trip/${data._id}/plan`);
+                  navigate(`/trip/${data._id}/plan/bucket-list`);
                   
             } catch (error) {
                 throw new Error(error);
@@ -296,7 +296,7 @@ function AddTrip({isEditPage}) {
 
                 //   console.log(data);
                 //   sessionStorage.setItem("tripId", JSON.stringify(data._id));
-                  navigate(`/trip/${data._id}/plan`);
+                  navigate(`/trip/${data._id}/plan/bucket-list`);
                   
             } catch (error) {
                 throw new Error(error);

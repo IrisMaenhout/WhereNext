@@ -32,21 +32,25 @@ import HouseMarker from './markers/HouseMarker';
 function MarkerTypes({place, page}){
     const colors = {
         suggestions: {
-            color: "#b34683",
+            color: "#3db8ad",
             strokeColor: "white"
         },
         bucketList: {
-            color: "#b39246",
+            color: "#e6b749",
             strokeColor: "white"
         },
         itinerary: {
-            color: "#b39246",
+            color: "#7d59b3",
             strokeColor: "white"
         },
-        detail: {
-            color: "#3db8ad",
+        accomodations: {
+            color: "#b3467e",
             strokeColor: "white"
-        }
+        },
+        // detail: {
+        //     color: "#3db8ad",
+        //     strokeColor: "white"
+        // }
     }
 
     const size = {

@@ -127,22 +127,32 @@ getLocationsRouter.get("/getAccomodations/inTrip/:tripId", loggedInMiddleware, a
 getLocationsRouter.get("/:locationId/inTrip/:tripId", loggedInMiddleware, async (req, res) => {
   const tripId = req.params.tripId;
   const googleLocationId = req.params.locationId;
-  
+
   // Validation
-  
-  if(!isValidObjectId(tripId)){
+  if (!isValidObjectId(tripId)) {
     return res.status(400).json({ error: "The provided trip id is not valid" });
   }
-  
-  const location = await db.collection("locations").findOne({
-    tripId: new ObjectId(tripId),
-    googleLocationId: googleLocationId
-  });
 
-  if (location) {
-    return res.json(location);
-  } else {
-    return res.status(404).json({ error: "Location not found" });
+  try {
+    const objectIdTripId = new ObjectId(tripId);
+    console.log("Converted tripId:", objectIdTripId);
+    console.log("Received googleLocationId:", googleLocationId);
+
+    const location = await db.collection("locations").findOne({
+      tripId: objectIdTripId,
+      googleLocationId: googleLocationId
+    });
+
+    if (location) {
+      console.log("Location found:", location);
+      return res.json(location);
+    } else {
+      console.log('Location not found in database.');
+      return res.status(404).json({ error: "Location not found" });
+    }
+  } catch (error) {
+    console.error("Error fetching location:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

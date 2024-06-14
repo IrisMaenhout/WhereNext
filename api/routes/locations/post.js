@@ -97,54 +97,54 @@ postLocationsRouter.post("/:googleLocationId/addToTrip/:tripId", loggedInMiddlew
 });
 
 // Get all saved locations in a trip that are saved as itinerary with the correct date
-// postLocationsRouter.post("/getItinerary/inTrip/:tripId", loggedInMiddleware, async (req, res) => {
-//     const tripId = req.params.tripId;
-//     const dates = req.body.dates;
+postLocationsRouter.post("/getItinerary/inTrip/:tripId", loggedInMiddleware, async (req, res) => {
+    const tripId = req.params.tripId;
+    const dates = req.body.dates;
 
-//     // Validate tripId
-//     if (!isValidObjectId(tripId)) {
-//         return res.status(400).json({ error: "The provided trip id is not valid" });
-//     }
+    // Validate tripId
+    if (!isValidObjectId(tripId)) {
+        return res.status(400).json({ error: "The provided trip id is not valid" });
+    }
 
-//     // Validate and convert date strings to Date objects
-//     const dateObjs = dates.map(date => {
-//         const dateObj = new Date(date);
-//         if (isNaN(dateObj)) {
-//             return null;
-//         }
-//         return dateObj;
-//     }).filter(dateObj => dateObj !== null);
+    // Validate and convert date strings to Date objects
+    const dateObjs = dates.map(date => {
+        const dateObj = new Date(date);
+        if (isNaN(dateObj)) {
+            return null;
+        }
+        return dateObj;
+    }).filter(dateObj => dateObj !== null);
 
-//     console.log(dateObjs)
-//     console.log(dates)
+    console.log(dateObjs)
+    console.log(dates)
 
-//     if (dateObjs.length === 0) {
-//         return res.status(400).json({ error: "The provided dates are not valid" });
-//     }
+    if (dateObjs.length === 0) {
+        return res.status(400).json({ error: "The provided dates are not valid" });
+    }
 
-//     const dbQuery = {
-//         tripId: new ObjectId(tripId),
-//         "savedLocation.itinerary": true,
-//         date: { $in: dateObjs }
-//     };
+    const dbQuery = {
+        tripId: new ObjectId(tripId),
+        "savedLocation.itinerary": true,
+        date: { $in: dateObjs }
+    };
 
-//     const options = {
-//         sort: { order: 1 }
-//     };
+    const options = {
+        sort: { order: 1 }
+    };
 
-//     try {
-//         const itineraryLocations = await db.collection("locations").find(dbQuery, options).toArray();
+    try {
+        const itineraryLocations = await db.collection("locations").find(dbQuery, options).toArray();
 
-//         if (itineraryLocations.length > 0) {
-//             return res.json(itineraryLocations);
-//         } else {
-//             return res.status(404).json({ error: "There are no locations saved for this trip on the specified dates." });
-//         }
-//     } catch (error) {
-//         console.error("Error fetching itinerary locations:", error);
-//         return res.status(500).json({ error: "An error occurred while fetching the itinerary locations." });
-//     }
-// });
+        if (itineraryLocations.length > 0) {
+            return res.json(itineraryLocations);
+        } else {
+            return res.status(404).json({ error: "There are no locations saved for this trip on the specified dates." });
+        }
+    } catch (error) {
+        console.error("Error fetching itinerary locations:", error);
+        return res.status(500).json({ error: "An error occurred while fetching the itinerary locations." });
+    }
+});
 
 
 postLocationsRouter.post("/:locationId/addAlternative", loggedInMiddleware, async (req, res) => {
@@ -193,50 +193,50 @@ postLocationsRouter.post("/:locationId/addAlternative", loggedInMiddleware, asyn
   });
 
   
-  postLocationsRouter.post("/getItinerary/inTrip/:tripId", loggedInMiddleware, async (req, res) => {
-    const tripId = req.params.tripId;
-    const dates = req.body.dates;
+  // postLocationsRouter.post("/getItinerary/inTrip/:tripId", loggedInMiddleware, async (req, res) => {
+  //   const tripId = req.params.tripId;
+  //   const dates = req.body.dates;
   
-    if (!isValidObjectId(tripId)) {
-      return res.status(400).json({ error: "The provided trip id is not valid" });
-    }
+  //   if (!isValidObjectId(tripId)) {
+  //     return res.status(400).json({ error: "The provided trip id is not valid" });
+  //   }
   
-    const dateObjs = dates.map(date => new Date(date)).filter(dateObj => !isNaN(dateObj));
+  //   const dateObjs = dates.map(date => new Date(date)).filter(dateObj => !isNaN(dateObj));
   
-    if (dateObjs.length === 0) {
-      return res.status(400).json({ error: "The provided dates are not valid" });
-    }
+  //   if (dateObjs.length === 0) {
+  //     return res.status(400).json({ error: "The provided dates are not valid" });
+  //   }
   
-    const dbQuery = {
-      tripId: new ObjectId(tripId),
-      "savedLocation.itinerary": true,
-      date: { $in: dateObjs }
-    };
+  //   const dbQuery = {
+  //     tripId: new ObjectId(tripId),
+  //     "savedLocation.itinerary": true,
+  //     date: { $in: dateObjs }
+  //   };
   
-    const options = {
-      sort: { startTime: 1, order: 1 }
-    };
+  //   const options = {
+  //     sort: { order: 1, startTime: 1 }
+  //   };
   
-    try {
-      const itineraryLocations = await db.collection("locations").find(dbQuery, options).toArray();
-      const alternativeLocationIds = itineraryLocations.reduce((acc, loc) => acc.concat(loc.alternativeLocationIds || []), []);
-      const alternativeLocations = await db.collection("locations").find({ _id: { $in: alternativeLocationIds.map(id => new ObjectId(id)) } }).toArray();
+  //   try {
+  //     const itineraryLocations = await db.collection("locations").find(dbQuery, options).toArray();
+  //     const alternativeLocationIds = itineraryLocations.reduce((acc, loc) => acc.concat(loc.alternativeLocationIds || []), []);
+  //     const alternativeLocations = await db.collection("locations").find({ _id: { $in: alternativeLocationIds.map(id => new ObjectId(id)) } }).toArray();
   
-      const itineraryWithAlternatives = itineraryLocations.map(location => {
-        const locationAlternatives = alternativeLocations.filter(alt => location.alternativeLocationIds.includes(alt._id.toString()));
-        return { ...location, alternatives: locationAlternatives };
-      });
+  //     const itineraryWithAlternatives = itineraryLocations.map(location => {
+  //       const locationAlternatives = alternativeLocations.filter(alt => location.alternativeLocationIds.includes(alt._id.toString()));
+  //       return { ...location, alternatives: locationAlternatives };
+  //     });
   
-      if (itineraryWithAlternatives.length > 0) {
-        return res.json(itineraryWithAlternatives);
-      } else {
-        return res.status(404).json({ error: "There are no locations saved for this trip on the specified dates." });
-      }
-    } catch (error) {
-      console.error("Error fetching itinerary locations:", error);
-      return res.status(500).json({ error: "An error occurred while fetching the itinerary locations." });
-    }
-  });
+  //     if (itineraryWithAlternatives.length > 0) {
+  //       return res.json(itineraryWithAlternatives);
+  //     } else {
+  //       return res.status(404).json({ error: "There are no locations saved for this trip on the specified dates." });
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching itinerary locations:", error);
+  //     return res.status(500).json({ error: "An error occurred while fetching the itinerary locations." });
+  //   }
+  // });
   
   
   

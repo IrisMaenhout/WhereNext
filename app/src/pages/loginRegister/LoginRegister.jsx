@@ -1,15 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { LoggedInUserContext } from '../../context/LoggedInUserContext';
 import styles from './loginRegister.module.css';
-import { Link } from 'react-router-dom';
 import InputWithLabel from '../../components/global/formInputs/input/inputWithLabel/inputWithLabel';
 import PasswordInputWithLabel from '../../components/global/formInputs/input/passwordInputWithLabel/PasswordWithLabel';
-import ROUTES from '../../consts/routes';
 import PrimaryBtn from '../../components/global/btns/primary/btn/PrimaryBtn';
 
 function LoginRegister({setLogin, isLogin}) {
 
-    const [formData, setFormData] = useState( isLogin ? {
+    const [isLoginPage, setIsLoginPage] = useState(isLogin);
+    const [formData, setFormData] = useState( isLoginPage ? {
         email: "",
         password: ""
     } : {
@@ -20,7 +18,7 @@ function LoginRegister({setLogin, isLogin}) {
     });
 
     const [errors, setErrors ] = useState();
-    const [isLoginPage, setIsLoginPage] = useState(isLogin);
+    
 
     
     function updateFormData(event) {
@@ -50,9 +48,6 @@ function LoginRegister({setLogin, isLogin}) {
     
           if (!response.ok) {
             setErrors(data.error);
-            // console.log(data);
-            // throw new Error('Network response was not ok');
-            
           }
     
           setLogin(data);
@@ -91,7 +86,7 @@ function LoginRegister({setLogin, isLogin}) {
 
       function handleSubmit(e){
         e.preventDefault();
-        if(isLogin){
+        if(isLoginPage){
           loginFunc();
         }else{
           registerFunc();
@@ -106,7 +101,7 @@ function LoginRegister({setLogin, isLogin}) {
       
 
                   <form className={styles.cardContent} onSubmit={handleSubmit}>
-                      <h2 className={styles.title}>{isLogin ? 'Sign in' : 'sign up'}</h2>
+                      <h2 className={styles.title}>{isLoginPage ? 'Sign in' : 'sign up'}</h2>
 
                       {
                           errors && 
@@ -116,7 +111,7 @@ function LoginRegister({setLogin, isLogin}) {
                       }
 
                       {
-                        !isLogin && 
+                        !isLoginPage && 
                         <>
                           <InputWithLabel name={"firstname"} labelText={"First name"} inputType={"text"} value={formData.firstname} handleChange={updateFormData}/>
 
@@ -136,13 +131,13 @@ function LoginRegister({setLogin, isLogin}) {
 
                       <div className={styles.toOtherPage}>
                           {
-                            isLogin ?
+                            isLoginPage ?
                             <>
-                              <span>No account yet?</span><Link to={ROUTES.register}>Create one here</Link>
+                              <span>No account yet?</span><p onClick={() => setIsLoginPage(false)}>Create one here</p>
                             </>
                             :
                             <>
-                              <span>Do you already have an account?</span><p onClick={isLogin ? setIsLoginPage(false) : setIsLoginPage(true)}>Sign in here</p>
+                              <span>Do you already have an account?</span><p onClick={() => setIsLoginPage(true)}>Sign in here</p>
                             </>
                           }
                           

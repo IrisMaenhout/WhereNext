@@ -9,6 +9,7 @@ import CountrySelect from '../global/inputs/countrySelect/CountrySelect';
 import PrimaryBtn from '../global/btns/primary/btn/PrimaryBtn';
 import PrimaryLinkBtn from '../global/btns/primary/link/PrimaryLinkBtn';
 import { useNavigate } from 'react-router-dom';
+import FilterBtn from '../global/btns/filterBtn/FilterBtn';
 
 function TripOverview(props) {
     const loggedInUser = useContext(LoggedInUserContext);
@@ -17,42 +18,12 @@ function TripOverview(props) {
     const [upcomingTrips, setUpcomingTrips] = useState([]);
     const [pastTrips, setPastTrips] = useState([]);
     const [selectedYear, setSelectedYear] = useState('All');
-    const [isPopupOpen, setIsPopupOpen] = useState(true);
-    const [newTripData, setNewTripData] = useState({
-        title:  '',
-        country: '',
-        lat: null,
-        lng: null,
-    });
+    
 
-    const [formErrorMessages, setFormErrorMessages] = useState({
-        title: null,
-        country: null
-    })
+    
 
-    const navigate = useNavigate();
+    
 
-
-    const handleTitleChange = (e) => {
-        const title = e.target.value;
-        setNewTripData({ ...newTripData, title });
-        // sessionStorage.setItem('title', title);
-    };
-
-    const handleCountryChange = async (selectedOption) => {
-        // const { label, lat, lng } = selectedOption;
-
-        console.log(selectedOption)
-        // setNewTripData({
-        //     ...newTripData,
-        //     country: label,
-        //     latitude: lat,
-        //     longitude: lng,
-        // });
-        // sessionStorage.setItem('country', label);
-        // sessionStorage.setItem('latitude', lat);
-        // sessionStorage.setItem('longitude', lng);
-    };
 
     const getTrips = async () => {
         try {
@@ -112,12 +83,6 @@ function TripOverview(props) {
         ? pastTrips
         : pastTrips.filter(trip => new Date(trip.startDate).getFullYear() === parseInt(selectedYear));
 
-    function submitcreateTripForm(){
-        console.log('submit', newTripData);
-        
-        sessionStorage.setItem('newTripData', JSON.stringify(newTripData));
-        navigate('/add-trip');
-    }
 
 
     return (
@@ -129,10 +94,10 @@ function TripOverview(props) {
                 <CalendarSidebar trips={trips}/>
                 <div className={styles.main}>
                     <div className={styles.currentTrips}>
-                        <h2>Current trip</h2>
+                        <h2><i className={`fi fi-tr-live-alt ${styles.liveIcon}`}></i>Current trip</h2>
                         {currentTrips.length > 0 ? (
                             currentTrips.map((trip, i) => (
-                                <TripCard key={`currentTrip-${i}`} tripData={trip} isCurrentlyHappening={true} />
+                                <TripCard key={`currentTrip-${i}`} tripData={trip} isCurrentlyHappening={true} className={styles.currentTripCard}/>
                             ))
                         ) : (
                             <p>No current trips</p>
@@ -157,10 +122,13 @@ function TripOverview(props) {
                     <div className={styles.pastTrips}>
                         <h2>Past trips</h2>
                         <div className={styles.yearFilter}>
-                            <button onClick={() => handleYearFilter('All')}>All</button>
+                            {/* <button onClick={() => handleYearFilter('All')}>All</button> */}
+                            <FilterBtn handleClick={() => handleYearFilter('All')} title={'All'} isSelected={selectedYear === 'All'}/>
                             {[...new Set(pastTrips.map(trip => new Date(trip.startDate).getFullYear()))].map(year => (
-                                <button key={year} onClick={() => handleYearFilter(year)}>{year} </button>
+                                // <button key={year} onClick={() => handleYearFilter(year)}>{year} </button>
+                                <FilterBtn key={year} handleClick={() => handleYearFilter(year)} title={year} isSelected={selectedYear === year}/>
                             ))}
+                            
                         </div>
                         <div className="gridTripsOverview">
                             {filteredPastTrips.length > 0 ? (
@@ -178,37 +146,7 @@ function TripOverview(props) {
             </div>
         </div>
         
-        {
-            isPopupOpen &&
-
-            <Popup title={'Where do you want to go?'} classNames={styles.popupAddTripWidth} handleClose={()=> setIsPopupOpen(false)}>
-                <div className={styles.addTripPopup}>
-                    <div>
-                        <label htmlFor="title">Title</label>
-                        <input
-                            type="text"
-                            name="title"
-                            placeholder="Give this trip a title"
-                            className={styles.titleInput}
-                            value={newTripData.title}
-                            onChange={handleTitleChange}
-                        />
-                    </div>
-                    <div>
-                        <CountrySelect
-                            className={styles.countrySelect}
-                            // onChange={handleCountryChange}
-                            setNewTripData ={setNewTripData}
-                        />
-                    </div>
-                </div>
-
-                <PrimaryBtn onClick={submitcreateTripForm} style={styles.primaryBtnPopup}>
-                    Continue
-                </PrimaryBtn>
-            </Popup>
-
-        }
+        
         
         </>
     );

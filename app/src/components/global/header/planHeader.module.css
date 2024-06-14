@@ -1,14 +1,13 @@
-.overviewTripsHeader{
+header{
     background-color: white;
-    padding: .5em 4em;
+    padding: .5em 2em;
     border-bottom: 1px solid #CED9DD;
     box-shadow: 4px 4px 15px 0px rgba(217, 222, 224, 0.3);
     position: fixed;
     top: 0;
-    left: 0;
+    left: 5.05rem;
     right: 0;
-    z-index: 100;
-    width: 100%;
+    z-index: 20;
 }
 
 .container{
@@ -16,27 +15,63 @@
     justify-content: space-between;
 }
 
+.left, .right{
+    display: flex;
+    gap: 1.5em;
+    align-items: center;
+}
 
-
-.overviewTripsHeader a{
+a{
     text-decoration: none;
 }
 
-.left img{
+
+.left p{
+    font-size: 14px;
+    margin-top: .5em;
+}
+
+.right .membersDesktop img{
     display: block;
     width: 3rem;
     height: 3rem;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    border: 2px solid white;
 }
 
-.avatar{
-    width: 100%;
-    /* min-height: 2em;
-    max-width: 5em; */
+.members{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.membersDesktop{
+    display: flex;
+}
+
+.membersDesktop img+img{
+    margin-left: -1rem;
+}
+
+
+.addUserBtn{
+    display: flex;
+    padding-top: .5rem;
     width: 3rem;
     height: 3rem;
-    object-fit: cover;
-    border-radius: 100%;
+    justify-content: center;
+    align-items: center;
+    border-radius: .5rem;
 }
+
+.addUserBtn:hover{
+    scale: 1.1;
+    transition: 200ms;
+    background-color: #ffded1;
+}
+
 
 
 
@@ -55,58 +90,10 @@ i{
     color: #FB6026;
 }
 
-.right{
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
-
 /* Hide all desktop elements */
 .desktopLogo, .navElementDesktop{
     display: none;
 }
-
-
-
-.popupAddTripWidth{
-    width: 50%;
-}
-
-.addTripPopup {
-    display: flex;
-    gap: 2rem;
-}
-
-.addTripPopup > div {
-    flex: 1; /* Ensure each child takes up equal space */
-    display: flex;
-    flex-direction: column; /* Stack label and input vertically */
-}
-
-.addTripPopup label {
-    margin-bottom: 0.5rem; /* Add some space between label and input */
-}
-
-.titleInput, .countrySelect {
-    display: block;
-    padding: .5rem;
-    width: 100%;
-    font-size: 16px;
-    color: #444444;
-    border-radius: .2rem;
-    border: 1px solid #cccccc;
-}
-
-
-.primaryBtnPopup{
-    display: block;
-    width: 100%;
-    margin-top: 2rem;
-    text-align: center;
-    padding: .8rem;
-    font-size: large;
-}
-
 
 
 

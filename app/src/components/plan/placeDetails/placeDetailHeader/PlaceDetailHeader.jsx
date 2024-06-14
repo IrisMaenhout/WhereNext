@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import styles from './placeDetailHeader.module.css';
 import SavePlaceBtn from '../../../global/btns/savePlaceBtn/SavePlaceBtn';
 import PlaceDetailTabs from '../../../global/btns/tabs/placeDetailTabs/PlaceDetailTabs';
+import { useNavigate } from 'react-router-dom';
+import { PlacesContext } from '../../../../context/LocationsContext';
+import { LoggedInUserContext } from '../../../../context/LoggedInUserContext';
 
 function PlaceDetailHeader({handleGoBackArrowFunc, googlePlaceData, googlePlaceId, tripId}) {
+    const navigate = useNavigate();
+    const {setPlaces} = useContext(PlacesContext);
+    
+    function goBack() {
+        setPlaces([]);
+        navigate(-1);
+    }
     return (
         <>
             <div className={styles.topContainer}>
                 <div className={styles.titleFlex}>
-                    <button onClick={handleGoBackArrowFunc}><i className={`fi fi-sr-angle-left ${styles.goBackArrow}`}></i></button>
+                    <button onClick={()=> goBack()}><i className={`fi fi-sr-angle-left ${styles.goBackArrow}`}></i></button>
                     <h2>{googlePlaceData.displayName.text}</h2>
                 </div>
 
@@ -18,7 +28,6 @@ function PlaceDetailHeader({handleGoBackArrowFunc, googlePlaceData, googlePlaceI
             
             </div>
 
-            <PlaceDetailTabs />
         </>
         
     );

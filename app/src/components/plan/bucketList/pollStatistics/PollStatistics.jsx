@@ -5,7 +5,7 @@ import { Chart as ChartJS, defaults } from "chart.js/auto";
 
 function PollStatistics({numberOfTripMembers, locationApiData}) {
 
-    const interestData = locationApiData.interest;
+    const interestData = locationApiData.interest || [];
 
     function calculateGroupInterest() {
         if (interestData.length === 0) return 0;

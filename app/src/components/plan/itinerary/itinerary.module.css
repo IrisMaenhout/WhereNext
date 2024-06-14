@@ -5,6 +5,17 @@
     /* margin-bottom: 20px; */
 }
 
+.flexContainer div{
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.flexContainer div i{
+    display: block;
+    padding-top: .3rem;
+}
+
 .content{
     margin-top: 3rem;
     /* display: flex;
@@ -39,7 +50,18 @@
     padding-left: 3rem;
     /* background-color: white; */
     min-width: 24rem;
+    padding-bottom: 2rem;
 }
+
+.itineraryItem:nth-child(even){
+    padding-bottom: 6rem;
+}
+
+.itineraryItem:last-of-type::before{
+    display: none;
+}
+
+
 
 .stepMarker {
     position: absolute;
@@ -146,20 +168,24 @@
     /* grid-template-columns: auto; */
     overflow-x: auto;
     grid-auto-flow: column;
-    gap: 1rem;
+    gap: 3rem;
     overflow-y: hidden;
+    margin-top: 2rem;
     /* grid-template-columns: repeat(auto-fill, minMax(21rem, 1fr)); */
 }
 
-.kanbanContent{
-    background-color: #ff8c00;
-    padding: .5rem;
-    border-radius: 1rem;
-    /* min-width: 12rem;
-    height: 100%; */
-    height: 100%;
-    min-width: 24rem;
+
+.dayLabel{
+    background-color: #FDB833;
+    padding: .5rem 1rem;
+    width: fit-content;
+    border-radius: .5rem;
+    margin-top: .5rem ;
+    margin-bottom: 3rem;
+    color: white;
+    font-weight: 600;
 }
+
 
 
 /* itinerary.module.css */
@@ -180,4 +206,55 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 1rem;
+}
+
+
+/* ____ */
+.alternativesContainer {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.alternativeItem {
+    margin-bottom: 10px;
+}
+
+.alternativeCard {
+    display: flex;
+    align-items: center;
+}
+
+.alternativeImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.alternativeDetails {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.kanbanBoardDay{
+    background-color: #FFF9EC;
+    padding: 1rem;
+    min-width: 400px;
+    width: fit-content;
+    border-radius: 1rem;
+}
+
+.orderArrowBtns{
+    display: flex;
+    gap: .5rem;
+}
+
+.orderArrowBtns button:hover i{
+    transition: 200ms;
+    scale: 1.2;
+    color: #FB6026;
 }

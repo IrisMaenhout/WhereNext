@@ -6,3 +6,23 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.popup{
+    width: 40%;
+}
+
+.popup p{
+    margin-bottom: .5rem;
+}
+
+.popup h2{
+    margin-bottom: 2rem;
+    color: #FB6026;
+    font-size: 28px;
+}
+
+.popup .submitBtn{
+    width: 100%;
+    font-size: 18px;
+    margin-top: 1rem;
+}

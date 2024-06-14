@@ -28,10 +28,15 @@ postTripsRouter.post("/add", loggedInMiddleware, async (req, res) => {
     }
 
     const { tripName, startDate, endDate, country, cities, datesArray } = value;
-    // const salt = await bcrypt.genSalt(10);
+
+    // Generate a random password
+    const randomPassword = Math.random().toString(36).slice(-8);
+
+    
     
     // //   Hash given password
-    // const hashPassword = await bcrypt.hash(password, salt);
+    // const salt = await bcrypt.genSalt(10);
+    // const hashPassword = await bcrypt.hash(randomPassword, salt);
     
     const tripPost = await db.collection("trips").insertOne({ 
         tripName: tripName,
@@ -40,7 +45,7 @@ postTripsRouter.post("/add", loggedInMiddleware, async (req, res) => {
         country: country,
         cities: cities,
         members: [loggedInUserId],
-        // password: password,
+        password: randomPassword,
         datesArray: datesArray,
         createdOn: Date.now()
     });
@@ -93,7 +98,7 @@ postTripsRouter.post("/:tripId/addLoggedInUserToTrip", loggedInMiddleware, async
     }else{
 
         // Check if the user already has been added to this trip
-        if(trip.members.includes(loggedInUserId.toString())){
+        if(trip.members.includes(new ObjectId(loggedInUserId))){
             return res.status(401).json({error: 'This user has aready been added to this trip.'})
         }else{
             //   const validPassword = await bcrypt.compare(value.password, trip.password);
@@ -107,7 +112,7 @@ postTripsRouter.post("/:tripId/addLoggedInUserToTrip", loggedInMiddleware, async
 
                 const membersArray = trip.members;
 
-                membersArray.push(loggedInUserId.toString());
+                membersArray.push(new ObjectId(loggedInUserId));
                         
                 const newData = { 
                     ...trip, 

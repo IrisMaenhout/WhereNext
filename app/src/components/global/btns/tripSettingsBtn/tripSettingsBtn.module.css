@@ -2,7 +2,7 @@
     position: relative;
 }
 
-.saveBtn i:hover{
+.btnInCard i:hover{
     /* margin-top: .5rem; */
     color: #FB6026;
     transition: 200ms;
@@ -19,8 +19,38 @@
     box-shadow: 4px 4px 15px 4px rgba(217, 222, 224, 0.3);
 }
 
-.right{
+.saveBtn .right{
     right: 0;
+}
+
+/* .navItem .right{
+    right: 40rem;
+} */
+
+.navItem{
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: .5rem;
+    font-weight: 32px;
+}
+
+.navItem:hover{
+    scale: 1.1;
+    transition: 200ms;
+    background-color: #ffded1;
+}
+
+.navItem i:hover{
+    color: #9EACB0;
+}
+
+.navItem i{
+    font-size: 1.8em;
+    display: block;
+    margin-top: 0.5rem; 
 }
 
 .containerSaveToPagesBtns .page{
@@ -29,7 +59,15 @@
     gap: 1rem;
 }
 
-.page+.page{
+.verticalFlexContainer{
+    flex-direction: column;
+}
+
+.horizontalFlexContainer{
+    flex-direction: row;
+}
+
+.verticalFlexContainer .page+.page{
     margin-top: .5rem;
 }
 
