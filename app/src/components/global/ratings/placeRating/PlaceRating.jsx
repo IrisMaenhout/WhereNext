@@ -25,7 +25,6 @@ function PlaceRating(rating) {
             
         }
         for (let i = 0; i < emptyStars; i++) {
-            // stars.push(<i key={`empty-${i}`} className="fa-regular fa-star"></i>);
 
             <div className={styles.notColoredStars}>
                 <i key={`empty-${i}`} className="fa-regular fa-star"></i>

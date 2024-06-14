@@ -30,12 +30,10 @@ function BlockNoteComponent({ doc, provider, googleLocationId, tripId }) {
       });
 
       if (!response.ok) {
-          console.log(response);
           throw new Error(response.statusText);
       }
 
-      const data = await response.json();
-      console.log('upload', data);
+      
     } catch (error) {
         console.error(error);
     }
@@ -71,7 +69,7 @@ function BlockNoteComponent({ doc, provider, googleLocationId, tripId }) {
   useEffect(()=> {
     
     const interval = setInterval(() => {
-      if(currentNoteData.length > 0){
+      if(currentNoteData.length > 0 && currentNoteData !== undefined){
         handleSaveNote();
       }
       // upload automaticly every 2 minutes
@@ -85,7 +83,7 @@ function BlockNoteComponent({ doc, provider, googleLocationId, tripId }) {
 
     // const userInfo = useSelf((me) => me.info);
   const editor = useCreateBlockNote({
-    initialContent: currentNoteData,
+    initialContent: currentNoteData || null,
     collaboration: {
       provider,
       fragment: doc.getXmlFragment("document-store"),
@@ -102,7 +100,6 @@ function BlockNoteComponent({ doc, provider, googleLocationId, tripId }) {
 
   return <BlockNoteView editor={editor} editable={true} theme={'light'} onChange={() => {
     // Saves the document JSON to state.
-    console.log(editor.document);
     setCurrentNoteData(editor.document);
   }}/>;
 }

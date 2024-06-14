@@ -17,7 +17,6 @@ getTripsRouter.get("/", async (req, res) => {
 // Get all trips for the logged in user
 getTripsRouter.get("/my-trips", loggedInMiddleware, async (req, res) => {
   const loggedInUserId = req.user._id;
-  console.log(loggedInUserId);
 
   const trips = await db.collection("trips").find({
     members: { $all: [loggedInUserId] }

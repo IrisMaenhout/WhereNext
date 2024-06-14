@@ -135,8 +135,6 @@ getLocationsRouter.get("/:locationId/inTrip/:tripId", loggedInMiddleware, async 
 
   try {
     const objectIdTripId = new ObjectId(tripId);
-    console.log("Converted tripId:", objectIdTripId);
-    console.log("Received googleLocationId:", googleLocationId);
 
     const location = await db.collection("locations").findOne({
       tripId: objectIdTripId,
@@ -144,14 +142,11 @@ getLocationsRouter.get("/:locationId/inTrip/:tripId", loggedInMiddleware, async 
     });
 
     if (location) {
-      console.log("Location found:", location);
       return res.json(location);
     } else {
-      console.log('Location not found in database.');
       return res.status(404).json({ error: "Location not found" });
     }
   } catch (error) {
-    console.error("Error fetching location:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 });

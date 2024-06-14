@@ -1,7 +1,6 @@
 import React from 'react';
 import PlaceDetailTabs from '../../../global/btns/tabs/placeDetailTabs/PlaceDetailTabs';
 import styles from './reviews.module.css';
-import SavePlaceBtn from '../../../global/btns/savePlaceBtn/SavePlaceBtn';
 import { Tooltip } from 'react-tooltip';
 import PlaceDetailHeader from '../placeDetailHeader/PlaceDetailHeader';
 
@@ -11,18 +10,7 @@ function Reviews({googlePlaceData, googlePlaceId, tripId, handleGoBackArrowFunc}
     return (
         <div>
        
-            {/* <div className={styles.topContainer}>
-                <div className={styles.titleFlex}>
-                    <button onClick={handleGoBackArrowFunc}><i className={`fi fi-sr-angle-left ${styles.goBackArrow}`}></i></button>
-                    <h2>{googlePlaceData.displayName.text}</h2>
-                </div>
-
-                <div className={styles.saveBtnContainer} onClick={(e) => e.stopPropagation()}>
-                    <SavePlaceBtn placeId={googlePlaceId} tripId={tripId} position={"right"} />
-                </div>
-                
-            </div> */}
-
+        
             <PlaceDetailHeader
                 handleGoBackArrowFunc={handleGoBackArrowFunc} 
                 googlePlaceData={googlePlaceData}
@@ -32,8 +20,6 @@ function Reviews({googlePlaceData, googlePlaceId, tripId, handleGoBackArrowFunc}
 
             <PlaceDetailTabs selected={'reviews'}/>
             
-                            
-            {/* <PlaceDetailTabs /> */}
 
             {
                 googlePlaceData.reviews.map((review, i)=> {

@@ -63,15 +63,7 @@ function Sidebar(props) {
                     </div>
 
                     <div>
-                        {/* <Link 
-                            to={`/trip/${tripId}/trip-settings`} 
-                            className={`${styles.navItem}`}
-                            data-tooltip-id={'trip-settings'}
-                            data-tooltip-content={'Trip settings'}
-                            onClick={resetPlacesMap}
-                        >
-                            <i className="fi fi-rr-settings"></i>
-                        </Link> */}
+
                         <TripSettingsBtn tripId={tripId} isInSideBar={true} position={''}>
                             <i className="fi fi-rr-settings"></i>
                         </TripSettingsBtn>

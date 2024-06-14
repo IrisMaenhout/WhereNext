@@ -34,7 +34,6 @@ function VisitingInfo({handleGoBackArrowFunc, googlePlaceData, googlePlaceId, tr
 
     useEffect(()=>{
         getTrip();
-        console.log('test',savedLocationData);
     }, [])
     
         return (

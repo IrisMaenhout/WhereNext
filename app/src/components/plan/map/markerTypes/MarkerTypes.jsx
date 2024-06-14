@@ -144,7 +144,6 @@ function MarkerTypes({place, page}){
         return <HostelMarker color={colors[page].color} strokeColor={colors[page].strokeColor}/>
     
     }else{
-        console.log('No marker',place);
         return (
             <LocationMarker color={colors[page].color} strokeColor={colors[page].strokeColor}/>
         )

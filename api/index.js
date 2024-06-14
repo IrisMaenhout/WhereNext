@@ -48,42 +48,6 @@ const port = process.env.PORT;
 // register middleware
 registerMiddleware(app);
 
-
-// app.use(async (req, res, next) => {
-//   if (req.headers.authorization) {
-//     // const { error } = idSchema.validate(req.headers.authorization);
-    
-
-//     // if (error) {
-//     //   const errorArray = error.details.map((err) => err.message);
-//     //   return res.status(400).json({ errors: errorArray });
-//     // }
-
-//     if (!isValidObjectId(req.headers.authorization)) {
-//       return res.status(400).json({ error: "the provided id in header authorization is invalid" });
-//     }
-
-//     // check if user with id exists
-//     const user = await db.collection("users").findOne({ _id: new ObjectId(req.headers.authorization) });
-//     console.log(user);
-
-//     if (user) {
-//       req.user = user;
-//       return next();
-//     } else {
-//       return res.status(401).json({
-//         error: "Unauthorized",
-//       });
-//     }
-
-//   } else {
-//     req.user = undefined;
-//     return next();
-//   }
-// });
-
-
-
 // Routes to create, delete, update or get users
 app.use('/users', postUsersRouter, getUsersRouter, patchUsersRouter, deleteUsersRouter);
 

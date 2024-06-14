@@ -49,7 +49,6 @@ patchUsersRouter.patch("/loggedInUser", loggedInMiddleware , async (req, res) =>
     }
     
     const loggedInUser = req.user;
-    console.log('user',loggedInUser);
     
     updateUser(loggedInUser, req, res)
     

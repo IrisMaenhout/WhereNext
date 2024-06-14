@@ -34,7 +34,6 @@ function TripCard({ isCurrentlyHappening, tripData, className }) {
             }
 
             const data = await response.json();
-            console.log('HEADER Members', data);
             setMembersData(data);
 
         } catch (error) {

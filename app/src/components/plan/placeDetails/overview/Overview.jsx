@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
 import styles from '../placeDetails.module.css';
 import SavePlaceBtn from '../../../global/btns/savePlaceBtn/SavePlaceBtn';
 import { Tooltip } from 'react-tooltip';
@@ -20,13 +19,11 @@ function Overview({fullStars, halfStars, emptyStars, googlePlaceId, googlePlaceD
     }
 
     function handleOpenRoute() {
-        // const currentLocationUser =  navigator.geolocation.getCurrentPosition;
-        // console.log(currentLocationUser);
+  
 
         if ("geolocation" in navigator) {
             /* geolocation is available */
             navigator.geolocation.getCurrentPosition((position) => {
-                console.log(position.coords.latitude, position.coords.longitude);
                 const url = `https://www.google.com/maps/dir/${position.coords.latitude},${position.coords.longitude}/${googlePlaceData.location.latitude},${googlePlaceData.location.longitude}`;
                 window.open(url, '_blank');
             });

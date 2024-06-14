@@ -1,22 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
-// import {
-//     ColourOption,
-//     colourOptions,
-//     FlavourOption,
-//     GroupedOption,
-//     groupedOptions,
-//   } from './docs/data';
-  
-  
-
 
 function FilterCategories({groupedOptions, defaultSelected, handleChange}) {
-    // const options = [
-    //     { value: 'chocolate', label: 'Chocolate' },
-    //     { value: 'strawberry', label: 'Strawberry' },
-    //     { value: 'vanilla', label: 'Vanilla' }
-    //   ]
 
       const groupStyles = {
         display: 'flex',
@@ -44,7 +29,6 @@ function FilterCategories({groupedOptions, defaultSelected, handleChange}) {
       );
     return (
         <>
-            {/* <Select options={options} isMulti={true}/> */}
 
             <Select
                 options={groupedOptions}

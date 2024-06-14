@@ -28,7 +28,6 @@ function PlaceCard({ place, isSuggestion, tripId, locationApiData, isItinerary, 
         .then(res => res.json())
         .then(data => {
             setGooglePlaceData(data);
-            console.log('GoogleData', data);
             
                 setPlaces((prevPlacesArray) => (
                     [
@@ -86,7 +85,7 @@ function PlaceCard({ place, isSuggestion, tripId, locationApiData, isItinerary, 
                 </div>
                 <div className={styles.cardContent}>
                     <h3>{googlePlaceData.displayName.text}</h3>
-                    {!isSuggestion && <p className={styles.time}>10:00 - 14:00</p>}
+                    {(googlePlaceData.startTime || googlePlaceData.endTime) && <p className={styles.time}>{`${googlePlaceData.startTime} ${'-' +  googlePlaceData.endTime}`}</p>}
                     <div className={styles.rating}>
                         <div className={styles.stars} data-tooltip-id={`rating-place-${place ? place.id : locationApiData.googleLocationId}`} data-tooltip-content={`Rating: ${googlePlaceData.rating}`}>
                             {[...Array(fullStars)].map((_, i) => (

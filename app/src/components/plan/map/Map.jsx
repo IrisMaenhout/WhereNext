@@ -26,19 +26,6 @@ function Map(props) {
 
     const urlLocation = useLocation();
 
-    // Refresh places array
-    // useEffect(()=>{
-        
-    //     if(googlePlaceId){
-    //         // setPlaces([]);
-    //         fetchPlaceDetails();
-    //     }
-    // }, [urlLocation])
-
-
-    useEffect(() => {
-        console.log("Updated places in map:", places);
-    }, [places]);
 
     const getTripCityLocation = async () => {
         try {
@@ -55,7 +42,6 @@ function Map(props) {
             }
 
             const data = await response.json();
-            console.log('TIPdq_DATA', data);
 
             const geographyResponse = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${data.cities[0]}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`);
             const geographyData = await geographyResponse.json();
@@ -80,12 +66,10 @@ function Map(props) {
     }, []);
 
     function handleMarkerClick(placeId) {
-        console.log(placeId);
         navigate(`/trip/${tripId}/place/${placeId}/overview`);
     }
 
     function handleSearchInputChange(e) {
-        console.log('event', e.target.value);
         setSearchBarValue(e.target.value);
     }
 
@@ -109,10 +93,9 @@ function Map(props) {
             }
 
             const data = await response.json();
-            console.log(data);
             setSearchSuggestions(data);
         } catch (error) {
-            console.log(error.message);
+            console.error(error.message);
         }
     };
 
@@ -138,7 +121,6 @@ function Map(props) {
             setMapCenter(newCenter);
             setMapKey(prevKey => prevKey + 1);
         } else {
-            console.log('Place details:', data);
             setMapCenter(newCenter);
             setMapKey(prevKey => prevKey + 1); // Force rerender by changing the key
         }

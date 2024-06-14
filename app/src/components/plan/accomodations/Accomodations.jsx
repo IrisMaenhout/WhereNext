@@ -46,7 +46,6 @@ function Accomodations(props) {
             }
 
             const data = await response.json();
-            console.log(data)
             setAccomodations(data);
             // Render markers on the map
         } catch (error) {

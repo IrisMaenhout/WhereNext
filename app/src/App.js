@@ -3,12 +3,10 @@ import { Route, Routes, useParams } from 'react-router-dom';
 import PlanningPage from './pages/planningPage/PlanningPage';
 import { LoggedInUserProvider } from './context/LoggedInUserContext';
 import useLoggedInUser from './hooks/useLoginUser';
-import { useEffect, useState } from 'react';
 import BucketList from './components/plan/bucketList/BucketList';
 import Accomodations from './components/plan/accomodations/Accomodations';
 import Suggestions from './components/plan/suggestions/Suggestions';
 import Itinerary from './components/plan/itinerary/Itinerary';
-import Overview from './components/plan/placeDetails/overview/Overview';
 import PlaceDetails from './components/plan/placeDetails/PlaceDetails';
 import TripOverview from './components/trip/TripOverview';
 import JoinTrip from './components/trip/joinTrip/JoinTrip';
@@ -20,20 +18,6 @@ import Home from './pages/home/Home';
 
 function App() {
   const { loggedInUser, setLoggedInUser } = useLoggedInUser();
-
-  // const onPop = (e) => {
-  //   console.log('popEcente', e);
-    
-  // }
-
-  // useEffect(()=> {
-  //   window.addEventListener('popstate', onPop)
-   
-  //   return () => window.removeEventListener("popstate", onPop);
-  // }, [onPop])
-
-   
-
 
   
   if (!loggedInUser) {

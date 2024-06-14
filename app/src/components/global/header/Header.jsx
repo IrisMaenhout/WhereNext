@@ -35,16 +35,10 @@ function Header({isPlaningPages, menuBtnHandleClick, isTripsOverviewPage}) {
         // sessionStorage.setItem('title', title);
     };
 
-    // Use loggedInUserData to display user data like avatar
-
-    const handleClick = () => {
-        console.log('Button was clicked!');
-    };
+   
 
 
     function submitcreateTripForm(){
-        console.log('submit', newTripData);
-        
         sessionStorage.setItem('newTripData', JSON.stringify(newTripData));
         navigate('/add-trip');
     }

@@ -1,10 +1,9 @@
 import React, { useContext, useState } from 'react';
 import styles from './placeDetailHeader.module.css';
 import SavePlaceBtn from '../../../global/btns/savePlaceBtn/SavePlaceBtn';
-import PlaceDetailTabs from '../../../global/btns/tabs/placeDetailTabs/PlaceDetailTabs';
 import { useNavigate } from 'react-router-dom';
 import { PlacesContext } from '../../../../context/LocationsContext';
-import { LoggedInUserContext } from '../../../../context/LoggedInUserContext';
+
 
 function PlaceDetailHeader({handleGoBackArrowFunc, googlePlaceData, googlePlaceId, tripId}) {
     const navigate = useNavigate();

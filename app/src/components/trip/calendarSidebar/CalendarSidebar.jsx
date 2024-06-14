@@ -25,7 +25,6 @@ function CalendarSidebar({trips}) {
 
         const data = await response.json();
         data.forEach((trip)=>{
-          console.log(trip)
           setAllTripDates((prevValue) => (
             [
               ...prevValue,
@@ -34,7 +33,6 @@ function CalendarSidebar({trips}) {
           ))
         })
 
-        console.log(allTripDates);
         
     } catch (error) {
         console.error('Failed to fetch trips:', error);
@@ -48,10 +46,6 @@ function CalendarSidebar({trips}) {
     
     const [selectedTrip, setSelectedTrip] = useState();
 
-    function handleClickOnTripCalendar() {
-      console.log("Zie je dit?");
-      // setSelectedTrip()
-    }
 
     const dates = [
         '2024-06-23', '2024-06-24', '2024-06-25'

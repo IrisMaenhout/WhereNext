@@ -17,7 +17,6 @@ async function updateLocationData(location, req, res) {
     if (location) {
         const { _id, date, ...data } = req.body;
         const formatedDate = date ? new Date(date) : null;
-        console.log(formatedDate, date);
 
         const newData = date ? {...location, date: formatedDate, ...data} : { ...location, ...data };
 
@@ -42,7 +41,6 @@ patchLocationsRouter.patch("/:googleLocationId/edit/:tripId", loggedInMiddleware
     if(location){
         const locationType = req.body.type ? req.body.type : location.type;
 
-        console.log(locationType);
         const { error, value } = locationType === "restaurant" || locationType === "activity" ? updateLocationSchema.validate(req.body, { abortEarly: false }) : updateAccomodationLocationSchema.validate(req.body, { abortEarly: false });
 
         if (error) {

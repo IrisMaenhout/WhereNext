@@ -57,13 +57,11 @@ function PlaceDetails({page}) {
             .then(res => res.json())
             .then(data => {
                 setPlaces([data]);
-                console.log('content', data);
             });
     };
 
     useEffect(() => {
         getGooglePlaceData();
-        console.log('somthing',places, places[0]);
     }, []);
 
     const getPictureUrl = async () => {

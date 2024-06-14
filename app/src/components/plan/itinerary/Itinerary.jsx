@@ -79,7 +79,6 @@ function Itinerary(props) {
             }
 
             const data = await response.json();
-            console.log('TIP_DATA', data);
             setTripDates(data.datesArray || []);
             setDayFilter(data.datesArray[0])
 
@@ -97,7 +96,6 @@ function Itinerary(props) {
 
 
     const getItinerary = async () => {
-        console.log('sfjknjknjk dnfkn dfnk s', tripDayDates)
         try {
             const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/locations/getItinerary/inTrip/${tripId}`, {
                 method: 'POST',
@@ -117,14 +115,12 @@ function Itinerary(props) {
 
             const data = await response.json();
             setItineraryPlaces(data);
-            console.log('ItineraryData', data);
         } catch (error) {
             console.error(error);
         }
     };
 
     const updateOrderDB = async (googleLocationId, order, date, time) => {
-        console.log('date', date);
         try {
             const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/locations/${googleLocationId}/edit/${tripId}`, {
                 method: 'PATCH',
@@ -143,8 +139,6 @@ function Itinerary(props) {
                 throw new Error('Network response was not ok');
             }
 
-            const data = await response.json();
-            console.log(data);
         } catch (error) {
             console.error(error);
         }
@@ -166,7 +160,6 @@ function Itinerary(props) {
 
     useEffect(() => {
         if (newDraggedOrder.length > 0) {
-            console.log("newOrder", newDraggedOrder);
             newDraggedOrder.forEach((item, index) => {
                 updateOrderDB(item.googleLocationId, index, item.date, item.time);
             });
@@ -187,8 +180,6 @@ function Itinerary(props) {
     };
 
     function openDirectionsInGoogleMaps(origin, destination) {
-        console.log('fetchedLoc', locationsFetched);
-        console.log(origin, destination);
         const originCoords = `${origin.latitude},${origin.longitude}`;
         const destinationCoords = `${destination.latitude},${destination.longitude}`;
         const url = `https://www.google.com/maps/dir/${originCoords}/${destinationCoords}`;

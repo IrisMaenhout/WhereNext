@@ -35,7 +35,6 @@ function PlanHeader(props) {
             }
 
             const data = await response.json();
-            console.log('HEADER', data);
             setTripData(data);
 
             const tripStartDate = new Date(data.startDate).toDateString().split(' ')
@@ -50,8 +49,6 @@ function PlanHeader(props) {
             })
 
             const countryObj = europeanCountries.find(country => country.label === data.country.name);
-
-            console.log('countryObj', countryObj)
             setCountry(countryObj)
 
 
@@ -76,7 +73,6 @@ function PlanHeader(props) {
             }
 
             const data = await response.json();
-            console.log('HEADER Members', data);
             setMembersData(data);
 
         } catch (error) {

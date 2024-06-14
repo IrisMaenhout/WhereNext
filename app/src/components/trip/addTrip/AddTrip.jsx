@@ -145,7 +145,6 @@ function AddTrip({isEditPage}) {
         actions: {
             
             clickDay(event, self) {
-                console.log('click day',self.selectedDates);
 
                 if(self.selectedDates.length > 1){
                     setCurrentFormData((prevValue)=> {
@@ -194,8 +193,6 @@ function AddTrip({isEditPage}) {
     
         if (isPayloadValid(currentFormData)) {
             // Submit to db
-            console.log("add to db");
-            console.log(currentFormData);
             try {
                
                   const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/trips/add`, {
@@ -219,14 +216,10 @@ function AddTrip({isEditPage}) {
                   });
             
                   if (!response.ok) {
-                    console.log(response);
                     throw new Error(response.statusText);
                   }
             
                   const data = await response.json();
-
-                //   console.log(data);
-                //   sessionStorage.setItem("tripId", JSON.stringify(data._id));
                   navigate(`/trip/${data._id}/plan/bucket-list`);
                   
             } catch (error) {
@@ -247,8 +240,6 @@ function AddTrip({isEditPage}) {
                 newErrorsObj.cities = 'You need to type at least one city.';
             }
     
-            console.log(newErrorsObj);
-    
             setValidationErrors(newErrorsObj);
         }
         
@@ -263,8 +254,6 @@ function AddTrip({isEditPage}) {
     
         if (isPayloadValid(currentFormData)) {
             // Submit to db
-            console.log("update to db");
-            console.log(currentFormData);
             try {
                
                   const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/trips/${tripId}`, {
@@ -288,14 +277,10 @@ function AddTrip({isEditPage}) {
                   });
             
                   if (!response.ok) {
-                    console.log(response);
                     throw new Error(response.statusText);
                   }
             
                   const data = await response.json();
-
-                //   console.log(data);
-                //   sessionStorage.setItem("tripId", JSON.stringify(data._id));
                   navigate(`/trip/${data._id}/plan/bucket-list`);
                   
             } catch (error) {
@@ -316,8 +301,6 @@ function AddTrip({isEditPage}) {
                 newErrorsObj.cities = 'You need to type at least one city.';
             }
     
-            console.log(newErrorsObj);
-    
             setValidationErrors(newErrorsObj);
         }
         
@@ -325,7 +308,6 @@ function AddTrip({isEditPage}) {
     
 
     useEffect(() => {
-        console.log(currentFormData);
         if (currentFormData.country.name !== "") {
             getCountryImage();
         }

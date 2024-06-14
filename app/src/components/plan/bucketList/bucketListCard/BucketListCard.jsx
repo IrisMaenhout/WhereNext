@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './bucketListCard.module.css';
-import SavePlaceBtn from '../../../global/btns/savePlaceBtn/SavePlaceBtn';
-import { Chart as ChartJS, defaults } from "chart.js/auto";
-import { Bar } from "react-chartjs-2";
 import { Tooltip } from 'react-tooltip';
 import ReactDOMServer from 'react-dom/server';
 import MinimalPlaceCard from '../../placeCard/minimalPlaceCard/MinimalPlaceCard';
@@ -52,11 +49,6 @@ function BucketListCard({locationApiData, userId, setPlaces, isCardViewSimple, i
     // Fetch data depending on googlePlacesApi
     useEffect(()=> {
         getGooglePlaceData();
-        console.log(googlePlaceData);
-        // if(googlePlaceData?.photos !== undefined){
-        //     getPictureUrl();
-        // }
-       console.log('IKEA____', locationApiDataUpToDate)
     }, []);
 
     useEffect(()=> {
@@ -86,16 +78,10 @@ function BucketListCard({locationApiData, userId, setPlaces, isCardViewSimple, i
                 }),
             });
     
-            //   if (!response.ok) {
-            //     console.log(response);
-            //     throw new Error(response.statusText);
-            //   }
-    
           const data = await response.json();
           setLocationApiDataUpToDate(data);
         } catch (error) {
             throw new Error(error);
-          // setError(error.message);
         }
     
     }

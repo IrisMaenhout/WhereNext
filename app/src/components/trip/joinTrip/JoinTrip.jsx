@@ -63,12 +63,8 @@ function JoinTrip(props) {
     
                 const data = await response.json();
                 if (!response.ok || response.status === 404) {
-                    console.log(data);
                     return;
                 }
-    
-                
-                console.log(data);
 
                 navigate(`/trip/${tripId}/plan/bucket-list`);
                 

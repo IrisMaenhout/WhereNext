@@ -30,7 +30,6 @@ async function deleteData(dbId, dbName, req, res) {
 deleteTripsRouter.delete("/:tripId", async (req, res) => {
   const tripId = req.params.tripId;
 
-  console.log('tripId: ', tripId);
   // Validation
   const { error } = idSchema.validate(tripId);
 

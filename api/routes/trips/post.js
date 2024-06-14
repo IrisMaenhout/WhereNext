@@ -50,7 +50,6 @@ postTripsRouter.post("/add", loggedInMiddleware, async (req, res) => {
         createdOn: Date.now()
     });
 
-    console.log(tripPost);
     // search for the new created trip
     let trip = await db.collection("trips").findOne(tripPost.insertedId);
 

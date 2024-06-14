@@ -27,7 +27,6 @@ getUsersRouter.get("/:id", async (req, res) => {
   
   // Validation
   const { error, value } = idSchema.validate(id);
-  console.log(value, error);
 
 
   if (error) {
